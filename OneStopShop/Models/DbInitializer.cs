@@ -62,8 +62,7 @@ namespace OneStopShop.Models
                         ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
                         ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
                         ProductID = 1,
-                        ProductImage = "",
-                        ProductQuantity = 3,
+                        ProductImage = "",                       
                         ProductSize = "Medium"
 
                     },
@@ -77,7 +76,6 @@ namespace OneStopShop.Models
                         ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
                         ProductID = 1,
                         ProductImage = "",
-                        ProductQuantity = 3,
                         ProductSize = "Medium"
                     },
                       new Product
@@ -90,7 +88,6 @@ namespace OneStopShop.Models
                           ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
                           ProductID = 1,
                           ProductImage = "",
-                          ProductQuantity = 3,
                           ProductSize = "Medium"
                       }
                       );

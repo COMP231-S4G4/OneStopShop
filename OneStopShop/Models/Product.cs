@@ -24,8 +24,7 @@ namespace OneStopShop.Models
         [Required(ErrorMessage = "Please specify a category")]
         public DateTime ProductCreatedDate { get; set; }
         public DateTime ProductModifiedDate { get; set; }
-        public int ProductQuantity { get; set; }
-
+      
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
