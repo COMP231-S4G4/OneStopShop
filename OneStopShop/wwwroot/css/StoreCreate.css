@@ -1,0 +1,80 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: black;
+    background: #A58964;
+}
+
+input[type=text] {
+    width: 77%;
+    box-sizing: border-box;
+}
+
+input[type=text]:focus {
+  border: 2px solid Black;
+}
+
+input[type=tel] {
+    width: 77%;
+    box-sizing: border-box;
+}
+
+input[type=tel]:focus {
+  border: 2px solid Black;
+}
+
+input[type=email] {
+    width: 77%;
+    box-sizing: border-box;
+}
+
+input[type=email]:focus {
+  border: 2px solid Black;
+}
+
+#Textarea[type=text] {
+    width: 350px;
+    height: 150px;
+    box-sizing: border-box;
+}
+
+#Textarea[type=text]:focus {
+    border: 2px solid Black;
+}
+
+#InlineDiv {
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #109b05;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+input[type=submit]:hover {
+    background-color: #16c808;
+    color: black;
+}
+
+input[type=reset] {
+    background-color: #c7bd05;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=reset]:hover {
+    background-color: #efe304;
+    color: black;
+}

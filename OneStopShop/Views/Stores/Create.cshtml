@@ -4,58 +4,57 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/StoreCreate.css" />
+</head>
 
-<h4>Store</h4>
-<hr />
+<h2>Enter Store Details</h2>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <input asp-for="StoreId" class="form-control" />
+                <label asp-for="StoreId" class="control-label">Store Id</label>
+                <input asp-for="StoreId" type="text" class="form-control" required/>
                 <span asp-validation-for="StoreId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StoreName" class="control-label"></label>
-                <input asp-for="StoreName" class="form-control" />
+                <label asp-for="StoreName" class="control-label">Store Name</label>
+                <input asp-for="StoreName" type="text" class="form-control" required/>
                 <span asp-validation-for="StoreName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SellerFirstname" class="control-label"></label>
-                <input asp-for="SellerFirstname" class="form-control" />
+                <label asp-for="SellerFirstname" class="control-label">Seller Firstname</label>
+                <input asp-for="SellerFirstname" type="text" class="form-control" />
                 <span asp-validation-for="SellerFirstname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SellerLasttname" class="control-label"></label>
-                <input asp-for="SellerLasttname" class="form-control" />
+                <label asp-for="SellerLasttname" class="control-label">Seller Lastname</label>
+                <input asp-for="SellerLasttname" type="text" class="form-control" required/>
                 <span asp-validation-for="SellerLasttname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StoreDescription" class="control-label"></label>
-                <input asp-for="StoreDescription" class="form-control" />
-                <span asp-validation-for="StoreDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                <input asp-for="PhoneNumber" type="tel" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" class="form-control" placeholder="Enter your 10 digit phone#" required/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" size="50" placeholder="eg:abc@gmail.com" required/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="StoreDescription" class="control-label">Store Description</label>
+                <textarea id="Textarea" asp-for="StoreDescription" class="form-control" text-wrap:normal type="text" placeholder="Enter store description..."></textarea>
+                <span asp-validation-for="StoreDescription" class="text-danger"></span>
+            </div>
+            <div id="divInline" class="form-group">
+                <input type="reset" value="Reset" class="btn btn-primary" />
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Home" asp-action="Index">Home</a>
 </div>
 
 @section Scripts {
