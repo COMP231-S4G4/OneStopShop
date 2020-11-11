@@ -40,6 +40,7 @@ tr:hover {
 
 #Create:link, Create:visited {
 	color: black;
+	background: white;
 	border: 2px solid green;
 	margin-left: 1000px;
 	padding: 5px 5px;
