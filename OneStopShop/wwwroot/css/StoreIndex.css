@@ -54,7 +54,7 @@ tr:hover {
 	color: white;
 }
 
-#Details:link {
+#Details {
 	background-color: #4CAF50;
 	color: white;
 	padding: 10px;
@@ -65,7 +65,7 @@ tr:hover {
 	background-color: #45a049;
 }
 
-#Edit:link {
+#Edit {
 	background-color: #1b40ea;
 	color: white;
 	padding-top: 10px;
@@ -79,7 +79,7 @@ tr:hover {
 	background-color: #1e3ed3;
 }
 
-#Delete:link {
+#Delete {
 	background-color: #d43939;
 	color: white;
 	padding-top: 10px;
