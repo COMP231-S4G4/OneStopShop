@@ -49,10 +49,10 @@ namespace OneStopShop.Migrations
                     b.Property<decimal>("ProductPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProductSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoreID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductID");

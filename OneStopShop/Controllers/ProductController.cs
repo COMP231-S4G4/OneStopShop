@@ -12,6 +12,7 @@ namespace OneStopShop.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private static string currentStore = "nil";
 
         public ProductsController(ApplicationDbContext context)
         {
@@ -19,9 +20,10 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-            return View(await _context.Products.ToListAsync());
+            currentStore = id;
+            return View(await _context.Products.Where(i => i.StoreID.Equals(id)).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -49,17 +51,17 @@ namespace OneStopShop.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductID,StoreID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.StoreID = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Products", new {id = currentStore});
             }
             return View(product);
         }

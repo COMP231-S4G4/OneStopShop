@@ -8,9 +8,9 @@ namespace OneStopShop.Models
 {
     public class Product
     {
+        [Key]
         public int ProductID { get; set; }
-
-        public int StoreID { get; set; }
+        public string StoreID { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }
@@ -23,7 +23,7 @@ namespace OneStopShop.Models
             ErrorMessage = "Please enter a positive price")]
         public decimal ProductPrice { get; set; }
 
-        [Required(ErrorMessage = "Please specify a category")]
+        [Required(ErrorMessage = "Please enter a Created Date")]
         public DateTime ProductCreatedDate { get; set; }
         public DateTime ProductModifiedDate { get; set; }
       

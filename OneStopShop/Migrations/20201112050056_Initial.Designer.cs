@@ -10,7 +10,7 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201111003438_Initial")]
+    [Migration("20201112050056_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,10 +51,10 @@ namespace OneStopShop.Migrations
                     b.Property<decimal>("ProductPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProductSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoreID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductID");
