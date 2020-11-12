@@ -14,11 +14,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label  asp-for="StoreId" class="control-label">Store Id</label>
-                
-                <span asp-validation-for="StoreId" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <label asp-for="StoreName" class="control-label">Store Name</label>
                 <input asp-for="StoreName" type="text" class="form-control" required/>
