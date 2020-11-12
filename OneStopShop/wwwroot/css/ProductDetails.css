@@ -1,0 +1,97 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    background: #A58964;
+}
+
+h2 {
+    color: black;
+    width: 100%;
+    text-align: center
+}
+
+#Image {
+    float:left;
+    height: 300px;
+    width: 300px;
+}
+
+#divInline {
+    display: inline-block;
+}
+
+table {
+    height: 300px;
+    width: 500px;
+    color: black;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#Create:link, Create:visited {
+    color: black;
+    background: white;
+    border: 2px solid green;
+    margin-left: 1000px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#Create:hover, Create:active {
+    background-color: green;
+    color: white;
+}
+
+#Details {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+    #Details:hover {
+        background-color: #45a049;
+    }
+
+#Edit {
+    background-color: #1b40ea;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+    #Edit:hover {
+        background-color: #1e3ed3;
+    }
+
+#Delete {
+    background-color: #d43939;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+
+    #Delete:hover {
+        background-color: #bd1b1b;
+    }
