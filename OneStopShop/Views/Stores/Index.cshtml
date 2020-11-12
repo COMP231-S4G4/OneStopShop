@@ -1,70 +1,75 @@
 ﻿@model IEnumerable<OneStopShop.Models.Store>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Store";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/StoreIndex.css" />
+</head>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StoreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellerFirstname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellerLasttname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StoreDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellerFirstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellerLasttname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoreDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-
-                <a asp-action="Details" asp-route-id="@item.StoreId">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.StoreId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.StoreId">Delete</a> |
-
-
-                
-
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<body>
+    <div id="divInline">
+        <h2>List Of Stores</h2>
+    </div>
+    <div id="divInline">
+        <a id="Create" asp-action="Create">Create New Store</a>
+    </div>
+    <div id="div">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StoreName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SellerFirstname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SellerLasttname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StoreDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SellerFirstname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SellerLasttname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            <a id="Details" asp-action="Details" asp-route-id="@item.StoreId">Dashboard</a>
+                            <a id="Edit" asp-action="Edit" asp-route-id="@item.StoreId">Edit</a>
+                            <a id="Delete" asp-action="Delete" asp-route-id="@item.StoreId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
