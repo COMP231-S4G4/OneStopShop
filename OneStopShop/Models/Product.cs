@@ -11,6 +11,7 @@ namespace OneStopShop.Models
     {
         [Key]
         public int ProductID { get; set; }
+        public int StoreId { get; set; }
 
         [ForeignKey("StoreId")]
         public Store store { get; set; }

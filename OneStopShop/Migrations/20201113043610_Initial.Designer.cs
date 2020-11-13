@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneStopShop.Models;
 
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201113043610_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,8 +59,6 @@ namespace OneStopShop.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("StoreId");
-
                     b.ToTable("Products");
                 });
 
@@ -90,13 +90,6 @@ namespace OneStopShop.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Stores");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.Product", b =>
-                {
-                    b.HasOne("OneStopShop.Models.Store", "store")
-                        .WithMany()
-                        .HasForeignKey("StoreId");
                 });
 #pragma warning restore 612, 618
         }
