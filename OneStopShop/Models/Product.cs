@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneStopShop.Models
 {
@@ -30,6 +31,8 @@ namespace OneStopShop.Models
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
+       
+        
 
     }
 }

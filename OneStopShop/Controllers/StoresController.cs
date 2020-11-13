@@ -53,14 +53,14 @@ namespace OneStopShop.Controllers
                 return NotFound();
             }
 
-            var store = _context.Stores
-                .FirstOrDefault(m => m.StoreId == id);
-            if (store == null)
-            {
-                return NotFound();
-            }
+            //var store = _context.Stores
+            //    .FirstOrDefault(m => m.StoreId == id);
+            //if (store == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(store);
+            return RedirectToAction("Index", "Products", new { ID = id });
         }
 
         // GET: Stores/Edit/id
