@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,7 +65,7 @@ namespace OneStopShop.Models
                         ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
                         ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
                         ProductID = 1,
-                        ProductImage = "",                       
+                        ProductImage = "",
                         ProductSize = "Medium"
 
                     },
@@ -94,6 +97,8 @@ namespace OneStopShop.Models
                 context.SaveChanges();
 
             }
+
+
 
         }
     }
