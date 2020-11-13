@@ -13,7 +13,7 @@ namespace OneStopShop.Models
         public int ProductID { get; set; }
 
         [ForeignKey("StoreId")]
-        public virtual Store store { get; set; }
+        public Store store { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }
@@ -28,7 +28,7 @@ namespace OneStopShop.Models
 
         [Required(ErrorMessage = "Please enter a Created Date")]
         public DateTime ProductCreatedDate { get; set; }
-        public DateTime ProductModifiedDate { get; set; }
+        public DateTime? ProductModifiedDate { get; set; }
       
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }

@@ -24,6 +24,13 @@ namespace OneStopShop.Controllers
         {
             currentStore = id;
             return View(await _context.Products.Where(i => i.store.StoreId.Equals(id)).ToListAsync());
+            
+
+        }
+
+        public async Task<IActionResult> Back()
+        {
+            return View(await _context.Products.Where(i => i.store.StoreId.Equals(currentStore)).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -54,11 +61,14 @@ namespace OneStopShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,StoreID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
         {
             if (ModelState.IsValid)
             {
-                product.store.StoreId = currentStore;
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
+                product.store = _context.Stores.Where(i => i.StoreId.Equals(currentStore)).First();
+                //product.store.StoreId = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Products", new {id = currentStore});
