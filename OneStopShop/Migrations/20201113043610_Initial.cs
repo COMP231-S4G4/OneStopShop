@@ -13,7 +13,7 @@ namespace OneStopShop.Migrations
                 {
                     ProductID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreID = table.Column<int>(nullable: false),
+                    StoreId = table.Column<int>(nullable: false),
                     ProductName = table.Column<string>(nullable: false),
                     ProductDescription = table.Column<string>(nullable: false),
                     ProductPrice = table.Column<decimal>(nullable: false),
