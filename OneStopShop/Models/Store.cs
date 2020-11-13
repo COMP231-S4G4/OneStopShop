@@ -9,7 +9,7 @@ namespace OneStopShop.Models
     public class Store
     {
         [Key]
-        public string StoreId { get; set; }
+        public int StoreId { get; set; }
         public string StoreName { get; set; }
         public string SellerFirstname { get; set; }
         public string SellerLasttname { get; set; }

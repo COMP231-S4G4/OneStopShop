@@ -52,18 +52,22 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductSize")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StoreID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Store", b =>
                 {
-                    b.Property<string>("StoreId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("StoreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -86,6 +90,13 @@ namespace OneStopShop.Migrations
                     b.HasKey("StoreId");
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Product", b =>
+                {
+                    b.HasOne("OneStopShop.Models.Store", "store")
+                        .WithMany()
+                        .HasForeignKey("StoreId");
                 });
 #pragma warning restore 612, 618
         }

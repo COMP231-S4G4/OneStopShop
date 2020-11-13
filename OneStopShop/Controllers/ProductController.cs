@@ -12,7 +12,7 @@ namespace OneStopShop.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private static string currentStore = "nil";
+        private static int currentStore;
 
         public ProductsController(ApplicationDbContext context)
         {
@@ -20,10 +20,10 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
-            return View(await _context.Products.Where(i => i.StoreID.Equals(id)).ToListAsync());
+            return View(await _context.Products.Where(i => i.store.StoreId.Equals(id)).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -58,7 +58,7 @@ namespace OneStopShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.StoreID = currentStore;
+                product.store.StoreId = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Products", new {id = currentStore});

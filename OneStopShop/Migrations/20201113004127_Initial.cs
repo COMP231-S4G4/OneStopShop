@@ -8,12 +8,30 @@ namespace OneStopShop.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Stores",
+                columns: table => new
+                {
+                    StoreId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreName = table.Column<string>(nullable: true),
+                    SellerFirstname = table.Column<string>(nullable: true),
+                    SellerLasttname = table.Column<string>(nullable: true),
+                    StoreDescription = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stores", x => x.StoreId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     ProductID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreID = table.Column<string>(nullable: true),
+                    StoreId = table.Column<int>(nullable: true),
                     ProductName = table.Column<string>(nullable: false),
                     ProductDescription = table.Column<string>(nullable: false),
                     ProductPrice = table.Column<decimal>(nullable: false),
@@ -26,24 +44,18 @@ namespace OneStopShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "StoreId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Stores",
-                columns: table => new
-                {
-                    StoreId = table.Column<string>(nullable: false),
-                    StoreName = table.Column<string>(nullable: true),
-                    SellerFirstname = table.Column<string>(nullable: true),
-                    SellerLasttname = table.Column<string>(nullable: true),
-                    StoreDescription = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stores", x => x.StoreId);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_StoreId",
+                table: "Products",
+                column: "StoreId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

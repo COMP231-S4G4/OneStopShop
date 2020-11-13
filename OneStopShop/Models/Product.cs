@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneStopShop.Models
 {
@@ -10,7 +11,9 @@ namespace OneStopShop.Models
     {
         [Key]
         public int ProductID { get; set; }
-        public string StoreID { get; set; }
+
+        [ForeignKey("StoreId")]
+        public virtual Store store { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }
