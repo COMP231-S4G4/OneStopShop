@@ -44,8 +44,6 @@ namespace OneStopShop.Controllers
         {
             return View( _context.Stores.ToList());
         }
-
-        //GET: store/Details
         public IActionResult Details(int id)
         {
             if (id == null)
