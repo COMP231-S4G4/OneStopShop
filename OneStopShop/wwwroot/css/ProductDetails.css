@@ -1,0 +1,95 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    background: #A58964;
+}
+
+h2 {
+    margin-top: 10px;
+    color: black;
+    width: 100%;
+    text-align: center
+}
+
+#Image {
+    float:left;
+    height: 300px;
+    width: 300px;
+}
+
+#divInline {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+table {
+    height: 300px;
+    width: 500px;
+    color: black;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#Edit {
+    background-color: #1b40ea;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 22px;
+    padding-right: 22px;
+    position: relative;
+    top: 50px;
+    left: 100px;
+    text-align: center;
+}
+
+    #Edit:hover {
+        background-color: #1e3ed3;
+    }
+
+#Delete {
+    background-color: #d43939;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    top: 50px;
+    left: 150px;
+    text-align: center;
+}
+
+    #Delete:hover {
+        background-color: #bd1b1b;
+    }
+
+#Back {
+    background-color: #031327;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    bottom: 30px;
+    left: 16px;
+    text-align: center;
+}
+
+    #Back:hover {
+        background-color: #bd1b1b;
+    }
