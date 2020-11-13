@@ -12,7 +12,7 @@ namespace OneStopShop.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private static string currentStore = "nil";
+        private static int currentStore=0;
 
         public ProductsController(ApplicationDbContext context)
         {
@@ -20,7 +20,7 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
             return View(await _context.Products.Where(i => i.StoreID.Equals(id)).ToListAsync());

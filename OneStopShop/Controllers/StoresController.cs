@@ -45,7 +45,7 @@ namespace OneStopShop.Controllers
         {
             return View(await _context.Stores.ToListAsync());
         }
-        public IActionResult Details(string id)
+        public IActionResult Details(int id)
         {
             return RedirectToAction("Index", "Products", new { ID = id });
         }

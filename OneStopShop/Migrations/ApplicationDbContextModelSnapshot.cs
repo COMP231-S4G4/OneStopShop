@@ -52,8 +52,8 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductSize")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StoreID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StoreID")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductID");
 
@@ -62,8 +62,10 @@ namespace OneStopShop.Migrations
 
             modelBuilder.Entity("OneStopShop.Models.Store", b =>
                 {
-                    b.Property<string>("StoreId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("StoreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
