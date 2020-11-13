@@ -28,7 +28,7 @@ namespace OneStopShop.Controllers
 
         public async Task<IActionResult> Back()
         {
-            return View(await _context.Products.Where(i => i.StoreID.Equals(currentStore)).ToListAsync());
+            return View(await _context.Products.Where(i => i.store.StoreId.Equals(currentStore)).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -69,6 +69,11 @@ namespace OneStopShop.Controllers
                 return RedirectToAction("Index","Products", new {id = currentStore});
             }
             return View(product);
+        }
+
+        public ViewResult AddProduct()
+        {
+            return View();
         }
     }
 }

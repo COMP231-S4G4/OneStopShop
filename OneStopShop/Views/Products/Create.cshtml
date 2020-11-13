@@ -37,11 +37,29 @@
                 <input asp-for="ProductModifiedDate" class="form-control" />
                 <span asp-validation-for="ProductModifiedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
-                <span asp-validation-for="ProductImage" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="ProductImage" class="control-label"></label>
+            <input asp-for="ProductImage" class="form-control" />
+            <span asp-validation-for="ProductImage" class="text-danger"></span>
+        </div>*@
+
+            @*<div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ProductImage" class="col-form-label"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="ProductImage" class="custom-file-input" accept="Upload/*" onchange="previewFile(this);">
+                    <label asp-for="ProductImage" class="custom-file-label">Choose file...</label>
+                    <span asp-validation-for="ProductImage" class="text-danger"></span>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @*<input asp-for="ProductImage" class="form-control" accept="image/*" />
+            <label asp-for="ProductImage" class="control-label">Upload Banner....</label>*@
+            <input asp-for="ProductImage"  type="file" class="form-control" id="customFile" name="filename">
+            <label asp-for="ProductImage"      class="control-label" for="customFile">Choose file</label>
+        </div>
             <div class="form-group">
                 <label asp-for="ProductSize" class="control-label"></label>
                 <input asp-for="ProductSize" class="form-control" />
@@ -66,3 +84,25 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@*<script type="text/javascript">
+
+
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).next(".custom-file-label").html(fileName);
+    });
+
+
+    function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                $("#previewImg").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+</script>*@
