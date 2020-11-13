@@ -10,7 +10,7 @@ namespace OneStopShop.Models
     {
         [Key]
         public int ProductID { get; set; }
-        public string StoreID { get; set; }
+        public int StoreId { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }

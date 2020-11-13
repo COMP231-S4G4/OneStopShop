@@ -45,14 +45,86 @@ namespace OneStopShop.Controllers
         {
             return View(await _context.Stores.ToListAsync());
         }
-        public IActionResult Details(string id)
+        public IActionResult Details(int id)
         {
             return RedirectToAction("Index", "Products", new { ID = id });
         }
 
+        // GET: Stores/Edit/id
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var store = _context.Stores.Find(id);
+            if (store == null)
+            {
+                return NotFound();
+            }
+            return View(store);
+        }
+
+        // POST: Stores/Edit/id
+
+        [HttpPost]
+
+        public IActionResult Edit(int id, [Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
+        {
+            if (id != store.StoreId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(store);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(store);
+        }
+
+        // GET: Stores/Delete/5
+        public IActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var store = _context.Stores
+                .FirstOrDefault(m => m.StoreId == id);
+            if (store == null)
+            {
+                return NotFound();
+            }
+
+            return View(store);
+        }
+
+        // POST: Stores/Delete/5
+        [HttpPost, ActionName("Delete")]
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var store = _context.Stores.Find(id);
+            _context.Stores.Remove(store);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool StoreExists(int id)
+        {
+            return _context.Stores.Any(e => e.StoreId == id);
+        }
         public IActionResult Dashboard(string id)
 		{
             return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
 		}
     }
+
+
 }
