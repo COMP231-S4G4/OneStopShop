@@ -39,7 +39,7 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ProductModifiedDate")
+                    b.Property<DateTime?>("ProductModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductName")
@@ -96,7 +96,9 @@ namespace OneStopShop.Migrations
                 {
                     b.HasOne("OneStopShop.Models.Store", "store")
                         .WithMany()
-                        .HasForeignKey("StoreId");
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

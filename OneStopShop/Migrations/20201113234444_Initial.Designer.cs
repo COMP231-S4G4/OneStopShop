@@ -10,7 +10,7 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201113015836_Initial")]
+    [Migration("20201113234444_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ProductModifiedDate")
+                    b.Property<DateTime?>("ProductModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductName")
@@ -54,7 +54,7 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductSize")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StoreId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
@@ -98,7 +98,9 @@ namespace OneStopShop.Migrations
                 {
                     b.HasOne("OneStopShop.Models.Store", "store")
                         .WithMany()
-                        .HasForeignKey("StoreId");
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -63,6 +63,8 @@ namespace OneStopShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
                 product.StoreId = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
