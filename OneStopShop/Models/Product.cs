@@ -12,6 +12,8 @@ namespace OneStopShop.Models
         [Key]
         public int ProductID { get; set; }
         public int StoreId { get; set; }
+        [ForeignKey("StoreId")]
+        public virtual Store store { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }

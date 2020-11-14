@@ -23,14 +23,14 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
-            return View(await _context.Products.Where(i => i.store.StoreId.Equals(id)).ToListAsync());
+            return View(await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync());
             
 
         }
 
         public async Task<IActionResult> Back()
         {
-            return View(await _context.Products.Where(i => i.store.StoreId.Equals(currentStore)).ToListAsync());
+            return View(await _context.Products.Where(i => i.StoreId.Equals(currentStore)).ToListAsync());
         }
 
         // GET: Products/Details/5
