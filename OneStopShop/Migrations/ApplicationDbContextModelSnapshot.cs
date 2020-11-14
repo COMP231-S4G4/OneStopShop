@@ -52,7 +52,7 @@ namespace OneStopShop.Migrations
                     b.Property<string>("ProductSize")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreId")
+                    b.Property<int?>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");

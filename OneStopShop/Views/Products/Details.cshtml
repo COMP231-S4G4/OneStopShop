@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="~/css/ProductDetails.css" />
 </head>
 <h2>Product Details</h2>
-<div>
+<div id="divInline">
     <img id="Image" src="@Url.Content(Model.ProductImage)" />
 </div>
 <div id="divInline">
@@ -34,14 +34,8 @@
             <td>@Html.DisplayFor(model => model.ProductColor)</td>
         </tr>
     </table>
-    <div>
-        <a id="Edit" asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a>
-        <a id="Delete" asp-action="Delete" asp-route-id="@Model.ProductID">Delete</a>
-    </div>
 </div>
+
 <div>
-    
-</div>
-<div>
-    <a id="Back" asp-action="Index" asp-route-id="@Model.StoreId">Go back</a>
+    <a asp-action="Index" asp-route-id=@Html.DisplayFor(model => model.store.StoreId)>Go back</a>
 </div>

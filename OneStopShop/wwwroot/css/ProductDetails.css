@@ -23,7 +23,6 @@ h2 {
 
 #divInline {
     display: inline-block;
-    margin-left: 10px;
 }
 
 table {
@@ -43,16 +42,40 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
+#Create:link, Create:visited {
+    color: black;
+    background: white;
+    border: 2px solid green;
+    margin-left: 1000px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#Create:hover, Create:active {
+    background-color: green;
+    color: white;
+}
+
+#Details {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+    #Details:hover {
+        background-color: #45a049;
+    }
+
 #Edit {
     background-color: #1b40ea;
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 22px;
-    padding-right: 22px;
-    position: relative;
-    top: 50px;
-    left: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: center;
 }
 
@@ -67,29 +90,9 @@ tr:nth-child(even) {
     padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    position: relative;
-    top: 50px;
-    left: 150px;
     text-align: center;
 }
 
     #Delete:hover {
-        background-color: #bd1b1b;
-    }
-
-#Back {
-    background-color: #031327;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: absolute;
-    bottom: 30px;
-    left: 16px;
-    text-align: center;
-}
-
-    #Back:hover {
         background-color: #bd1b1b;
     }
