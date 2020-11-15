@@ -40,9 +40,9 @@ namespace OneStopShop.Controllers
 
 
         // GET:List of Stores
-        public  IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View( _context.Stores.ToList());
+            return View(await _context.Stores.ToListAsync());
         }
         public IActionResult Details(int id)
         {
