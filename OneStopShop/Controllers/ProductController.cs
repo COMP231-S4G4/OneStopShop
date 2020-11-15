@@ -23,7 +23,7 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
-            return View(await _context.Products.Where(i => i.store.StoreId.Equals(id)).ToListAsync());
+            return View(await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync());
         }
 
         public async Task<IActionResult> Back()
@@ -63,7 +63,7 @@ namespace OneStopShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.store.StoreId = currentStore;
+                product.StoreId = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Products", new {id = currentStore});

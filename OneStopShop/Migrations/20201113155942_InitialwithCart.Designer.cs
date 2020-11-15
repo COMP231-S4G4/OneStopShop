@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneStopShop.Models;
 
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201113155942_InitialwithCart")]
+    partial class InitialwithCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,8 +21,6 @@ namespace OneStopShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
-=======
             modelBuilder.Entity("OneStopShop.Models.CartItem", b =>
                 {
                     b.Property<int>("CartItemID")
@@ -41,7 +41,6 @@ namespace OneStopShop.Migrations
                     b.ToTable("CartItems");
                 });
 
->>>>>>> master
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
                 {
                     b.Property<int>("ProductID")
@@ -80,8 +79,6 @@ namespace OneStopShop.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("StoreId");
-
                     b.ToTable("Products");
                 });
 
@@ -115,19 +112,11 @@ namespace OneStopShop.Migrations
                     b.ToTable("Stores");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("OneStopShop.Models.Product", b =>
-                {
-                    b.HasOne("OneStopShop.Models.Store", "store")
-                        .WithMany()
-                        .HasForeignKey("StoreId");
-=======
             modelBuilder.Entity("OneStopShop.Models.CartItem", b =>
                 {
                     b.HasOne("OneStopShop.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
->>>>>>> master
                 });
 #pragma warning restore 612, 618
         }
