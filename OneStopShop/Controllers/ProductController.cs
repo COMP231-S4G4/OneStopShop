@@ -15,6 +15,7 @@ namespace OneStopShop.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly object protector;
         private static int currentStore = 0;
 
         //public ProductsController(ApplicationDbContext context, IMapper mapper, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : this(context, mapper, provider, httpContextAccessor, _environment)
@@ -78,7 +79,7 @@ namespace OneStopShop.Controllers
                     product.ProductImage = fileName;
                     _context.Add(product);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Products", new { id = StoreId });
+                    return RedirectToAction("Details", "Stores", new { id = StoreId });
                     //string wwwPath = this.Environment.WebRootPath;
                     //string contentPath = this.Environment.ContentRootPath;
                     //string folderName = "Products";
