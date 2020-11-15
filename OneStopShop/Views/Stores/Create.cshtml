@@ -51,6 +51,10 @@
     </div>
 </div>
 
+<div>
+    <a id="Back" asp-action="Index" asp-route-id="@Model.StoreId">Go back</a>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
