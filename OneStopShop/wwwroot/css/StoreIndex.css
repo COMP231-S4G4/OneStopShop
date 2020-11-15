@@ -32,6 +32,7 @@ td {
 
 tr {
 	border: 5px solid #A58964;
+	border-radius: 5px;
 }
 
 tr:hover {
@@ -47,6 +48,7 @@ tr:hover {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
+	border-radius: 5px;
 }
 
 #Create:hover, Create:active {
@@ -59,6 +61,7 @@ tr:hover {
 	color: white;
 	padding: 10px;
 	text-align: center;
+	border-radius: 5px;
 }
 
 #Details:hover {
@@ -73,6 +76,7 @@ tr:hover {
 	padding-left: 20px;
 	padding-right: 20px;
 	text-align: center;
+	border-radius: 5px;
 }
 
 #Edit:hover {
@@ -87,6 +91,7 @@ tr:hover {
 	padding-left: 15px;
 	padding-right: 15px;
 	text-align: center;
+	border-radius: 5px;
 }
 
 #Delete:hover {
