@@ -8,10 +8,15 @@
 
 <h4>Product</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-6">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StoreId" class="control-label socioverse-label"></label>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreName"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
                 <input asp-for="ProductName" class="form-control" />
@@ -37,10 +42,18 @@
                 <input asp-for="ProductModifiedDate" class="form-control" />
                 <span asp-validation-for="ProductModifiedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ProductImage" class="control-label"></label>
+            <!--<div class="form-group">-->
+            @*<label asp-for="ProductImage" class="control-label"></label>
                 <input asp-for="ProductImage" class="form-control" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>*@
+
+            <!--<label asp-for="ProductImage" class="control-label">Select image:</label>
+                <input type="file" asp-for="ProductImage" name="img" accept="image/*">
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>-->
+            <div class="form-group">
+                <input asp-for="EventBannerFile" id="image" accept="image/*" onchange="previewFile(this)">
+                <label asp-for="EventBannerFile" id="image2"></label>
             </div>
             <div class="form-group">
                 <label asp-for="ProductSize" class="control-label"></label>
@@ -52,17 +65,65 @@
                 <input asp-for="ProductColor" class="form-control" />
                 <span asp-validation-for="ProductColor" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            @*<div class="col-3">
+                    <input type="submit" id="submitForm" class="btn btn-info form-control" value="Submit" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>*@
+        </div>
+        <div class="col-sm-6 p-4"> <img id="previewImg" asp-for="ProductImage" src="/images/default-banner.jpg" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-3">
+                <input type="submit" id="submitForm" class="btn btn-info form-control" value="Submit" />
+            </div>
+            <div class="col-3">
+                <a asp-action="Index" class="btn btn-success form-control"> Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#errorFile").hide()
+
+        $(".image").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next(".image2").html(fileName);
+        })
+    });
+
+    function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+        var fsize = $("input[type=file]")[0].files[0].size;
+        if (file) {
+
+            if (fsize > 1048576 * 5) //do something if file size more than 1 mb (1048576)
+            {
+                $("#submitForm").attr("disabled", true)
+                $("#errorFile").show()
+
+            } else {
+                console.log(file);
+                var reader = new FileReader();
+                $("#errorFile").hide()
+                $("#submitForm").attr("disabled", false)
+                reader.onload = function () {
+                    $("#previewImg").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+
+        }
+    }
+</script>

@@ -27,7 +27,6 @@ namespace OneStopShop.Controllers
         // POST: Stores/Create
 
         [HttpPost]
-
         public async Task<IActionResult> Create([Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (ModelState.IsValid)
@@ -38,16 +37,18 @@ namespace OneStopShop.Controllers
             }
             return View(store);
         }
-             
 
         // GET:List of Stores
         public async Task<IActionResult> Index()
         {
             return View(await _context.Stores.ToListAsync());
         }
-        public IActionResult Details(int id)
+
+        public async Task<IActionResult> Details(int id)
         {
-            return RedirectToAction("Index", "Products", new { ID = id });
+            var storeDetails = await _context.Stores
+               .FirstOrDefaultAsync(m => m.StoreId == id);
+            return View(storeDetails);
         }
 
         // GET: Stores/Edit/id
@@ -69,7 +70,6 @@ namespace OneStopShop.Controllers
         // POST: Stores/Edit/id
 
         [HttpPost]
-
         public IActionResult Edit(int id, [Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (id != store.StoreId)
@@ -107,7 +107,6 @@ namespace OneStopShop.Controllers
 
         // POST: Stores/Delete/5
         [HttpPost, ActionName("Delete")]
-
         public IActionResult DeleteConfirmed(int id)
         {
             var store = _context.Stores.Find(id);
@@ -121,6 +120,4 @@ namespace OneStopShop.Controllers
             return _context.Stores.Any(e => e.StoreId == id);
         }
     }
-
-
 }

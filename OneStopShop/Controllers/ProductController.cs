@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
@@ -12,7 +15,11 @@ namespace OneStopShop.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private static int currentStore=0;
+        private static int currentStore = 0;
+
+        //public ProductsController(ApplicationDbContext context, IMapper mapper, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : this(context, mapper, provider, httpContextAccessor, _environment)
+        //{
+        //}
 
         public ProductsController(ApplicationDbContext context)
         {
@@ -23,7 +30,9 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
-            return View(await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync());
+            var products = await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync();
+
+            return View(products);
         }
 
         // GET: Products/Details/5
@@ -45,8 +54,9 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["StoreName"] = new SelectList(_context.Stores.Where(a => a.StoreId == id), "StoreId", "StoreName");
             return View();
         }
 
@@ -54,14 +64,44 @@ namespace OneStopShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,StoreID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
+        public async Task<IActionResult> Create(IFormFile EventBannerFile, int StoreId, [Bind("ProductID,StoreID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
         {
             if (ModelState.IsValid)
             {
-                product.StoreId = currentStore;
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Products", new {id = currentStore});
+                if (EventBannerFile != null)
+                {
+                    var fileName = Path.GetFileName(EventBannerFile.FileName);
+                    var fileExtension = Path.GetExtension(fileName);
+                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                    product.StoreId = StoreId;
+                    product.ProductImage = fileName;
+                    _context.Add(product);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Products", new { id = StoreId });
+                    //string wwwPath = this.Environment.WebRootPath;
+                    //string contentPath = this.Environment.ContentRootPath;
+                    //string folderName = "Products";
+                    //string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
+
+                    //if (!Directory.Exists(path))
+                    //{
+                    //    Directory.CreateDirectory(path);
+                    //}
+                    //string fileName = Path.GetFileNameWithoutExtension(EventBannerFile.FileName);
+                    //string extension = Path.GetExtension(EventBannerFile.FileName);
+                    //string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                    //string folderPath = "Upload/Events/" + folderName;
+                    //product.ProductImage = folderPath + '/' + fileNameBanner;
+
+                    //var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
+                    //using (FileStream fs = System.IO.File.Create(filepath))
+                    //{
+                    //    EventBannerFile.CopyTo(fs);
+                    //    fs.Flush();
+                    //}
+                }
             }
             return View(product);
         }
