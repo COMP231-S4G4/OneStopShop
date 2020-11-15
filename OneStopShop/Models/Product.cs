@@ -1,8 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Drawing;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneStopShop.Models
@@ -11,6 +14,9 @@ namespace OneStopShop.Models
     {
         [Key]
         public int ProductID { get; set; }
+
+        // public int StoreId { get; set; }
+        [DisplayName("Store Name")]
         public int StoreId { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
@@ -26,11 +32,15 @@ namespace OneStopShop.Models
 
         [Required(ErrorMessage = "Please enter a Created Date")]
         public DateTime ProductCreatedDate { get; set; }
+
         public DateTime ProductModifiedDate { get; set; }
-      
+
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
 
+        [DisplayName("Upload File")]
+        [NotMapped]
+        public IFormFile EventBannerFile { get; set; }
     }
 }

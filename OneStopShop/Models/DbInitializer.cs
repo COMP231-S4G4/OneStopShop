@@ -28,7 +28,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667666",
                     Email="nick@gill.com",
-
                 },
                 new Store
                 {
@@ -38,7 +37,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667669",
                     Email="amanda@gill.com",
-
                 },
                 new Store
                 {
@@ -48,7 +46,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667660",
                     Email="john@gill.com",
-
                 }
             };
             context.Stores.AddRange(stores);
@@ -67,7 +64,6 @@ namespace OneStopShop.Models
                         ProductID = 1,
                         ProductImage = "",
                         ProductSize = "Medium"
-
                     },
                     new Product
                     {
@@ -95,12 +91,7 @@ namespace OneStopShop.Models
                       }
                       );
                 context.SaveChanges();
-
             }
-
-
-
         }
     }
 }
-
