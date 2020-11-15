@@ -13,7 +13,7 @@
 <div>
     <form asp-action="Create" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="@Model.store.StoreId" />
+        <input type="hidden" asp-for="@Model.StoreId" />
         <table>
             <tr>
                 <td><label asp-for="ProductName"> Product Name</label></td>
