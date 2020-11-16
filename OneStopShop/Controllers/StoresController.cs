@@ -38,7 +38,7 @@ namespace OneStopShop.Controllers
             }
             return View(store);
         }
-             
+
 
         // GET:List of Stores
         public async Task<IActionResult> Index()
@@ -50,6 +50,13 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { ID = id });
         }
 
+        // GET: Stores/Edit/id
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var store = _context.Stores.Find(id);
             if (store == null)
@@ -114,8 +121,8 @@ namespace OneStopShop.Controllers
             return _context.Stores.Any(e => e.StoreId == id);
         }
         public IActionResult Dashboard(int id)
-		{
+        {
             return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
-		}
+        }
     }
 }
