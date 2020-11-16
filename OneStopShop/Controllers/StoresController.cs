@@ -119,5 +119,9 @@ namespace OneStopShop.Controllers
         {
             return _context.Stores.Any(e => e.StoreId == id);
         }
+        public IActionResult Dashboard(int id)
+		{
+            return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
+		}
     }
 }
