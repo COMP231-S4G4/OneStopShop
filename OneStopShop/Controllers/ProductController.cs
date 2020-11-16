@@ -32,6 +32,11 @@ namespace OneStopShop.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> Back()
+        {
+            return View(await _context.Products.Where(i => i.StoreId.Equals(currentStore)).ToListAsync());
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
