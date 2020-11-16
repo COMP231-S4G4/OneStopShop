@@ -9,7 +9,7 @@
 </head>
 <h2>Product Details</h2>
 <div>
-    <img id="Image" src="@Url.Content(Model.ProductImage)" />
+    @*<img id="Image" src="@Url.Content(Model.ProductImage)" />*@
 </div>
 <div id="divInline">
     <table>
@@ -58,8 +58,6 @@
     </form>
 </div>
 <div>
-    
-</div>
-<div>
     <a id="Back" asp-action="Index" asp-route-id="@Model.StoreId">Go back</a>
 </div>
+

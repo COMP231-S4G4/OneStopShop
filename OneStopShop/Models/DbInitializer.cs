@@ -68,31 +68,29 @@ namespace OneStopShop.Models
                         ProductImage = "",
                         ProductSize = "Medium"
 
-                    },
-                    new Product
-                    {
-                        ProductName = "shirt",
-                        ProductDescription = "A blue shirt",
-                        ProductColor = "blue",
-                        ProductPrice = 275,
-                        ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-                        ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-                        ProductID = 1,
-                        ProductImage = "",
-                        ProductSize = "Medium"
-                    },
-                      new Product
-                      {
-                          ProductName = "shirt",
-                          ProductDescription = "A blue shirt",
-                          ProductColor = "blue",
-                          ProductPrice = 275,
-                          ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-                          ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-                          ProductID = 1,
-                          ProductImage = "",
-                          ProductSize = "Medium"
-                      }
+                    }
+            //        new Product
+            //        {
+            //            ProductName = "shirt",
+            //            ProductDescription = "A blue shirt",
+            //            ProductColor = "blue",
+            //            ProductPrice = 275,
+            //            ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+            //            ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+            //            ProductID = 2,
+            //            ProductSize = "Medium"
+            //        },
+            //          new Product
+            //          {
+            //              ProductName = "shirt",
+            //              ProductDescription = "A blue shirt",
+            //              ProductColor = "blue",
+            //              ProductPrice = 275,
+            //              ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+            //              ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+            //              ProductID = 3,
+            //              ProductSize = "Medium"
+            //          }
                       );
                 context.SaveChanges();
 
