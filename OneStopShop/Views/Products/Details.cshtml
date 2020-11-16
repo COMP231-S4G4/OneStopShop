@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="~/css/ProductDetails.css" />
 </head>
 <h2>Product Details</h2>
-<div>
+<div id="divInline">
     <img id="Image" src="@Url.Content(Model.ProductImage)" />
 </div>
 <div id="divInline">
@@ -57,6 +57,7 @@
 
     </form>
 </div>
+
 <div>
     <a id="Back" asp-action="Index" asp-route-id="@Model.StoreId">Go back</a>
 </div>

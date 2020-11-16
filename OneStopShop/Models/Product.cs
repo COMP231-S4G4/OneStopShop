@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OneStopShop.Models
 {
@@ -11,6 +12,8 @@ namespace OneStopShop.Models
         [Key]
         public int ProductID { get; set; }
         public int StoreId { get; set; }
+        [ForeignKey("StoreId")]
+        public virtual Store store { get; set; }
 
         [Required(ErrorMessage = "Please enter a product name")]
         public string ProductName { get; set; }
@@ -25,7 +28,7 @@ namespace OneStopShop.Models
 
         [Required(ErrorMessage = "Please enter a Created Date")]
         public DateTime ProductCreatedDate { get; set; }
-        public DateTime ProductModifiedDate { get; set; }
+        public DateTime? ProductModifiedDate { get; set; }
       
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
