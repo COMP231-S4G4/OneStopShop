@@ -16,9 +16,10 @@ h2 {
 }
 
 #Image {
-    float:left;
+    float: left;
     height: 300px;
     width: 300px;
+    border-radius: 15px;
 }
 
 #divInline {
@@ -31,6 +32,7 @@ table {
     color: black;
     background-color: white;
     border-collapse: collapse;
+    border-radius: 15px;
 }
 
 th, td {
@@ -77,6 +79,7 @@ tr:nth-child(even) {
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
+    border-radius: 5px;
 }
 
     #Edit:hover {
@@ -91,8 +94,27 @@ tr:nth-child(even) {
     padding-left: 15px;
     padding-right: 15px;
     text-align: center;
+    border-radius: 5px;
 }
 
     #Delete:hover {
+        background-color: #bd1b1b;
+    }
+
+#Back {
+    background-color: #031327;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    bottom: 30px;
+    left: 16px;
+    text-align: center;
+    border-radius: 15px 15px 15px 5px;
+}
+
+    #Back:hover {
         background-color: #bd1b1b;
     }
