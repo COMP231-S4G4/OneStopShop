@@ -50,50 +50,47 @@ namespace OneStopShop.Models
             };
             context.Stores.AddRange(stores);
 
-            if (!context.Products.Any())
-            {
-                context.Products.AddRange(
-                    new Product
-                    {
-                        ProductName = "pant",
-                        ProductDescription = "A blue pant",
-                        ProductColor = "blue",
-                        ProductPrice = 275,
-                        ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-                        ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-                        ProductID = 1,
-                        ProductImage = "",                       
-                        ProductSize = "Medium"
+            //if (!context.Products.Any())
+            //{
+            //    context.Products.AddRange(
+            //        new Product
+            //        {
+            //            ProductName = "pant",
+            //            ProductDescription = "A blue pant",
+            //            ProductColor = "blue",
+            //            ProductPrice = 275,
+            //            ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+            //            ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+            //            ProductID = 1,                       
+            //            ProductSize = "Medium"
 
-                    },
-                    new Product
-                    {
-                        ProductName = "shirt",
-                        ProductDescription = "A blue shirt",
-                        ProductColor = "blue",
-                        ProductPrice = 275,
-                        ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-                        ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-                        ProductID = 1,
-                        ProductImage = "",
-                        ProductSize = "Medium"
-                    },
-                      new Product
-                      {
-                          ProductName = "shirt",
-                          ProductDescription = "A blue shirt",
-                          ProductColor = "blue",
-                          ProductPrice = 275,
-                          ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-                          ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-                          ProductID = 1,
-                          ProductImage = "",
-                          ProductSize = "Medium"
-                      }
-                      );
-                context.SaveChanges();
+            //        },
+            //        new Product
+            //        {
+            //            ProductName = "shirt",
+            //            ProductDescription = "A blue shirt",
+            //            ProductColor = "blue",
+            //            ProductPrice = 275,
+            //            ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+            //            ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+            //            ProductID = 2,
+            //            ProductSize = "Medium"
+            //        },
+            //          new Product
+            //          {
+            //              ProductName = "shirt",
+            //              ProductDescription = "A blue shirt",
+            //              ProductColor = "blue",
+            //              ProductPrice = 275,
+            //              ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+            //              ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+            //              ProductID = 3,
+            //              ProductSize = "Medium"
+            //          }
+            //          );
+            ////    context.SaveChanges();
 
-            }
+            //}
 
         }
     }
