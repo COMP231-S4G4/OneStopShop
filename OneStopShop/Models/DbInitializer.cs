@@ -68,7 +68,7 @@ namespace OneStopShop.Models
                         ProductImage = "",
                         ProductSize = "Medium"
 
-            //        },
+                    }
             //        new Product
             //        {
             //            ProductName = "shirt",
@@ -91,10 +91,10 @@ namespace OneStopShop.Models
             //              ProductID = 3,
             //              ProductSize = "Medium"
             //          }
-            //          );
-            ////    context.SaveChanges();
+                      );
+                context.SaveChanges();
 
-            //}
+            }
 
 
 
