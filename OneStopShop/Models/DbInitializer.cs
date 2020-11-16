@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,19 +53,20 @@ namespace OneStopShop.Models
             };
             context.Stores.AddRange(stores);
 
-            //if (!context.Products.Any())
-            //{
-            //    context.Products.AddRange(
-            //        new Product
-            //        {
-            //            ProductName = "pant",
-            //            ProductDescription = "A blue pant",
-            //            ProductColor = "blue",
-            //            ProductPrice = 275,
-            //            ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-            //            ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-            //            ProductID = 1,                       
-            //            ProductSize = "Medium"
+            if (!context.Products.Any())
+            {
+                context.Products.AddRange(
+                    new Product
+                    {
+                        ProductName = "pant",
+                        ProductDescription = "A blue pant",
+                        ProductColor = "blue",
+                        ProductPrice = 275,
+                        ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+                        ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+                        ProductID = 1,
+                        ProductImage = "",
+                        ProductSize = "Medium"
 
             //        },
             //        new Product
@@ -91,6 +95,8 @@ namespace OneStopShop.Models
             ////    context.SaveChanges();
 
             //}
+
+
 
         }
     }

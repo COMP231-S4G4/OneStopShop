@@ -125,6 +125,4 @@ namespace OneStopShop.Controllers
             return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
 		}
     }
-
-
 }
