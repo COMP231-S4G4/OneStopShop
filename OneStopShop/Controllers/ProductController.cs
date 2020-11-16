@@ -18,10 +18,6 @@ namespace OneStopShop.Controllers
         private readonly object protector;
         private static int currentStore = 0;
 
-        //public ProductsController(ApplicationDbContext context, IMapper mapper, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : this(context, mapper, provider, httpContextAccessor, _environment)
-        //{
-        //}
-
         public ProductsController(ApplicationDbContext context)
         {
             _context = context;
@@ -80,28 +76,6 @@ namespace OneStopShop.Controllers
                     _context.Add(product);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details", "Stores", new { id = StoreId });
-                    //string wwwPath = this.Environment.WebRootPath;
-                    //string contentPath = this.Environment.ContentRootPath;
-                    //string folderName = "Products";
-                    //string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
-
-                    //if (!Directory.Exists(path))
-                    //{
-                    //    Directory.CreateDirectory(path);
-                    //}
-                    //string fileName = Path.GetFileNameWithoutExtension(EventBannerFile.FileName);
-                    //string extension = Path.GetExtension(EventBannerFile.FileName);
-                    //string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-
-                    //string folderPath = "Upload/Events/" + folderName;
-                    //product.ProductImage = folderPath + '/' + fileNameBanner;
-
-                    //var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
-                    //using (FileStream fs = System.IO.File.Create(filepath))
-                    //{
-                    //    EventBannerFile.CopyTo(fs);
-                    //    fs.Flush();
-                    //}
                 }
             }
             return View(product);
