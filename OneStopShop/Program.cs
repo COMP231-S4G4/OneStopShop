@@ -16,7 +16,7 @@ namespace OneStopShop
         public static void Main(string[] args)
         {
             var host= CreateHostBuilder(args).Build();
-           
+
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -25,7 +25,7 @@ namespace OneStopShop
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Initialize(context);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(e, "An error occured while seeding the database");
