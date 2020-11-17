@@ -8,32 +8,40 @@
     <link rel="stylesheet" type="text/css" href="~/css/ProductDetails.css" />
 </head>
 <h2>Product Details</h2>
-<div id="divInline">
-    <img id="Image" src="@Url.Content(Model.ProductImage)" />
+<div>
+    <img src="~/images/@Model.ProductImage" id="Image" />
 </div>
 <div id="divInline">
-    <table>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.ProductName)</td>
-            <td>@Html.DisplayFor(model => model.ProductName)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.ProductDescription)</td>
-            <td>@Html.DisplayFor(model => model.ProductDescription)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.ProductSize)</td>
-            <td>@Html.DisplayFor(model => model.ProductSize)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.ProductPrice)</td>
-            <td>@Html.DisplayFor(model => model.ProductPrice)</td>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.ProductColor)</td>
-            <td>@Html.DisplayFor(model => model.ProductColor)</td>
-        </tr>
-    </table>
+	<table>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductName)</td>
+			<td>@Html.DisplayFor(model => model.ProductName)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductDescription)</td>
+			<td>@Html.DisplayFor(model => model.ProductDescription)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductSize)</td>
+			<td>@Html.DisplayFor(model => model.ProductSize)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductPrice)</td>
+			<td>@Html.DisplayFor(model => model.ProductPrice)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductColor)</td>
+			<td>@Html.DisplayFor(model => model.ProductColor)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductCreatedDate)</td>
+			<td>@Html.DisplayFor(model => model.ProductCreatedDate)</td>
+		</tr>
+		<tr>
+			<td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductModifiedDate)</td>
+			<td>@Html.DisplayFor(model => model.ProductModifiedDate)</td>
+		</tr>
+	</table>
     <div>
         <a id="Edit" asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a>
         <a id="Delete" asp-action="Delete" asp-route-id="@Model.ProductID">Delete</a>

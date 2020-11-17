@@ -1,80 +1,81 @@
-﻿@model OneStopShop.Models.Product
+﻿@model OneStopShop.Models.ViewModels.ProductImageViewModel
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
 <h4>Product</h4>
 <hr />
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-sm-6">
+<div class="row">
+	<div class="col-md-4">
+		<form enctype="multipart/form-data" asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="ProductName" class="control-label"></label>
+				<input asp-for="ProductName" class="form-control" />
+				<span asp-validation-for="ProductName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductDescription" class="control-label"></label>
+				<input asp-for="ProductDescription" class="form-control" />
+				<span asp-validation-for="ProductDescription" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductPrice" class="control-label"></label>
+				<input asp-for="ProductPrice" class="form-control" />
+				<span asp-validation-for="ProductPrice" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductCreatedDate" class="control-label"></label>
+				<input asp-for="ProductCreatedDate" class="form-control" />
+				<span asp-validation-for="ProductCreatedDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductModifiedDate" class="control-label"></label>
+				<input asp-for="ProductModifiedDate" class="form-control" />
+				<span asp-validation-for="ProductModifiedDate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductImage" class="control-label"></label>
+				<div class="custom-file">
+					<input asp-for="ProductImage" class="custom-file-input" id="customFile" />
+					<label class="custom-file-label" for="customFile">Choose File</label>
+				</div>
+				<span asp-validation-for="ProductImage" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductSize" class="control-label"></label>
+				<input asp-for="ProductSize" class="form-control" />
+				<span asp-validation-for="ProductSize" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductColor" class="control-label"></label>
+				<input asp-for="ProductColor" class="form-control" />
+				<span asp-validation-for="ProductColor" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StoreId" class="control-label socioverse-label"></label>
-                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreName"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductDescription" class="control-label"></label>
-                <input asp-for="ProductDescription" class="form-control" />
-                <span asp-validation-for="ProductDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductPrice" class="control-label"></label>
-                <input asp-for="ProductPrice" class="form-control" />
-                <span asp-validation-for="ProductPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductCreatedDate" class="control-label"></label>
-                <input asp-for="ProductCreatedDate" class="form-control" />
-                <span asp-validation-for="ProductCreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductModifiedDate" class="control-label"></label>
-                <input asp-for="ProductModifiedDate" class="form-control" />
-                <span asp-validation-for="ProductModifiedDate" class="text-danger"></span>
-            </div>
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
 
-            <div class="form-group">
-                <input asp-for="EventBannerFile" id="image" accept="image/*" onchange="previewFile(this)">
-                <label asp-for="EventBannerFile" id="image2"></label>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductSize" class="control-label"></label>
-                <input asp-for="ProductSize" class="form-control" />
-                <span asp-validation-for="ProductSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductColor" class="control-label"></label>
-                <input asp-for="ProductColor" class="form-control" />
-                <span asp-validation-for="ProductColor" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-6 p-4"> <img id="previewImg" asp-for="ProductImage" src="/images/default-banner.jpg" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>
-    </div>
+@section scripts{
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script type="text/javascript">
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-3">
-                <input type="submit" id="submitForm" class="btn btn-info form-control" value="Submit" />
-            </div>
-            <div class="col-3">
-                <a asp-action="Index" class="btn btn-success form-control"> Back to List</a>
-            </div>
-        </div>
-    </div>
-</form>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function () {
+			var fileName = $(this).val().split("\\").pop();
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+	</script>
 }
 
 <script type="text/javascript">

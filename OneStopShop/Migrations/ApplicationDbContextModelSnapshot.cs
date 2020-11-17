@@ -57,6 +57,7 @@ namespace OneStopShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ProductModifiedDate")
