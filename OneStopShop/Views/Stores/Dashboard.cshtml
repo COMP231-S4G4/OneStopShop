@@ -1,50 +1,50 @@
 ﻿@model Store
 
 @{
-	ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
 <head>
-	<link rel="stylesheet" type="text/css" href="~/css/Dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/Dashboard.css" />
 </head>
 
 <div class="dashboardContainer">
-	<h2>Dashboard</h2>
-	<h2>@Model.StoreName</h2>
-	<input type="hidden" asp-for="StoreId" />
+    <h2>Dashboard</h2>
+    <h2>@Model.StoreName</h2>
+    <input type="hidden" asp-for="StoreId" />
 
-	<div class="container-grid">
-		<a id="Details" asp-action="Details" asp-route-id="@Model.StoreId">
-			<div class="gallery">
-				<img src="~/images/product.png" />
-				<div class="desc">
-					<h3>Products</h3>
-				</div>
-			</div>
-		</a>
+    <div class="container-grid">
+        <a id="Details" asp-controller="Products" asp-action="Index" asp-route-id="@Model.StoreId">
+            <div class="gallery">
+                <img src="~/images/product.png" />
+                <div class="desc">
+                    <h3>Products</h3>
+                </div>
+            </div>
+        </a>
 
-		<div class="gallery">
-			@*<center><img src="~/images/dashboard_orders.jpg" /></center>*@
-			<img src="~/images/dashboard_orders.jpg" />
-			<div class="desc">
-				<h3>Order</h3>
-			</div>
-		</div>
+        <div class="gallery">
+            @*<center><img src="~/images/dashboard_orders.jpg" /></center>*@
+            <img src="~/images/dashboard_orders.jpg" />
+            <div class="desc">
+                <h3>Order</h3>
+            </div>
+        </div>
 
-		<div class="gallery">
-			@*<center><img src="~/images/dashboard_blog.png" /></center>*@
-			<img src="~/images/dashboard_blog.png" />
-			<div class="desc">
-				<h3>Blogs</h3>
-			</div>
-		</div>
+        <div class="gallery">
+            @*<center><img src="~/images/dashboard_blog.png" /></center>*@
+            <img src="~/images/dashboard_blog.png" />
+            <div class="desc">
+                <h3>Blogs</h3>
+            </div>
+        </div>
 
-		<div class="gallery">
-			@*<center><img src="~/images/dashboard_subscribers.png" /></center>*@
-			<img src="~/images/dashboard_subscribers.png" />
-			<div class="desc">
-				<h3>Subscribers</h3>
-			</div>
-		</div>
-	</div>
+        <div class="gallery">
+            @*<center><img src="~/images/dashboard_subscribers.png" /></center>*@
+            <img src="~/images/dashboard_subscribers.png" />
+            <div class="desc">
+                <h3>Subscribers</h3>
+            </div>
+        </div>
+    </div>
 </div>
