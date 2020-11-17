@@ -39,6 +39,30 @@ namespace OneStopShop.Migrations
                     b.ToTable("CartItems");
                 });
 
+            modelBuilder.Entity("OneStopShop.Models.Orders", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("OrderCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
                 {
                     b.Property<int>("ProductID")

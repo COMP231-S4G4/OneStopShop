@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using OneStopShop.Models;
 
 namespace OneStopShop.Models
 {
@@ -17,5 +18,7 @@ namespace OneStopShop.Models
         public DbSet<Product> Products { get; set; }
 
         public DbSet<CartItem> CartItems { get; set; }
+
+        public DbSet<OneStopShop.Models.Orders> Orders { get; set; }
     }
 }
