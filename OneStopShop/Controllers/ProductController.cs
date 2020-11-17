@@ -76,6 +76,8 @@ namespace OneStopShop.Controllers
                     ProductSize = model.ProductSize,
                     ProductColor = model.ProductColor,
                 };
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
                 product.StoreId = currentStore;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
@@ -100,19 +102,5 @@ namespace OneStopShop.Controllers
 			}
             return uniqueFileName;
 		}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("ProductID,StoreID,ProductName,ProductDescription,ProductPrice,ProductCreatedDate,ProductModifiedDate,ProductImage,ProductSize,ProductColor")] Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        product.StoreId = currentStore;
-        //        _context.Add(product);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction("Index","Products", new {id = currentStore});
-        //    }
-        //    return View(product);
-        //}
     }
 }
