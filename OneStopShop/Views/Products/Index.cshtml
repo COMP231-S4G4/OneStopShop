@@ -10,9 +10,11 @@
     <link rel="stylesheet" type="text/css" href="~/css/StoreIndex.css" />
 </head>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<body>
+<div id="divInline"> 
+    <a id="Create" asp-action="Create">Create New</a>
+</div>
+<div id="div">
 <table class="table">
     <thead>
         <tr>
@@ -20,16 +22,7 @@
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductSize)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductColor)
             </th>
             <th></th>
         </tr>
@@ -42,23 +35,16 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ProductPrice)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductSize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductColor)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                    <a id="Edit" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> 
+                    <a id="Details" asp-action="Details" asp-route-id="@item.ProductID">Details</a> 
+                    <a id="Delete" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+    </div>
+</body>
