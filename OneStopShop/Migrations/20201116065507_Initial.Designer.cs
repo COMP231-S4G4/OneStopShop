@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201113171337_cartsession")]
-    partial class cartsession
+    [Migration("20201116065507_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,7 @@ namespace OneStopShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ProductModifiedDate")
