@@ -17,7 +17,7 @@ h2 {
 
 #Image {
     float: left;
-    height: 300px;
+    height: auto;
     width: 300px;
     border-radius: 15px;
 }

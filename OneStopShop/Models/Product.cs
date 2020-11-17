@@ -37,6 +37,7 @@ namespace OneStopShop.Models
 
         public DateTime ProductModifiedDate { get; set; }
 
+        [Required(ErrorMessage = "Please choose product image")]
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
