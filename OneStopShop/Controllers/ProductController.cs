@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OneStopShop.Models;
 using OneStopShop.Models.ViewModels;
+using Stripe;
 
 namespace OneStopShop.Controllers
 {
@@ -65,7 +66,7 @@ namespace OneStopShop.Controllers
             {
                 string uniqueFileName = UploadedFile(model);
 
-                Product product = new Product
+                Models.Product product = new Models.Product
                 {
                     ProductName = model.ProductName,
                     ProductDescription = model.ProductDescription,
@@ -135,5 +136,41 @@ namespace OneStopShop.Controllers
 			}
             return uniqueFileName;
 		}
+
+        public IActionResult GetPay()
+        {
+            return View("Payment");
+        }
+
+        //post payment
+        public IActionResult Payment(string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount=500,
+                Description="Test Payment",
+                Currency="CAD",
+                Customer=customer.Id,
+                ReceiptEmail=stripeEmail 
+
+            });
+
+            if (charge.Status == "succeeded")
+            {
+                string BalanceTransactionId = charge.BalanceTransactionId;
+                return View();
+            }
+            
+
+            return View();
+
+        }
     }
 }

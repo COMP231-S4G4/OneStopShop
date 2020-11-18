@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using OneStopShop.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Stripe;
 
 namespace OneStopShop
 {
@@ -37,12 +38,15 @@ namespace OneStopShop
             services.AddSession();
             services.AddMvc();
             services.AddMemoryCache();
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
