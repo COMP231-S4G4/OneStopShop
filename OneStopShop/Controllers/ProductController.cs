@@ -80,11 +80,7 @@ namespace OneStopShop.Controllers
                     var fileExtension = Path.GetExtension(fileName);
                     var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
-                    product.StoreId = StoreId;
-                    product.ProductImage = fileName;
-                    _context.Add(product);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Stores", new { id = StoreId });
+
                     //string wwwPath = this.Environment.WebRootPath;
                     //string contentPath = this.Environment.ContentRootPath;
                     //string folderName = "Products";
@@ -107,9 +103,18 @@ namespace OneStopShop.Controllers
                     //    EventBannerFile.CopyTo(fs);
                     //    fs.Flush();
                     //}
+                    product.StoreId = StoreId;
+                    product.ProductImage = fileName;
+                    _context.Add(product);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Stores", new { id = StoreId });
                 }
             }
-            return View(product);
+            product.StoreId = StoreId;
+            //product.ProductImage = fileName;
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Stores", new { id = StoreId });
         }
 
         public ViewResult AddProduct()

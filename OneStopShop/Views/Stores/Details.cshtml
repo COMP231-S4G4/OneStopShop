@@ -11,9 +11,10 @@
     <div class="col-sm-12">
 
         <div class="col-sm-6">
-            <h3>@Model.StoreName</h3>
+            <center><h2>@Model.StoreName</h2></center>
         </div>
         @*<label class="col-sm-6">Search for products</label>*@
+    <div class="row">
         <div class="col-sm-6">
             <div class="input-group">
                 <input type="text" style="border-radius:20px" name="searchTerm" class="form-control" placeholder="Search for products....." />
@@ -22,7 +23,19 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+
             </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <select class="form-control">
+                    <option value="0">Please Select Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Kids</option>
+                </select>
+            </div>
+        </div>
         </div>
     </div>
 </div>

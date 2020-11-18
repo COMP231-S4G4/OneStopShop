@@ -1,23 +1,21 @@
 ﻿@model OneStopShop.Models.Product
 
-@{
-    ViewData["Title"] = "Create";
-}
+@{ ViewData["Title"] = "Create"; }
 
 
-<Center><h3>Add Product</h3></Center>
-<head>
+<header>
     <link href="~/css/AddProduct.css" rel="stylesheet" />
-</head>
+</header>
+<h4>Add Product</h4>
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-6">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" >
                 <label asp-for="StoreId" class="control-label socioverse-label"></label>
-                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreName"></select>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId" ></select>
             </div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label"></label>
@@ -34,7 +32,7 @@
                 <input asp-for="ProductPrice" class="form-control" />
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ProductCreatedDate" class="control-label"></label>
                 <input asp-for="ProductCreatedDate" class="form-control" />
                 <span asp-validation-for="ProductCreatedDate" class="text-danger"></span>
@@ -43,23 +41,24 @@
                 <label asp-for="ProductModifiedDate" class="control-label"></label>
                 <input asp-for="ProductModifiedDate" class="form-control" />
                 <span asp-validation-for="ProductModifiedDate" class="text-danger"></span>
-            </div>
-            <!--<div class="form-group">-->
-            @*<label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
-                <span asp-validation-for="ProductImage" class="text-danger"></span>*@
+            </div>*@
 
-            <!--<label asp-for="ProductImage" class="control-label">Select image:</label>
-                <input type="file" asp-for="ProductImage" name="img" accept="image/*">
-                <span asp-validation-for="ProductImage" class="text-danger"></span>
-            </div>-->
-            <div class="form-group">
-                <input asp-for="EventBannerFile" id="image" accept="image/*" onchange="previewFile(this)">
-                <label asp-for="EventBannerFile" id="image2"></label>
-            </div>
+        <div class="form-group">
+            <label asp-for="EventBannerFile" id="image2"></label>
+            <input asp-for="EventBannerFile" id="image" accept="image/*" onchange="previewFile(this)" class="form-control">
+
+        </div>
             <div class="form-group">
                 <label asp-for="ProductSize" class="control-label"></label>
-                <input asp-for="ProductSize" class="form-control" />
+                <select class="form-control">
+                    <option value="0">Please select Size</option>
+                    <option value="1">XS</option>
+                    <option value="2">Small</option>
+                    <option value="3">Medium</option>
+                    <option value="4">Large</option>
+                    <option value="5">XL</option>
+                </select>
+                @*<input asp-for="ProductSize" class="form-control" />*@
                 <span asp-validation-for="ProductSize" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -67,13 +66,6 @@
                 <input asp-for="ProductColor" class="form-control" />
                 <span asp-validation-for="ProductColor" class="text-danger"></span>
             </div>
-
-            @*<div class="col-3">
-                    <input type="submit" id="submitForm" class="btn btn-info form-control" value="Submit" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>*@
         </div>
         <div class="col-sm-6 p-4"> <img id="previewImg" asp-for="ProductImage" src="/images/default-banner.jpg" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>
     </div>
