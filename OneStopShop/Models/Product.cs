@@ -18,6 +18,7 @@ namespace OneStopShop.Models
         // public int StoreId { get; set; }
         [DisplayName("Store Name")]
         public int StoreId { get; set; }
+
         [ForeignKey("StoreId")]
         public virtual Store store { get; set; }
 
@@ -37,7 +38,6 @@ namespace OneStopShop.Models
 
         public DateTime ProductModifiedDate { get; set; }
 
-        [Required(ErrorMessage = "Please choose product image")]
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
