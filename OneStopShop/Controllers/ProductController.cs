@@ -148,7 +148,9 @@ namespace OneStopShop.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            // return View(product);
+
+            return RedirectToAction("Create", new { id = product.StoreId });
         }
 
         // POST: Product/Edit
