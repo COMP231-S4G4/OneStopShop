@@ -16,7 +16,7 @@ namespace OneStopShop.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private static int currentStore=0;
+        private static int currentStore = 0;
 
         public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -120,20 +120,52 @@ namespace OneStopShop.Controllers
         }
 
         private string UploadedFile(ProductImageViewModel model)
-		{
+        {
             string uniqueFileName = null;
 
-            if(model.ProductImage != null)
-			{
+            if (model.ProductImage != null)
+            {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProductImage.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
-				{
+                {
                     model.ProductImage.CopyTo(fileStream);
-				}
-			}
+                }
+            }
             return uniqueFileName;
-		}
+        }
+        // GET: Product/Edit
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = _context.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        // POST: Product/Edit
+
+        [HttpPost]
+        public IActionResult Edit(int id, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.ProductModifiedDate = DateTime.Now;
+                _context.Update(product);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", new { id = product.StoreId });
+            }
+            return View("Details");
+        }
+
     }
 }
