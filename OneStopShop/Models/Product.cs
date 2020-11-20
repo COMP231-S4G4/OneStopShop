@@ -42,6 +42,8 @@ namespace OneStopShop.Models
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }
 
+        public bool IsAddedToCart { get; set; }
+
         [DisplayName("Upload File")]
         [NotMapped]
         public IFormFile EventBannerFile { get; set; }

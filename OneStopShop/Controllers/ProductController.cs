@@ -153,6 +153,26 @@ namespace OneStopShop.Controllers
             return _context.Products.Any(e => e.ProductID == id);
         }
 
+        public RedirectToActionResult AddToCart(int productId)
+        {
+            var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
+            product.IsAddedToCart = true;
+            _context.Update(product);
+            _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public RedirectToActionResult RemoveCartItem(int id)
+        {
+            var product = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
+            product.IsAddedToCart = false;
+            _context.Update(product);
+            _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Cart");
+        }
+
         //      private string UploadedFile(ProductImageViewModel model)
         //{
         //          string uniqueFileName = null;

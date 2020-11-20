@@ -18,11 +18,19 @@ namespace OneStopShop.Controllers
         public IWebHostEnvironment Environment;
 
         public readonly ApplicationDbContext _context;
+
+        // private  ApplicationDbContext context;
+        private IDataProtectionProvider provider;
+
+        private IHttpContextAccessor httpContextAccessor;
+
+        //public readonly ApplicationDbContext _context;
         public readonly IDataProtector protector;
+
         public readonly IHttpContextAccessor _httpContextAccessor;
 
-        private IDataProtectionProvider provider;
-        private IHttpContextAccessor httpContextAccessor;
+        //private IDataProtectionProvider provider;
+        //private IHttpContextAccessor httpContextAccessor;
 
         public BaseController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment)
         {
@@ -32,6 +40,14 @@ namespace OneStopShop.Controllers
             protector = provider.CreateProtector("idProtector");
             Environment = _environment;
         }
+
+        //public BaseController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment environment)
+        //{
+        //    this.context = context;
+        //    this.provider = provider;
+        //    this.httpContextAccessor = httpContextAccessor;
+        //    Environment = environment;
+        //}
 
         //public BaseController(AppContext context, IMapper mapper, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment environment)
         //{

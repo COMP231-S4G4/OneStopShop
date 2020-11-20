@@ -46,7 +46,7 @@ namespace OneStopShop.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product).ThenInclude(a => a.ProductID)
+            var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product)
                .FirstOrDefaultAsync();
             return View(storeDetails);
         }
