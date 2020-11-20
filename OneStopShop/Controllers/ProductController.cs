@@ -28,7 +28,9 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             currentStore = id;
-            return View(await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync());
+            var products = await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync();
+
+            return View(products);
         }
 
         // GET: Products/Details/5
@@ -135,5 +137,28 @@ namespace OneStopShop.Controllers
 			}
             return uniqueFileName;
 		}
+
+  //      public ViewResult ViewProduct()
+		//{
+  //          //var product = _context.Products.FindAsync();
+  //          return View(_context.Products
+  //              .FirstOrDefault(m => m.ProductID == 1));
+		//}
+        public async Task<IActionResult> ViewProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }

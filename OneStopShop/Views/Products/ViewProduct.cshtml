@@ -1,0 +1,136 @@
+﻿@model Product
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "_ProductLayout";
+}
+
+<h1>ViewProduct</h1>
+
+<div class="container">
+	<div class="product-image">
+		<img src="~/images/@Model.ProductImage" id="Image" />
+	</div>
+	<div class="product-details">
+		<header>
+			<h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
+			<span class="colorcat">@Html.DisplayFor(model => model.ProductColor)</span>
+			<div class="rating">
+				<a href="#!" class="sActive">★</a>
+				<a href="#!" class="sActive">★</a>
+				<a href="#!" class="sActive">★</a>
+				<a href="#!">★</a>
+				<a href="#!">★</a>
+			</div>
+			<div class="price">
+				<span class="current">@String.Format("{0:c}", Model.ProductPrice)</span>
+			</div>
+		</header>
+		<article>
+			<h4>Description</h4>
+			<p>@Html.DisplayFor(model => model.ProductDescription)</p>
+		</article>
+		<div class="controls">
+			<div class="size">
+				<h4>size</h4>
+				<div id="sizes">
+					<button class="btn text-uppercase text-center">s</button>
+					<button class="btn active text-uppercase text-center">m</button>
+					<button class="btn text-uppercase text-center">l</button>
+					<button class="btn text-uppercase text-center">xl</button>
+					<button class="btn text-uppercase text-center">xxl</button>
+				</div>
+
+			</div>
+			<div class="quantity">
+				<h4>qty</h4>
+				<select class="qty">
+					<option value="1" selected>1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</div>
+			<div class="footer">
+				<button type="button">
+					<img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+					<span>add to cart</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+@*<div class="container">
+	<div class="product-image">
+		<img src="~/images/@Model.ProductImage" class="product-pic" />
+	</div>
+	<div class="product-details">
+		<header>
+			<h1 class="title">Must Have Hoodie</h1>
+			<span class="colorcat">Dark Green</span>
+			<div class="price">
+				<span class="before">$60.00</span>
+				<span class="current">$34.99</span>
+			</div>
+			<div class="rating">
+				<a href="#!" class="active">★</a>
+				<a href="#!" class="active">★</a>
+				<a href="#!" class="active">★</a>
+				<a href="#!">★</a>
+				<a href="#!">★</a>
+			</div>
+		</header>
+		<article>
+			<h5 class="articleDescription">Description</h5>
+			<p class="articleP">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna
+				aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+				ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			</p>
+		</article>
+		<div class="controls">
+			<div class="color">
+				<h5>color</h5>
+				<ul>
+					<li><a href="#!" class="colors color-bdot1 active"></a></li>
+					<li><a href="#!" class="colors color-bdot1"></a></li>
+					<li><a href="#!" class="colors color-bdot1"></a></li>
+					<li><a href="#!" class="colors color-bdot1"></a></li>
+				</ul>
+			</div>
+			<div class="size">
+				<h5>size</h5>
+				<a href="#!" class="option">US 8</a>
+			</div>
+			<div class="qty">
+				<h5>qty</h5>
+				<a href="#!" class="option">1</a>
+			</div>
+		</div>
+		<div class="footer">
+			<button type="button">
+				<img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+				<span>add to cart</span>
+			</button>
+		</div>
+	</div>
+</div>*@
+
+
+
+@*<div class="container">
+		<div class="flex-container">
+			<div class="image-left float-left">
+				<img src="~/images/@Model.ProductImage" id="Image" />
+			</div>
+			<div class="border float-right">
+				<h1 class="float-lg-left">@Html.DisplayFor(model => model.ProductName)</h1><br />
+				<h1 class="float-lg-left">@String.Format("{0:c}", Model.ProductPrice)</h1>
+			</div>
+		</div>
+	</div>*@

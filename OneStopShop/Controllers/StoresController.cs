@@ -45,9 +45,11 @@ namespace OneStopShop.Controllers
         {
             return View(await _context.Stores.ToListAsync());
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return RedirectToAction("Index", "Products", new { ID = id });
+            var storeDetails = await _context.Stores.Include(a => a.product).ThenInclude(a => a.ProductID)
+               .FirstOrDefaultAsync(m => m.StoreId == id);
+            return View(storeDetails);
         }
 
         // GET: Stores/Edit/id
