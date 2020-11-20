@@ -14,7 +14,7 @@
 	<input type="hidden" asp-for="StoreId" />
 
 	<div class="container-grid">
-		<a id="Details" asp-controller="Products"  asp-action="Index" asp-route-id="@Model.StoreId">
+		<a asp-controller="Products" asp-action="Index" asp-route-id="@Model.StoreId">
 			<div class="gallery">
 				<img src="~/images/product.png" />
 				<div class="desc">
