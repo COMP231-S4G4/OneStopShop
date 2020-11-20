@@ -168,6 +168,36 @@ namespace OneStopShop.Controllers
             }
             return View("Details");
         }
+        public async Task<IActionResult> ProductList(int id)
+        {
+            if(id == 0)
+            {
+                id = currentStore;
+            }
+            currentStore = id;
+            var productlist = await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync();
+            var store = _context.Stores.Find(id);            
+            var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(productlist, store);
+            return View("ProductList", tupleData);
+        }
 
+
+        public async Task<IActionResult> ProductSearch(string searchString)
+        {
+            IList<Product> Produnewlist = null;
+            ViewData["CurrentFilter"] = searchString;
+            
+            var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(currentStore))
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Produnewlist = prodlist.Where(s => s.ProductName.Contains(searchString)
+                                       || s.ProductDescription.Contains(searchString)).ToList();
+            }
+            
+            var store = _context.Stores.Find(currentStore);
+            var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
+            return View("ProductList", tupleData);
+        }
     }
 }

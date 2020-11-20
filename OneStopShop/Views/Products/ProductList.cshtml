@@ -1,0 +1,87 @@
+﻿
+@model Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>
+@{
+    ViewData["Title"] = "ProductList";
+}
+
+<h1>@Model.Item2.StoreName</h1>
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <link rel="stylesheet" type="text/css" href="~/css/StorePageBuyer.css" />
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#products .item').removeClass('list-group-item');
+            $('#products .item').addClass('grid-group-item');
+
+        });
+    </script>
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <div class="well well-sm">
+        <div class="row searchFilter">
+            <div class="col-sm-12">
+
+                @*<input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown">
+                    <div class="input-group-btn">
+                        <button id="searchBtn" type="button" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
+                    </div>*@
+
+                <form asp-action="ProductSearch" method="get">
+                    <div class="form-actions no-color">
+                        <div class="input-group">
+                            <input id="table_filter" type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button> |
+                            <a asp-action="ProductList">RESET</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="products" class="row list-group">
+    @foreach (var item in Model.Item1)
+    {
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img width="400" height="250" class="group list-group-image" src="~/images/@item.ProductImage" id="Image" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        @item.ProductName
+                    </h4>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">
+                                $@item.ProductPrice
+                            </p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+</div>
+
+
