@@ -171,14 +171,6 @@ namespace OneStopShop.Controllers
             return View("Details");
         }
 
-		}
-
-  //      public ViewResult ViewProduct()
-		//{
-  //          //var product = _context.Products.FindAsync();
-  //          return View(_context.Products
-  //              .FirstOrDefault(m => m.ProductID == 1));
-		//}
         public async Task<IActionResult> ViewProduct(int? id)
         {
             if (id == null)
