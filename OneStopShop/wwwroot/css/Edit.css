@@ -1,0 +1,13 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #000000;
+    background: #A58964;
+}
+#divInline {
+    display: inline-block;
+    margin-left: 10px;
+}
