@@ -1,0 +1,101 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+.slider-carousel {
+    /* max-width: 1100px;*/
+    display: flex;
+}
+
+    .slider-carousel .card-carsoule {
+        flex: 1;
+        text-align: center;
+        margin: auto;
+    }
+
+        .slider-carousel .card-carsoule .img-carousel {
+            height: 200px;
+            width: 100%;
+        }
+
+            .slider-carousel .card-carsoule .img-carousel img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+        .slider-carousel .card-carsoule .content-carousel {
+            padding: 10px 20px;
+        }
+
+.card-carsoule .content-carousel .title-carousel {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.card-carsoule .content-carousel .sub-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e74c3c;
+    line-height: 20px;
+}
+
+.card-carsoule .content-carousel p {
+    text-align: justify;
+    margin: 10px 0;
+}
+
+.card-carsoule .content-carousel .btn {
+    display: block;
+    text-align: left;
+    margin: 10px 0;
+}
+
+    .card-carsoule .content-carousel .btn button {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        outline: none;
+        font-size: 17px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .card-carsoule .content-carousel .btn button:hover {
+            transform: scale(0.9);
+        }
+
+/*.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
+}*/
+
+.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
+    background: 0 0;
+    color: inherit;
+    border: none;
+    padding: 0 !important;
+    font: caption;
+    font-size: -webkit-xxx-large;
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+
+.owl-nav {
+    display: block !important;
+}
+
+.owl-prev {
+    left: 7px;
+}
+
+.owl-next {
+    right: 7px;
+}
+
+button:focus, button:active {
+    outline: none;
+}
+
+.container {
+    max-width: 1300px;
+}
