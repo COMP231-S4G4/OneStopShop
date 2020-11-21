@@ -199,5 +199,10 @@ namespace OneStopShop.Controllers
             var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
             return View("ProductList", tupleData);
         }
+
+        public ActionResult OrderConfirmation()
+        {
+            return View("OrderConfirmation");
+        }
     }
 }
