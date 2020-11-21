@@ -17,9 +17,11 @@ namespace OneStopShop.Controllers
 {
     public class ProductsController : BaseController
     {
-        //private readonly ApplicationDbContext _context;
-        //private readonly object protector;
-        //private static int currentStore = 0;
+
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private static int currentStore = 0;
+
 
         //public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         //{
@@ -155,5 +157,41 @@ namespace OneStopShop.Controllers
         //	}
         //          return uniqueFileName;
         //}
+
+        
+        // GET: Product/Edit
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = _context.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+
+            //return RedirectToAction("Edit", new { id = product.StoreId });
+        }
+
+        // POST: Product/Edit
+
+        [HttpPost]
+        public IActionResult Edit(int id, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.ProductModifiedDate = DateTime.Now;
+                _context.Update(product);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", new { id = product.StoreId });
+            }
+            return View("Details");
+        }
+
     }
 }
