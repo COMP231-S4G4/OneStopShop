@@ -47,7 +47,11 @@ namespace OneStopShop.Controllers
         }
         public IActionResult Details(int id)
         {
-            //return RedirectToAction("Index", "Products", new { ID = id });
+            return RedirectToAction("Index", "Products", new { ID = id });
+        }
+
+        public IActionResult Productlist(int id)
+        {
             return RedirectToAction("ProductList", "Products", new { ID = id });
         }
 
