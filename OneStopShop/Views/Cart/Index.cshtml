@@ -1,21 +1,72 @@
-﻿@model OneStopShop.Models.ViewModels.CartIndexViewModel
+﻿@model OneStopShop.Models.ViewModel
 
+<h2 style="text-align:center">Your cart</h2>
+@*<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Quantity</th>
+                <th>Item</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+            </tr>
+        </thead>
+    </table>*@
+<div class="row">
+    <div class="col-sm-12" id="results">
 
-<h2>Your cart</h2>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Quantity</th>
-            <th>Item</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Subtotal</th>
-        </tr>
-    </thead>
-    
-   
-</table>
+        @foreach (var item in Model.product)
+        {
+
+            <div class="card mt-2 mb-2">
+                <div class="card-body">
+                    <div class="col-sm-3 float-left mb-">
+
+                        @if (item.ProductImage == null)
+                        {
+                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/images/default-banner-ssf.png" alt="Card image cap">
+                        }
+
+                        else
+                        {
+
+                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/@item.ProductImage" alt="Card image cap">
+                        }
+                    </div>
+                    <div class="col-sm-4 float-left">
+                        <h5 class="card-title"><a asp-area="Student" asp-controller="Event" asp-action="Details" asp-route-EventsID="@item.ProductID"> @item.ProductName</a></h5>
+                        <div class="btn-group pl-1" role="group">
+
+                            <p data-toggle="tooltip" data-placement="top" title="Event Date">    <i class="far fa-calendar-alt"></i> @item.ProductPrice</p>
+                        </div>
+                        <p class="card-text">@item.ProductDescription</p>
+                    </div>
+                    @*<div class="col-sm-1 float-right">
+                            <a class="btn btn-primary text-white mr-1" data-toggle="tooltip ajax-modal" data-placement="top" title="Event Details" data-target="#eventDetails" data-url="@Url.Action("DetailsEventsPartial")?EventID=@item.EncryptedId">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>*@
+                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@item.ProductID"
+                          method="post">
+
+                        <input type="hidden" asp-route-id="@item.ProductID" />
+
+                        <span class="col-sm-2 float-right">
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm pull-right"
+                                    style="float:right">
+                                Remove From Cart
+                            </button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
     <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Checkout</a>
 </div>
-

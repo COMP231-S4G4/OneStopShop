@@ -1,9 +1,22 @@
-﻿@{
+﻿@using OneStopShop.Models
+@model ViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Index">StoreList</a>
-    </div>
+<head>
+    <meta charset="utf-8">
+    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+    <!-- <title>Owl-carousel Cards Slider | CodingNepal</title> -->
+
+    <link href="~/css/Index.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+</head>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Index">StoreList</a>
+</div>
