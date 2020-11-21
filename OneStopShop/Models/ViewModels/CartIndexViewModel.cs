@@ -9,5 +9,7 @@ namespace OneStopShop.Models.ViewModels
     {
         public Cart Cart { get; set; }
         public string ReturnUrl { get; set; }
+
+        public IEnumerable<Product> Product { get; set; }
     }
 }

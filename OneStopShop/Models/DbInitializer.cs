@@ -28,7 +28,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667666",
                     Email="nick@gill.com",
-
                 },
                 new Store
                 {
@@ -38,7 +37,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667669",
                     Email="amanda@gill.com",
-
                 },
                 new Store
                 {
@@ -48,7 +46,6 @@ namespace OneStopShop.Models
                     StoreDescription="It is a designer store",
                     PhoneNumber="647667660",
                     Email="john@gill.com",
-
                 }
             };
             context.Stores.AddRange(stores);
@@ -67,38 +64,34 @@ namespace OneStopShop.Models
                         ProductID = 1,
                         ProductImage = "",
                         ProductSize = "Medium"
-
-                    }
-            //        new Product
-            //        {
-            //            ProductName = "shirt",
-            //            ProductDescription = "A blue shirt",
-            //            ProductColor = "blue",
-            //            ProductPrice = 275,
-            //            ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-            //            ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-            //            ProductID = 2,
-            //            ProductSize = "Medium"
-            //        },
-            //          new Product
-            //          {
-            //              ProductName = "shirt",
-            //              ProductDescription = "A blue shirt",
-            //              ProductColor = "blue",
-            //              ProductPrice = 275,
-            //              ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
-            //              ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
-            //              ProductID = 3,
-            //              ProductSize = "Medium"
-            //          }
+                    },
+                    new Product
+                    {
+                        ProductName = "shirt",
+                        ProductDescription = "A blue shirt",
+                        ProductColor = "blue",
+                        ProductPrice = 275,
+                        ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+                        ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+                        ProductID = 1,
+                        ProductImage = "",
+                        ProductSize = "Medium"
+                    },
+                      new Product
+                      {
+                          ProductName = "shirt",
+                          ProductDescription = "A blue shirt",
+                          ProductColor = "blue",
+                          ProductPrice = 275,
+                          ProductCreatedDate = new DateTime(2020, 11, 10, 10, 30, 45),
+                          ProductModifiedDate = new DateTime(2015, 11, 10, 10, 30, 45),
+                          ProductID = 1,
+                          ProductImage = "",
+                          ProductSize = "Medium"
+                      }
                       );
                 context.SaveChanges();
-
             }
-
-
-
         }
     }
 }
-
