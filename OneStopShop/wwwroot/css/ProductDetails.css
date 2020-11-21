@@ -101,6 +101,23 @@ tr:nth-child(even) {
         background-color: #bd1b1b;
     }
 
+#AddToCart {
+    background-color: #4CAF50;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+    position: relative;
+    top: 50px;
+    left: 200px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+    #AddToCart:hover {
+        background-color: #45a049;
+    }
+
 #Back {
     background-color: #031327;
     color: white;
@@ -118,3 +135,5 @@ tr:nth-child(even) {
     #Back:hover {
         background-color: #bd1b1b;
     }
+
+.button
