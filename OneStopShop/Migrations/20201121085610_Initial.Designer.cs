@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118052403_initial")]
-    partial class initial
+    [Migration("20201121085610_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace OneStopShop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsAddedToCart")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ProductColor")
                         .HasColumnType("nvarchar(max)");
 
@@ -59,7 +62,6 @@ namespace OneStopShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ProductModifiedDate")
@@ -79,6 +81,8 @@ namespace OneStopShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Products");
                 });
@@ -118,6 +122,15 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Product", b =>
+                {
+                    b.HasOne("OneStopShop.Models.Store", "store")
+                        .WithMany("product")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
