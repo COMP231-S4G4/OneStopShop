@@ -24,27 +24,6 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreId = table.Column<int>(nullable: false),
-                    ProductName = table.Column<string>(nullable: false),
-                    ProductDescription = table.Column<string>(nullable: false),
-                    ProductPrice = table.Column<decimal>(nullable: false),
-                    ProductCreatedDate = table.Column<DateTime>(nullable: false),
-                    ProductModifiedDate = table.Column<DateTime>(nullable: false),
-                    ProductImage = table.Column<string>(nullable: false),
-                    ProductSize = table.Column<string>(nullable: true),
-                    ProductColor = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
                 {
@@ -60,6 +39,34 @@ namespace OneStopShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stores", x => x.StoreId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreId = table.Column<int>(nullable: false),
+                    ProductName = table.Column<string>(nullable: false),
+                    ProductDescription = table.Column<string>(nullable: false),
+                    ProductPrice = table.Column<decimal>(nullable: false),
+                    ProductCreatedDate = table.Column<DateTime>(nullable: false),
+                    ProductModifiedDate = table.Column<DateTime>(nullable: false),
+                    ProductImage = table.Column<string>(nullable: true),
+                    ProductSize = table.Column<string>(nullable: true),
+                    ProductColor = table.Column<string>(nullable: true),
+                    IsAddedToCart = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "StoreId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +93,11 @@ namespace OneStopShop.Migrations
                 name: "IX_CartItems_ProductId",
                 table: "CartItems",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_StoreId",
+                table: "Products",
+                column: "StoreId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -97,10 +109,10 @@ namespace OneStopShop.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Stores");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Stores");
         }
     }
 }
