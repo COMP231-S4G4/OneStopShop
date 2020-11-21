@@ -60,17 +60,6 @@ tr:nth-child(even) {
     color: white;
 }
 
-#Details {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-    #Details:hover {
-        background-color: #45a049;
-    }
-
 #Edit {
     background-color: #1b40ea;
     color: white;
@@ -78,6 +67,9 @@ tr:nth-child(even) {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
+    position: relative;
+    top: 50px;
+    left: 50px;
     text-align: center;
     border-radius: 5px;
 }
@@ -93,12 +85,32 @@ tr:nth-child(even) {
     padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
+    top: 50px;
+    left: 100px;
     text-align: center;
     border-radius: 5px;
 }
 
     #Delete:hover {
         background-color: #bd1b1b;
+    }
+
+#AddToCart {
+    background-color: #4CAF50;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+    position: relative;
+    top: 15px;
+    left: 350px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+    #AddToCart:hover {
+        background-color: #45a049;
     }
 
 #Back {
@@ -118,3 +130,4 @@ tr:nth-child(even) {
     #Back:hover {
         background-color: #bd1b1b;
     }
+
