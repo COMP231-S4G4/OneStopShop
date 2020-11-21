@@ -14,10 +14,13 @@ namespace OneStopShop.Controllers
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
+        private Cart cart;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, Cart cartService)
         {
             _context = context;
+            cart = cartService;
+
         }
 
         // GET: Orders
@@ -154,16 +157,33 @@ namespace OneStopShop.Controllers
 
         public IActionResult Checkout()
         {
-            return View();
+            Orders order = new Orders();
+            var product = _context.Products.Where(a => a.IsAddedToCart.Equals(true)).ToList();
+            ViewModel model = new ViewModel();
+            model.product = product;
+            model.order = order;
+
+            return View(model);
+            
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(Orders order)
+        {
+
+            return View("Payment");
+            
         }
 
         //Get payment
         public IActionResult Payment()
         {
-            return View("Payment");
+            return View();
         }
 
         //post payment
+
+        [HttpPost]
         public IActionResult Payment(string stripeEmail, string stripeToken)
         {
             var customers = new CustomerService();

@@ -1,8 +1,10 @@
 ﻿@model OneStopShop.Models.ViewModel
 
-<h2 style="text-align:center">Check Out</h2>
+<h2>Check out </h2>
+<p>Please enter your details, and we'll ship your goods right away!</p>
 
-@*<div class="row">
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row">
     <div class="col-sm-12" id="results">
 
         @foreach (var item in Model.product)
@@ -37,10 +39,42 @@
             </div>
 
         }
-    </div>*@
+    </div>
 </div>
 
-<div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    <a class="btn btn-primary" asp-action="Payment" asp-controller="Orders">Payment</a>
-</div>
+<form asp-action="Checkout" method="post">
+    <h3>Ship to</h3>
+    <div class="form-group">
+        <label>Name:</label><input asp-for="order.CustomerName" class="form-control" />
+    </div>
+    <h3>Address</h3>
+    <div class="form-group">
+        <label>Line 1:</label><input asp-for="order.Line1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Line 2:</label><input asp-for="order.Line2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Line 3:</label><input asp-for="order.Line3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>City:</label><input asp-for="order.City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>State:</label><input asp-for="order.State" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Zip:</label><input asp-for="order.Zip" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Country:</label><input asp-for="order.Country" class="form-control" />
+    </div>
+
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Complete Order" />
+    </div>
+</form>
+
+
+

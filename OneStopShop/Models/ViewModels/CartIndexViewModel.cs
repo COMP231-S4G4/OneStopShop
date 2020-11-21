@@ -11,5 +11,7 @@ namespace OneStopShop.Models.ViewModels
         public string ReturnUrl { get; set; }
 
         public IEnumerable<Product> Product { get; set; }
+
+        public Orders order { get; set; }
     }
 }
