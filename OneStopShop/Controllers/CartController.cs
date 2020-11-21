@@ -12,20 +12,34 @@ namespace OneStopShop.Controllers
         private readonly ApplicationDbContext _context;
         private Cart cart;
 
-        
-        public CartController(ApplicationDbContext context,Cart cartService)
+        public CartController(ApplicationDbContext context, Cart cartService)
         {
             _context = context;
             cart = cartService;
         }
+
         public IActionResult Index()
         {
-            return View();
+            var addedPro = GetAddedCartPro().Result.ToList();
+            ViewModel model = new ViewModel();
+            model.product = addedPro;
+            return View(model);
         }
 
+        private async Task<List<Product>> GetAddedCartPro()
+        {
+            var product = _context.Products.Where(a => a.IsAddedToCart.Equals(true)).ToList();
+
+            return product;
+        }
+
+        //private async Task<List<Product>> GetProducts()
+        //{
+        //    var products = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
+        //}
         public RedirectToActionResult AddToCart(int productId)
         {
-            Product product = _context.Products
+            var product = _context.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
             if (product != null)
@@ -33,8 +47,7 @@ namespace OneStopShop.Controllers
                 cart.AddItem(product, 1);
             }
 
-            return RedirectToAction("Index");
-
+            return RedirectToAction("Index", new { id = product.ProductID });
         }
     }
 }

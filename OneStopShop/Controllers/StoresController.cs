@@ -27,7 +27,6 @@ namespace OneStopShop.Controllers
         // POST: Stores/Create
 
         [HttpPost]
-
         public async Task<IActionResult> Create([Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (ModelState.IsValid)
@@ -38,19 +37,26 @@ namespace OneStopShop.Controllers
             }
             return View(store);
         }
-             
 
         // GET:List of Stores
         public async Task<IActionResult> Index()
         {
             return View(await _context.Stores.ToListAsync());
         }
+
         public async Task<IActionResult> Details(int id)
         {
-            var storeDetails = await _context.Stores.Include(a => a.product).ThenInclude(a => a.ProductID)
-               .FirstOrDefaultAsync(m => m.StoreId == id);
+            var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product)
+               .FirstOrDefaultAsync();
             return View(storeDetails);
         }
+
+        public IActionResult Productlist(int id)
+        {            
+            return RedirectToAction("ProductList", "Products", new { ID = id });
+        }
+
+        
 
         // GET: Stores/Edit/id
         public IActionResult Edit(int id)
@@ -71,7 +77,6 @@ namespace OneStopShop.Controllers
         // POST: Stores/Edit/id
 
         [HttpPost]
-
         public IActionResult Edit(int id, [Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (id != store.StoreId)
@@ -109,7 +114,6 @@ namespace OneStopShop.Controllers
 
         // POST: Stores/Delete/5
         [HttpPost, ActionName("Delete")]
-
         public IActionResult DeleteConfirmed(int id)
         {
             var store = _context.Stores.Find(id);
@@ -122,9 +126,10 @@ namespace OneStopShop.Controllers
         {
             return _context.Stores.Any(e => e.StoreId == id);
         }
-        public async  Task<IActionResult> Dashboard(int id)
-		{
-            return View(await _context.Stores.FirstOrDefaultAsync(s => s.StoreId == id));
-		}
+
+        public IActionResult Dashboard(int id)
+        {
+            return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
+        }
     }
 }
