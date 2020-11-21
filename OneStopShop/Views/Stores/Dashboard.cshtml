@@ -14,7 +14,7 @@
     <input type="hidden" asp-for="StoreId" />
 
     <div class="container-grid">
-        <a id="Details" asp-controller="Products" asp-action="Index" asp-route-id="@Model.StoreId">
+        <a asp-controller="Products" asp-action="Index" asp-route-id="@Model.StoreId">
             <div class="gallery">
                 <img src="~/images/product.png" />
                 <div class="desc">
@@ -23,12 +23,14 @@
             </div>
         </a>
 
-        <div class="gallery">
-            <img src="~/images/dashboard_orders.jpg" />
-            <div class="desc">
-                <h4>Order</h4>
+        <a asp-action="Orders" asp-route-id="@Model.StoreId">
+            <div class="gallery">
+                <img src="~/images/dashboard_orders.jpg" />
+                <div class="desc">
+                    <h4>Order</h4>
+                </div>
             </div>
-        </div>
+        </a>
 
         <div class="gallery">
             <img src="~/images/dashboard_blog.png" />
