@@ -28,27 +28,19 @@ namespace OneStopShop.Controllers
 
         public IActionResult Index()
         {
-            var clubs = GetClubsAsync().Result.ToList();
+            var stores = GetStoreAsync().Result.ToList();
 
-            var events = GetEventsAsync().Result.ToList();
-            ViewModel model = new ViewModel();
-            model.store = clubs;
-            model.product = events;
+
+           ViewModel model = new ViewModel();
+            model.store = stores;
             return View(model);
         }
 
-        private async Task<List<Store>> GetClubsAsync()
+        private async Task<List<Store>> GetStoreAsync()
         {
-            //var Clubs = await .Where(m => m.IsInitialApprove == true).ToListAsync();
             var stores = await _context.Stores.Where(a => a.Email != null).ToListAsync();
             (from p in stores orderby Guid.NewGuid() select p).Take(5).ToList();
             return stores;
-        }
-
-        private async Task<List<Product>> GetEventsAsync()
-        {
-            var products = _context.Products.ToList();
-            return products;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

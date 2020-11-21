@@ -118,40 +118,6 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { id = StoreId });
         }
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id, int StoreId)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-            //return RedirectToAction("Index", "Products", new { id = StoreId });
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.ProductID == id);
-        }
 
         public RedirectToActionResult AddToCart(int productId)
         {
