@@ -17,7 +17,6 @@ namespace OneStopShop.Controllers
 {
     public class ProductsController : BaseController
     {
-
         //private readonly ApplicationDbContext _context;
         //private readonly IWebHostEnvironment webHostEnvironment;
         private static int currentStore = 0;
@@ -99,7 +98,7 @@ namespace OneStopShop.Controllers
                     }
                 }
                 product.StoreId = StoreId;
-
+                product.IsAddedToCart = false;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
             }
@@ -107,27 +106,26 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { id = StoreId });
         }
 
-
-        public RedirectToActionResult AddToCart(int productId)
+        public async Task<RedirectToActionResult> AddToCartAsync(int productId)
         {
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
             product.IsAddedToCart = true;
             _context.Update(product);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Cart");
         }
 
-        public RedirectToActionResult RemoveCartItem(int id)
+        public async Task<RedirectToActionResult> RemoveCartItemAsync(int id)
         {
             var product = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
             product.IsAddedToCart = false;
             _context.Update(product);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Cart");
         }
-        
+
         // GET: Product/Edit
         public IActionResult Edit(int id)
         {
@@ -145,6 +143,7 @@ namespace OneStopShop.Controllers
 
             //return RedirectToAction("Edit", new { id = product.StoreId });
         }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -167,8 +166,8 @@ namespace OneStopShop.Controllers
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
-           // return RedirectToAction(nameof(Index));
-            return RedirectToAction("Index", new{ id = product.StoreId });
+            // return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = product.StoreId });
         }
 
         // POST: Product/Edit
@@ -186,6 +185,5 @@ namespace OneStopShop.Controllers
             }
             return View("Details");
         }
-
     }
 }
