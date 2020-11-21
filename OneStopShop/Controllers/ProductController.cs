@@ -18,17 +18,8 @@ namespace OneStopShop.Controllers
     public class ProductsController : BaseController
     {
 
-        private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private static int currentStore = 0;
-
-
-        //public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
-        //{
-        //    _context = context;
-        //    webHostEnvironment = hostEnvironment;
-        //}
-
+        //private readonly ApplicationDbContext _context;
+        //private readonly IWebHostEnvironment webHostEnvironment;
         private static int currentStore = 0;
 
         public ProductsController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
@@ -84,10 +75,6 @@ namespace OneStopShop.Controllers
             {
                 if (EventBannerFile != null)
                 {
-                    //var fileName = Path.GetFileName(EventBannerFile.FileName);
-                    //var fileExtension = Path.GetExtension(fileName);
-                    //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
-
                     string wwwPath = this.Environment.WebRootPath;
                     string contentPath = this.Environment.ContentRootPath;
                     string folderName = "Product" + StoreId;
@@ -120,40 +107,6 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { id = StoreId });
         }
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id, int StoreId)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-            //return RedirectToAction("Index", "Products", new { id = StoreId });
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.ProductID == id);
-        }
 
         public RedirectToActionResult AddToCart(int productId)
         {
@@ -174,24 +127,6 @@ namespace OneStopShop.Controllers
 
             return RedirectToAction("Index", "Cart");
         }
-
-        //      private string UploadedFile(ProductImageViewModel model)
-        //{
-        //          string uniqueFileName = null;
-
-        //          if(model.ProductImage != null)
-        //	{
-        //              string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-        //              uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProductImage.FileName;
-        //              string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //              using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //		{
-        //                  model.ProductImage.CopyTo(fileStream);
-        //		}
-        //	}
-        //          return uniqueFileName;
-        //}
-
         
         // GET: Product/Edit
         public IActionResult Edit(int id)
