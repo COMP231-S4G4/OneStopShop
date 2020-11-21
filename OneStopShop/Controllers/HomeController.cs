@@ -29,8 +29,6 @@ namespace OneStopShop.Controllers
         public IActionResult Index()
         {
             var stores = GetStoreAsync().Result.ToList();
-
-
            ViewModel model = new ViewModel();
             model.store = stores;
             return View(model);

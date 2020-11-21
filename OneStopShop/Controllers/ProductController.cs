@@ -18,17 +18,8 @@ namespace OneStopShop.Controllers
     public class ProductsController : BaseController
     {
 
-        private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private static int currentStore = 0;
-
-
-        //public ProductsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
-        //{
-        //    _context = context;
-        //    webHostEnvironment = hostEnvironment;
-        //}
-
+        //private readonly ApplicationDbContext _context;
+        //private readonly IWebHostEnvironment webHostEnvironment;
         private static int currentStore = 0;
 
         public ProductsController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
@@ -84,10 +75,6 @@ namespace OneStopShop.Controllers
             {
                 if (EventBannerFile != null)
                 {
-                    //var fileName = Path.GetFileName(EventBannerFile.FileName);
-                    //var fileExtension = Path.GetExtension(fileName);
-                    //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
-
                     string wwwPath = this.Environment.WebRootPath;
                     string contentPath = this.Environment.ContentRootPath;
                     string folderName = "Product" + StoreId;
@@ -140,24 +127,6 @@ namespace OneStopShop.Controllers
 
             return RedirectToAction("Index", "Cart");
         }
-
-        //      private string UploadedFile(ProductImageViewModel model)
-        //{
-        //          string uniqueFileName = null;
-
-        //          if(model.ProductImage != null)
-        //	{
-        //              string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-        //              uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProductImage.FileName;
-        //              string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //              using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //		{
-        //                  model.ProductImage.CopyTo(fileStream);
-        //		}
-        //	}
-        //          return uniqueFileName;
-        //}
-
         
         // GET: Product/Edit
         public IActionResult Edit(int id)
