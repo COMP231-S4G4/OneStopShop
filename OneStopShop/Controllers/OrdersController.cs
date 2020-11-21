@@ -150,5 +150,10 @@ namespace OneStopShop.Controllers
         {
             return _context.Orders.Any(e => e.OrderId == id);
         }
+
+        public IActionResult Checkout()
+        {
+            return View();
+        }
     }
 }
