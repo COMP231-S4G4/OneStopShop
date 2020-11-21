@@ -1,10 +1,71 @@
-﻿@{
+﻿@using OneStopShop.Models
+@model ViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Index">StoreList</a>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="OrderConfirmation">Order Confirmation</a>
+<head>
+    <meta charset="utf-8">
+    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
+    <!-- <title>Owl-carousel Cards Slider | CodingNepal</title> -->
+
+    <link href="~/css/Index.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+</head>
+
+<div class="club-container">
+    <div class="col-12 pb-sm-5 pt-sm-5 text-center">
+        <h1 class="section-heading">Stores</h1>
+    </div>
+    <div class="slider-carousel owl-carousel clubs-carousel">
+        @if (Model != null)
+        {
+            @if (Model.store.Count >= 3)
+            {
+                @foreach (var item in Model.store)
+                {
+                    <div class="card-carsoule col-sm-8">
+                        <div class="img-carousel">
+                            <a class="success" asp-controller="Stores" asp-action="Details" asp-route-id="@item.StoreId">
+                                <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%;" src="~/images/default-banner.jpg" alt="Card image cap">
+                            </a>
+                        </div>
+                        <div class="content-carousel">
+                            <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
+                            <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                @foreach (var item in Model.store)
+                {
+                    <div class="card-carsoule col-sm-8">
+                        <div class="img-carousel">
+                            <a class="success" asp-controller="Stores" asp-action="Details" asp-route-id="@item.StoreId">
+                                <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%;" src="~/images/default-banner.jpg" alt="Card image cap">
+                            </a>
+                        </div>
+                        <div class="content-carousel">
+                            <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
+                            <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
 </div>
+<script>
+    $(".clubs-carousel").owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000, //2000ms = 2s;
+        autoplayHoverPause: true,
+        nav: true,
+    });
+</script>
