@@ -97,6 +97,8 @@ namespace OneStopShop.Controllers
                         fs.Flush();
                     }
                 }
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
                 product.StoreId = StoreId;
                 product.IsAddedToCart = false;
                 _context.Add(product);
