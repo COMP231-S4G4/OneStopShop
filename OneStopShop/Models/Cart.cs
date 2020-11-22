@@ -31,6 +31,8 @@ namespace OneStopShop.Models
 
         }
 
-       
+        public IEnumerable<CartItem> Lines => itemCollection;
+
+
     }
 }

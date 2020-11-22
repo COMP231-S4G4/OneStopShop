@@ -111,7 +111,9 @@ namespace OneStopShop.Controllers
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
             product.IsAddedToCart = true;
             _context.Update(product);
+                       
             await _context.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "Cart");
         }
