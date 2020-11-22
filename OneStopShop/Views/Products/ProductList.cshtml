@@ -1,7 +1,8 @@
 ﻿
 @model Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>
 @{
-    ViewData["Title"] = "ProductList";
+	Layout = "_HomeLayout";
+	ViewData["Title"] = "ProductList";
 }
 
 <h1>@Model.Item2.StoreName</h1>
