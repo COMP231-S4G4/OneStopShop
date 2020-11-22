@@ -21,6 +21,7 @@ namespace OneStopShop.Controllers
         public IActionResult Index()
         {
             var addedPro = GetAddedCartPro().Result.ToList();
+
             ViewModel model = new ViewModel();
             model.product = addedPro;
             return View(model);

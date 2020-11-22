@@ -155,23 +155,39 @@ namespace OneStopShop.Controllers
             return _context.Orders.Any(e => e.OrderId == id);
         }
 
+        //Get Checkout
         public IActionResult Checkout()
         {
             Orders order = new Orders();
             var product = _context.Products.Where(a => a.IsAddedToCart.Equals(true)).ToList();
+            
             ViewModel model = new ViewModel();
             model.product = product;
-            model.order = order;
+            model.order = order;         
+
 
             return View(model);
             
         }
 
         [HttpPost]
-        public IActionResult Checkout(Orders order)
+        public IActionResult Checkout(ViewModel model)
         {
+            //if (cart.Lines.Count() == 0)
+            //{
+            //    ModelState.AddModelError("", "Sorry, your cart is empty!");
+            //}
 
-            return View("Payment");
+            //if (ModelState.IsValid)
+            //{
+                model.order.Lines = cart.Lines.ToArray();
+                _context.Orders.Add(model.order);
+                return View("Payment");
+            //}
+            //else
+            //{
+            //    return View(model.order);
+            //}           
             
         }
 
