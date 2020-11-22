@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - OneStopShop</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link href="~/css/Index.css" rel="stylesheet" />
 
 	<!--<meta charset="utf-8">-->
 	<!-- Somehow I got an error, so I comment the title, just uncomment to show -->
@@ -19,7 +18,7 @@
 	<div class="container">
 		<nav class="navigationWrapper">
 			<div class="logoWrapper">
-				<a href="#"><img class="navlogo" src="https://i.ibb.co/4JNqCxM/OSSNav-Logo.png" /></a>
+				<a asp-area="" asp-controller="Home" asp-action="Index"><img class="navlogo" src="~/images/OSSNavLogo.png" /></a>
 			</div>
 			<ul class="navigation">
 				<li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a></li>
@@ -68,7 +67,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="container border-top footer text-muted">
+			<div class="container border-top text-muted">
 				&copy; 2020 - OneStopShop - <a asp-area="" asp-controller="Home" asp-action="#">Privacy</a>
 			</div>
 		</footer>

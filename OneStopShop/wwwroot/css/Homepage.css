@@ -82,28 +82,6 @@ li {
 	color: white;
 }
 
-#cover{
-	max-width:1300px;
-	width: 100%;
-	max-height:500px;
-	height: 100%;
-	object-fit:cover;
-	filter: brightness(50%);
-}
-.centered {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.btn {
-	background-color: #B09E80;
-	color: #192537;
-	font-weight:700;
-}
-
-
 .about {
 	padding-top: 60px;
 	padding-bottom: 60px;

@@ -20,6 +20,7 @@ body {
 }
 
 .product-image {
+	padding-left:30px;
 	margin-right:auto;
 }
 #Image {
@@ -30,9 +31,12 @@ body {
 }
 
 .product-details {
+	/* flex-wrap: wrap; */
 	padding: 10px;
-	max-width: 759px;
-	width:100%;
+	/* justify-content: space-between; */
+	/* padding-right: 0px; */
+	max-width: 670px;
+	width: 100%;
 	background-color: white;
 	border-radius: 0;
 	background-color: #192537;
