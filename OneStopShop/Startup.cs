@@ -37,7 +37,8 @@ namespace OneStopShop
             services.AddSession();
             services.AddMvc();
             services.AddMemoryCache();
-            
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
