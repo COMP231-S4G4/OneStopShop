@@ -1,5 +1,174 @@
 ﻿@model OneStopShop.Models.ViewModel
 
+
+<head>
+    <style type="text/css">
+        html {
+            background: #bbc3c6;
+            font: 62.5%/1.5em "Trebuchet Ms", helvetica;
+        }
+
+        
+        p {
+            font-size: 1.5em;
+            color: #8a8a8a;
+        }
+
+        input {
+            border: 0.3em solid #bbc3c6;
+            padding: 0.5em 0.3em;
+            font-size: 1.4em;
+            color: #8a8a8a;
+            text-align: center;
+        }
+
+        img {
+            max-width: 9em;
+            width: 100%;
+            overflow: hidden;
+            margin-right: 1em;
+        }
+
+        .container {
+            max-width: 75em;
+            width: 95%;
+            margin: 40px auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.6em;
+            background: #ecf0f1;
+            box-shadow: 0 0.5em 0 rgba(138, 148, 152, 0.2);
+        }
+
+        .layout-inline > * {
+            display: inline-block;
+        }
+
+        /*change color-profile here*/
+        .th {
+            background: #1e265c;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        /*change color-profile here*/
+        .tf {
+            background:#1e265c;
+            text-transform: uppercase;
+            text-align: right;
+            font-size: 1.2em;
+        }
+
+            .tf p {
+                color: #fff;
+                font-weight: bold;
+            }
+
+        .col {
+            padding: 1em;
+            width: 12%;
+        }
+
+        .col-pro {
+            width: 44%;
+        }
+
+            .col-pro > * {
+                vertical-align: middle;
+            }
+
+        .col-qty {
+            text-align: center;
+            width: 17%;
+        }
+
+        .col-numeric p {
+            font: bold 1.8em helvetica;
+        }
+
+        .col-total p {
+            color: #12c8b1;
+        }
+
+        .tf .col {
+            width: 20%;
+        }
+
+        .row > div {
+            vertical-align: middle;
+        }
+
+        .row-bg2 {
+            background: #f7f7f7;
+        }
+
+        
+        .col-qty > * {
+            vertical-align: middle;
+        }
+
+        .col-qty > input {
+            max-width: 2.6em;
+        }
+
+
+        a.qty {
+            width: 1em;
+            line-height: 1em;
+            border-radius: 2em;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            background: #43ace3;
+            color: #fff;
+        }
+
+            a.qty:hover {
+                background: #3b9ac6;
+            }
+
+        .btn {
+            padding: 10px 30px;
+            border-radius: 0.3em;
+            font-size: 1.4em;
+            font-weight: bold;
+            background: #43ace3;
+            color: #fff;
+            box-shadow: 0 3px 0 rgba(59,154,198, 1)
+        }
+
+            .btn:hover {
+                box-shadow: 0 3px 0 rgba(59,154,198, 0)
+            }
+
+       
+        @@media screen and ( max-width: 755px) {
+            .container {
+                width: 98%;
+            }
+
+            .col-pro {
+                width: 35%;
+            }
+
+            .col-qty {
+                width: 22%;
+            }
+
+            img {
+                max-width: 100%;
+                margin-bottom: 1em;
+            }
+        }
+
+        @@media screen and ( max-width: 591px) {
+        }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
 <h2 style="text-align:center">Your cart</h2>
 @*<table class="table table-bordered table-striped">
         <thead>
@@ -16,8 +185,72 @@
 
         @foreach (var item in Model.product)
         {
+            <div class="table">
 
-            <div class="card mt-2 mb-2">
+                <div class="layout-inline row th">
+                    <div class="col col-pro">Product Name</div>
+                    <div class="col col-price align-center ">
+                        Price
+                    </div>
+                    <div class="col col-qty align-center">QTY</div>
+                    <div class="col">Total</div>
+                    <div class="col">Action</div>
+                </div>
+
+                <div class="layout-inline row">
+
+                    <div class="col col-pro layout-inline">
+                        <img src="~/@item.ProductImage" alt="Cart image">
+                        <p style="margin-left: 10px;font-weight: 700;">@item.ProductName</p>
+                    </div>
+
+                    <div class="col col-price col-numeric align-center ">
+                        <p>$@item.ProductPrice</p>
+                    </div>
+
+                    <div class="col col-qty layout-inline">
+                        <a href="#" class="qty qty-minus">-</a>
+                        <input type="numeric" value="1" />
+                        <a href="#" class="qty qty-plus">+</a>
+                    </div>
+
+                    <div class="col col-total col-numeric">
+                        <p> $@item.ProductPrice</p>
+                        <input type="hidden" value="@item.ProductPrice" id="Price" />
+                    </div>
+                    <div class="col col-total col-numeric">
+                        <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@item.ProductID" method="post">
+                            <input type="hidden" asp-route-id="@item.ProductID" />
+
+                            <span class="col-sm-2 float-right">
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm pull-right"
+                                        style="float:right">
+                                    Remove
+                                </button>
+                            </span>
+
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="tf">
+                    <div class="row layout-inline">
+                        <div class="col">
+                            <p>Total</p>
+                        </div>
+                        <div style="margin-right: 10px;font-weight: 700;" class="col">
+                            <p id="totalSum">Total</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--<div class="card mt-2 mb-2">
                 <div class="card-body">
                     <div class="col-sm-3 float-left mb-">
 
@@ -36,16 +269,16 @@
                         <h5 class="card-title"><a asp-area="Student" asp-controller="Event" asp-action="Details" asp-route-EventsID="@item.ProductID"> @item.ProductName</a></h5>
                         <div class="btn-group pl-1" role="group">
 
-                            <p data-toggle="tooltip" data-placement="top" title="Event Date">    <i class="far fa-calendar-alt"></i> @item.ProductPrice</p>
+                            <p data-toggle="tooltip" data-placement="top" title="Event Date">    <i class="far fa-calendar-alt"></i> $@item.ProductPrice</p>
                         </div>
                         <p class="card-text">@item.ProductDescription</p>
-                    </div>
+                    </div>-->
                     @*<div class="col-sm-1 float-right">
                             <a class="btn btn-primary text-white mr-1" data-toggle="tooltip ajax-modal" data-placement="top" title="Event Details" data-target="#eventDetails" data-url="@Url.Action("DetailsEventsPartial")?EventID=@item.EncryptedId">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>*@
-                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@item.ProductID"
+                    <!--<form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@item.ProductID"
                           method="post">
 
                         <input type="hidden" asp-route-id="@item.ProductID" />
@@ -60,13 +293,102 @@
                         </span>
                     </form>
                 </div>
-            </div>
+            </div>-->
 
         }
+        </div>
     </div>
-</div>
 
-<div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Checkout</a>
-</div>
+    <div class="text-center">
+        @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
+        <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Checkout</a>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.visibility-cart').on('click', function () {
+
+                var $btn = $(this);
+                var $cart = $('.cart');
+                console.log($btn);
+
+                if ($btn.hasClass('is-open')) {
+                    $btn.removeClass('is-open');
+                    $btn.text('O')
+                    $cart.removeClass('is-open');
+                    $cart.addClass('is-closed');
+                    $btn.addClass('is-closed');
+                } else {
+                    $btn.addClass('is-open');
+                    $btn.text('X')
+                    $cart.addClass('is-open');
+                    $cart.removeClass('is-closed');
+                    $btn.removeClass('is-closed');
+                }
+
+
+            });
+
+            // SHOPPING CART PLUS OR MINUS
+            $('a.qty-minus').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $input = $this.closest('div').find('input');
+                var value = parseInt($input.val());
+
+                if (value > 1) {
+                    value = value - 1;
+                } else {
+                    value = 0;
+                }
+
+                $input.val(value);
+                totalsum(value);
+            });
+
+            $('a.qty-plus').on('click', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $input = $this.closest('div').find('input');
+                var value = parseInt($input.val());
+
+                if (value < 100) {
+                    value = value + 1;
+                } else {
+                    value = 100;
+                }
+
+                $input.val(value);
+                totalsum(value);
+            });
+
+            // RESTRICT INPUTS TO NUMBERS ONLY WITH A MIN OF 0 AND A MAX 100
+            $('input').on('blur', function () {
+
+                var input = $(this);
+                var value = parseInt($(this).val());
+
+                if (value < 0 || isNaN(value)) {
+                    input.val(0);
+                } else if
+                    (value > 100) {
+                    input.val(100);
+                }
+            });
+
+            totalsum(1);
+
+            function totalsum(value) {
+                var prices = $("#Price");
+                var total = 0;
+                prices.each(function () {
+                    var price = $(this).val(); //use the method to get text of cell
+                    if (price != 'NA') {
+                        total = total + parseInt(price * value, 10); //use parseInt to convert to number
+                    }
+                });
+                $("#totalSum").text(total);
+            }
+
+
+        });
+    </script>
