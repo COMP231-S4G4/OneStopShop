@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OneStopShop.Models;
+using Stripe;
 
 namespace OneStopShop.Controllers
 {
@@ -13,10 +14,13 @@ namespace OneStopShop.Controllers
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
+        private Cart cart;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, Cart cartService)
         {
             _context = context;
+            cart = cartService;
+
         }
 
         // GET: Orders
@@ -149,6 +153,81 @@ namespace OneStopShop.Controllers
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        //Get Checkout
+        public IActionResult Checkout()
+        {
+            Orders order = new Orders();
+            var product = _context.Products.Where(a => a.IsAddedToCart.Equals(true)).ToList();
+            
+            ViewModel model = new ViewModel();
+            model.product = product;
+            model.order = order;         
+
+
+            return View(model);
+            
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(ViewModel model)
+        {
+            //if (cart.Lines.Count() == 0)
+            //{
+            //    ModelState.AddModelError("", "Sorry, your cart is empty!");
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+                model.order.Lines = cart.Lines.ToArray();
+                _context.Orders.Add(model.order);
+                return View("Payment");
+            //}
+            //else
+            //{
+            //    return View(model.order);
+            //}           
+            
+        }
+
+        //Get payment
+        public IActionResult Payment()
+        {
+            return View();
+        }
+
+        //post payment
+
+        [HttpPost]
+        public IActionResult Payment(string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Test Payment",
+                Currency = "CAD",
+                Customer = customer.Id,
+                ReceiptEmail = stripeEmail
+
+            });
+
+            if (charge.Status == "succeeded")
+            {
+                string BalanceTransactionId = charge.BalanceTransactionId;
+                return View();
+            }
+
+
+            return View();
+
         }
     }
 }
