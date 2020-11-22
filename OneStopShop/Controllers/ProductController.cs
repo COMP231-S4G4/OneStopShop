@@ -223,5 +223,22 @@ namespace OneStopShop.Controllers
         {
             return View("OrderConfirmation");
         }
+
+        public async Task<IActionResult> ViewProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }
