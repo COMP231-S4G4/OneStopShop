@@ -11,5 +11,7 @@ namespace OneStopShop.Models
         public List<Store> store { get; set; }
 
         public List<Cart> cart { get; set; }
+
+        public Orders order { get; set; }
     }
 }

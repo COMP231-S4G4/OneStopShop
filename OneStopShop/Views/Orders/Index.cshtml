@@ -24,9 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.OrderCreatedDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderModifiedDate)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -42,9 +40,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OrderCreatedDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderModifiedDate)
-            </td>
+            
             <td>
                 <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
             </td>
