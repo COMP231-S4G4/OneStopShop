@@ -1,0 +1,80 @@
+﻿@model OneStopShop.Models.ViewModel
+
+<h2>Check out </h2>
+<p>Please enter your details, and we'll ship your goods right away!</p>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row">
+    <div class="col-sm-12" id="results">
+
+        @foreach (var item in Model.product)
+        {
+
+            <div class="card mt-2 mb-2">
+                <div class="card-body">
+                    <div class="col-sm-3 float-left mb-">
+
+                        @if (item.ProductImage == null)
+                        {
+                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/images/default-banner-ssf.png" alt="Card image cap">
+                        }
+
+                        else
+                        {
+
+                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/@item.ProductImage" alt="Card image cap">
+                        }
+                    </div>
+                    <div class="col-sm-4 float-left">
+                        <h5 class="card-title"><a asp-area="Student" asp-controller="Event" asp-action="Details" asp-route-EventsID="@item.ProductID"> @item.ProductName</a></h5>
+                        <div class="btn-group pl-1" role="group">
+
+                            <p data-toggle="tooltip" data-placement="top" title="Event Date">    <i class="far fa-calendar-alt"></i> @item.ProductPrice</p>
+                        </div>
+                        <p class="card-text">@item.ProductDescription</p>
+                    </div>
+
+
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+<form asp-action="Checkout" method="post">
+    <h3>Shipping Address</h3>
+    <div class="form-group">
+        <label>Name:</label><input asp-for="order.CustomerName" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label>Line 1:</label><input asp-for="order.Line1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Line 2:</label><input asp-for="order.Line2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Line 3:</label><input asp-for="order.Line3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>City:</label><input asp-for="order.City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>State:</label><input asp-for="order.State" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Zip:</label><input asp-for="order.Zip" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Country:</label><input asp-for="order.Country" class="form-control" />
+    </div>
+
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Make Payment" />
+    </div>
+</form>
+
+
+
