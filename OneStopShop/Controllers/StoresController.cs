@@ -130,6 +130,11 @@ namespace OneStopShop.Controllers
         public IActionResult Dashboard(int id)
         {
             return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
+		}
+
+        public IActionResult Orders(int id)
+        {
+            return RedirectToAction("Index", "Orders", new { ID = id });
         }
     }
 }

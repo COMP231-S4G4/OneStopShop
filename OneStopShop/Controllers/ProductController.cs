@@ -111,7 +111,9 @@ namespace OneStopShop.Controllers
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
             product.IsAddedToCart = true;
             _context.Update(product);
+                       
             await _context.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "Cart");
         }
@@ -220,6 +222,23 @@ namespace OneStopShop.Controllers
         public ActionResult OrderConfirmation()
         {
             return View("OrderConfirmation");
+        }
+
+        public async Task<IActionResult> ViewProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

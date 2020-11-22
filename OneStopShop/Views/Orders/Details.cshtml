@@ -1,0 +1,40 @@
+﻿@model OneStopShop.Models.Orders
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Order Details</h4>
+        <table>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.OrderId)</td>
+                <td>@Html.DisplayFor(model => model.OrderId)</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.StoreId)</td>
+                <td>@Html.DisplayFor(model => model.StoreId)</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductID)</td>
+                <td>@Html.DisplayFor(model => model.ProductID)</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.OrderCreatedDate)</td>
+                <td>@Html.DisplayFor(model => model.OrderCreatedDate)</td>
+            </tr>
+            
+        </table>
+        
+    </div>
+    <div>
+        <a id="Back" asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>
