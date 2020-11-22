@@ -10,9 +10,9 @@ body {
 	background-color: #192537;
 }
 
-.container {
+.product-container {
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1300px;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;

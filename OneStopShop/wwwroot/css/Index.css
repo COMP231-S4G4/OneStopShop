@@ -1,5 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
+.club-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #B09E80;
+}
+
 .slider-carousel {
     /* max-width: 1100px;*/
     display: flex;
