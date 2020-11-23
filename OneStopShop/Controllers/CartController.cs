@@ -38,6 +38,21 @@ namespace OneStopShop.Controllers
         //{
         //    var products = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
         //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> totalquantity(int quntity, int productid)
+        //{
+        //    var product = _context.Products
+        //      .FirstOrDefault(p => p.ProductID == productid);
+        //    var price = product.ProductPrice;
+        //    var total = price * quntity;
+        //    product.ProductPrice = total;
+        //    _context.Update(product);
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction("Index", new { id = product.ProductID });
+        //}
+
         public RedirectToActionResult AddToCart(int productId)
         {
             var product = _context.Products
