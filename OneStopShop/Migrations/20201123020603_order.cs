@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class Initial : Migration
+    public partial class order : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,19 @@ namespace OneStopShop.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductID = table.Column<int>(nullable: false),
                     StoreId = table.Column<int>(nullable: false),
+                    ProductID = table.Column<int>(nullable: false),
+                    Shipped = table.Column<bool>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: false),
+                    Line1 = table.Column<string>(nullable: false),
+                    Line2 = table.Column<string>(nullable: true),
+                    Line3 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
+                    State = table.Column<string>(nullable: false),
+                    Zip = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: false),
                     OrderCreatedDate = table.Column<DateTime>(nullable: false),
-                    OrderModifiedDate = table.Column<DateTime>(nullable: false)
+                    TotalCost = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,11 +85,18 @@ namespace OneStopShop.Migrations
                     CartItemID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: true)
+                    ProductId = table.Column<int>(nullable: true),
+                    OrdersOrderId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartItems", x => x.CartItemID);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Orders_OrdersOrderId",
+                        column: x => x.OrdersOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CartItems_Products_ProductId",
                         column: x => x.ProductId,
@@ -88,6 +104,11 @@ namespace OneStopShop.Migrations
                         principalColumn: "ProductID",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_OrdersOrderId",
+                table: "CartItems",
+                column: "OrdersOrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_ProductId",

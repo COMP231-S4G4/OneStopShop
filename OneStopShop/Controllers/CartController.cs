@@ -40,7 +40,7 @@ namespace OneStopShop.Controllers
         {
             var product = _context.Products
                 .FirstOrDefault(p => p.ProductID == productId);
-            product.IsAddedToCart = false;
+            product.IsAddedToCart = true;
 
 
             _context.Update(product);
@@ -55,6 +55,19 @@ namespace OneStopShop.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        {
+            Product product = _context.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+
+            if (product != null)
+            {
+                cart.RemoveLine(product);
+            }
+
+            return RedirectToAction("Index", new { returnUrl });
         }
     }
 }

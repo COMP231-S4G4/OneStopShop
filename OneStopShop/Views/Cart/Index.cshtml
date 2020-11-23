@@ -22,14 +22,29 @@
                     @((line.Quantity * line.Product.ProductPrice).ToString("c"))
                 </td>
                 <td>
-                    <form asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="ProductID"
-                               value="@line.Product.ProductID" />
-                        @*<input type="hidden" name="returnUrl"
-                               value="@Model.ReturnUrl" />*@
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Remove
-                        </button>
+                        @*<form asp-action="RemoveFromCart" method="post">
+                <input type="hidden" name="ProductID"
+                       value="@line.Product.ProductID" />
+                <input type="hidden" name="returnUrl"
+                       value="@Model.ReturnUrl" />
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Remove
+                </button>
+            </form>*@
+
+                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@line.Product.ProductID"
+                          method="post">
+
+                        <input type="hidden" asp-route-id="@line.Product.ProductID" />
+
+                        <span class="col-sm-2 float-right">
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm pull-right"
+                                    style="float:right">
+                                Remove From Cart
+                            </button>
+                        </span>
                     </form>
                 </td>
             </tr>
@@ -48,11 +63,13 @@
 
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    <a asp-controller="Stores" asp-action="Index">Continue</a>
+    <a asp-controller="Stores" asp-action="Index">Continue Shopping</a>
 </div>
 
 
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
     <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
+    
+
 </div>
