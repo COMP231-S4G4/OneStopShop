@@ -2,12 +2,16 @@
 
 @{
 	ViewData["Title"] = "Details";
-	Layout = "_ProductLayout";
+	Layout = "_HomeLayout";
 }
+
+<head>
+	<link rel="stylesheet" href="~/css/ProductPage.css" />
+</head>
 
 <h1>ViewProduct</h1>
 
-<div class="container">
+<div class="product-container">
 	<div class="product-image">
 		<img src="~/@Model.ProductImage" id="Image" />
 	</div>

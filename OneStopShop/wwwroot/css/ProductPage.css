@@ -10,9 +10,9 @@ body {
 	background-color: #192537;
 }
 
-.container {
+.product-container {
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1300px;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -20,6 +20,7 @@ body {
 }
 
 .product-image {
+	padding-left:30px;
 	margin-right:auto;
 }
 #Image {
@@ -30,9 +31,12 @@ body {
 }
 
 .product-details {
+	/* flex-wrap: wrap; */
 	padding: 10px;
-	max-width: 759px;
-	width:100%;
+	/* justify-content: space-between; */
+	/* padding-right: 0px; */
+	max-width: 670px;
+	width: 100%;
 	background-color: white;
 	border-radius: 0;
 	background-color: #192537;

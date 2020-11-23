@@ -2,24 +2,23 @@
 @model ViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+	Layout = "_HomeLayout";
+	ViewData["Title"] = "Home Page";
 }
 
 <head>
-    <meta charset="utf-8">
-    <!-- Somehow I got an error, so I comment the title, just uncomment to show -->
-    <!-- <title>Owl-carousel Cards Slider | CodingNepal</title> -->
-
-    <link href="~/css/Index.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link href="~/css/Index.css" rel="stylesheet" />
 </head>
 
-<div class="club-container">
-    <div class="col-12 pb-sm-5 pt-sm-5 text-center">
-        <h1 class="section-heading">Stores</h1>
-    </div>
+<div class="coverimage">
+	<img id="cover" src="~/images/homepage_cover.jpg" />
+	<div class="centered">
+		<h2>One Stop Shop</h2>
+		<a class="btn" href="#stores">SHOP NOW</a>
+	</div>
+</div>
+<div class="club-container" id="stores">
+    <h2 class="text-center pb-2">Stores</h2>
     <div class="slider-carousel owl-carousel clubs-carousel">
         @if (Model != null)
         {
