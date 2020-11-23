@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OneStopShop.Models;
+using OneStopShop.Models.ViewModels;
 
 namespace OneStopShop.Controllers
 {
@@ -19,12 +20,9 @@ namespace OneStopShop.Controllers
         }
 
         public IActionResult Index()
-        {
-            var addedPro = GetAddedCartPro().Result.ToList();
-
-            ViewModel model = new ViewModel();
-            model.product = addedPro;
-            return View(model);
+        {          
+            
+            return View(cart);
         }
 
         private async Task<List<Product>> GetAddedCartPro()
@@ -38,17 +36,38 @@ namespace OneStopShop.Controllers
         //{
         //    var products = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
         //}
-        public RedirectToActionResult AddToCart(int productId)
+        public RedirectToActionResult AddToCart(int productId, string returnUrl)
         {
             var product = _context.Products
                 .FirstOrDefault(p => p.ProductID == productId);
+            product.IsAddedToCart = true;
+
+
+            _context.Update(product);
+            _context.SaveChanges();
+
+            var store = _context.Stores
+              .FirstOrDefault(p => p.StoreId == productId);
 
             if (product != null)
             {
                 cart.AddItem(product, 1);
             }
 
-            return RedirectToAction("Index", new { id = product.ProductID });
+            return RedirectToAction("Index");
+        }
+
+        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        {
+            Product product = _context.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+
+            if (product != null)
+            {
+                cart.RemoveLine(product);
+            }
+
+            return RedirectToAction("Index", new { returnUrl });
         }
     }
 }
