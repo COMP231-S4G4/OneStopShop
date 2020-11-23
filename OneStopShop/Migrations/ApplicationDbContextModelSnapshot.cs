@@ -89,6 +89,9 @@ namespace OneStopShop.Migrations
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TotalCost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 

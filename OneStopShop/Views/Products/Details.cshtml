@@ -45,14 +45,13 @@
     <div>
         <a id="Edit" asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a>
         <a id="Delete" asp-action="Delete" asp-route-id="@Model.ProductID">Delete</a>
-        @if (Model.IsAddedToCart == false)
-        {
-            <form id="@Model.ProductID" asp-action="AddToCart"
+       
+            <form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart"
                   method="post">
 
                 <input type="hidden" asp-for="ProductID" />
 
-                <span class="card-text p-1">                   
+                <span class="card-text p-1">                  
                    
                   
                     <button id="AddToCart" type="submit"
@@ -60,24 +59,9 @@
                         Add to Cart
                     </button>
                 </span>
-            </form>
-        }
-        else
-        {
-            <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@Model.ProductID"
-                  method="post">
-
-                <input type="hidden" asp-route-id="@Model.ProductID" />
-
-                <span class="col-sm-2 float-right">
-
-                    <button id="AddToCart" type="submit"
-                            class="btn btn-danger btn-sm pull-right">
-                        Remove From Cart
-                    </button>
-                </span>
-            </form>
-        }
+            </form>       
+    
+        
     </div>
 </div>
 <div>
