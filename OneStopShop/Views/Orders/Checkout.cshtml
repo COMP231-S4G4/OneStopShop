@@ -1,9 +1,57 @@
-﻿@model OneStopShop.Models.ViewModel
+﻿@model OneStopShop.Models.Orders
 
 <h2>Check out </h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Item</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Lines)
+        {
+            <tr>
+                
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.ProductName</td>
+                <td class="text-right">@line.Product.ProductPrice.ToString("c")</td>
+                <td class="text-right">
+                    @((line.Quantity * line.Product.ProductPrice).ToString("c"))
+                </td>              
+
+                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@line.Product.ProductID"
+                          method="post">
+
+                        <input type="hidden" asp-route-id="@line.Product.ProductID" />
+
+                        <span class="col-sm-2 float-right">
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm pull-right"
+                                    style="float:right">
+                                Remove From Cart
+                            </button>
+                        </span>
+                    </form>
+                
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
 <p>Please enter your details, and we'll ship your goods right away!</p>
 
-<div asp-validation-summary="All" class="text-danger"></div>
+@*<div asp-validation-summary="All" class="text-danger"></div>
 <div class="row">
     <div class="col-sm-12" id="results">
 
@@ -38,34 +86,35 @@
 
         }
     </div>
-</div>
+</div>*@
 
 <form asp-action="Checkout" method="post">
     <h3>Shipping Address</h3>
+    <input asp-for="OrderId" type="hidden" />
     <div class="form-group">
-        <label>Name:</label><input asp-for="order.CustomerName" class="form-control" />
+        <label>Name:</label><input asp-for="CustomerName" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label>Line 1:</label><input asp-for="order.Line1" class="form-control" />
+        <label>Line 1:</label><input asp-for="Line1" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Line 2:</label><input asp-for="order.Line2" class="form-control" />
+        <label>Line 2:</label><input asp-for="Line2" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Line 3:</label><input asp-for="order.Line3" class="form-control" />
+        <label>Line 3:</label><input asp-for="Line3" class="form-control" />
     </div>
     <div class="form-group">
-        <label>City:</label><input asp-for="order.City" class="form-control" />
+        <label>City:</label><input asp-for="City" class="form-control" />
     </div>
     <div class="form-group">
-        <label>State:</label><input asp-for="order.State" class="form-control" />
+        <label>State:</label><input asp-for="State" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Zip:</label><input asp-for="order.Zip" class="form-control" />
+        <label>Zip:</label><input asp-for="Zip" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Country:</label><input asp-for="order.Country" class="form-control" />
+        <label>Country:</label><input asp-for="Country" class="form-control" />
     </div>
 
     <div class="text-center">

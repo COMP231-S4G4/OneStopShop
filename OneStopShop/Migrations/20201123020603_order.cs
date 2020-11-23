@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class initial : Migration
+    public partial class order : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,8 @@ namespace OneStopShop.Migrations
                     State = table.Column<string>(nullable: false),
                     Zip = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: false),
-                    OrderCreatedDate = table.Column<DateTime>(nullable: false)
+                    OrderCreatedDate = table.Column<DateTime>(nullable: false),
+                    TotalCost = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
