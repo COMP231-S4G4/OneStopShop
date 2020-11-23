@@ -1,5 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
+.club-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #B09E80;
+}
+
 .slider-carousel {
     /* max-width: 1100px;*/
     display: flex;
@@ -98,4 +104,27 @@ button:focus, button:active {
 
 .container {
     max-width: 1300px;
+}
+
+/*Nehal's CSS for image section*/
+#cover {
+    max-width: 1300px;
+    width: 100%;
+    max-height: 500px;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn {
+    background-color: #B09E80;
+    color: #192537;
+    font-weight: 700;
 }
