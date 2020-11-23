@@ -221,11 +221,6 @@ namespace OneStopShop.Controllers
             return View("ProductList", tupleData);
         }
 
-        public ActionResult OrderConfirmation()
-        {
-            return View("OrderConfirmation");
-        }
-
         public async Task<IActionResult> ViewProduct(int? id)
         {
             if (id == null)

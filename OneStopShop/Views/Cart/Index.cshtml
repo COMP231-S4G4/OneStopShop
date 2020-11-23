@@ -1,10 +1,5 @@
 ﻿@model OneStopShop.Models.ViewModel
 
-    <head>
-        <link rel="stylesheet" type="text/css" href="~/css/ShoppingCart.css" />
-    </head>
-
-
     <h2 style="text-align:center">Your cart</h2>
     @*<table class="table table-bordered table-striped">
             <thead>
@@ -69,11 +64,6 @@
                 </div>
              }
         </div>
-    </div>
-
-    <div class="text-center">
-        @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-        <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Checkout</a>
     </div>
 
 <div class="text-center">
