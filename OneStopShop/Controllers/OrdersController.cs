@@ -26,7 +26,6 @@ namespace OneStopShop.Controllers
         // GET: Orders
         public async Task<IActionResult> Index(int id)
         {
-            currentStore = id;
             return View(await _context.Orders.Where(i => i.StoreId.Equals(id)).ToListAsync());
         }
 
