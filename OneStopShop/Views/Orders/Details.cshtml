@@ -1,6 +1,5 @@
 ﻿@model OneStopShop.Models.Orders
 
-
 <!DOCTYPE html>
 
 <html>
@@ -18,20 +17,18 @@
                 <td>@Html.DisplayFor(model => model.OrderId)</td>
             </tr>
             <tr>
-                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.StoreId)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.CustomerName)</td>
                 <td>@Html.DisplayFor(model => model.StoreId)</td>
             </tr>
             <tr>
-                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.ProductID)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.City)</td>
                 <td>@Html.DisplayFor(model => model.ProductID)</td>
             </tr>
             <tr>
-                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.OrderCreatedDate)</td>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => model.Country)</td>
                 <td>@Html.DisplayFor(model => model.OrderCreatedDate)</td>
             </tr>
-            
         </table>
-        
     </div>
     <div>
         <a id="Back" asp-action="Index">Back to List</a>

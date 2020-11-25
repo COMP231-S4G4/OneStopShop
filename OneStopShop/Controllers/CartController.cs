@@ -20,8 +20,7 @@ namespace OneStopShop.Controllers
         }
 
         public IActionResult Index()
-        {          
-            
+        {
             return View(cart);
         }
 
@@ -36,12 +35,26 @@ namespace OneStopShop.Controllers
         //{
         //    var products = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
         //}
-        public RedirectToActionResult AddToCart(int productId, string returnUrl)
+
+        //[HttpPost]
+        //public async Task<IActionResult> totalquantity(int quntity, int productid)
+        //{
+        //    var product = _context.Products
+        //      .FirstOrDefault(p => p.ProductID == productid);
+        //    var price = product.ProductPrice;
+        //    var total = price * quntity;
+        //    product.ProductPrice = total;
+        //    _context.Update(product);
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction("Index", new { id = product.ProductID });
+        //}
+
+        public RedirectToActionResult AddToCart(int productId)
         {
             var product = _context.Products
                 .FirstOrDefault(p => p.ProductID == productId);
             product.IsAddedToCart = true;
-
 
             _context.Update(product);
             _context.SaveChanges();
@@ -57,10 +70,10 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToActionResult RemoveFromCart(int id, string returnUrl)
         {
             Product product = _context.Products
-                .FirstOrDefault(p => p.ProductID == productId);
+                .FirstOrDefault(p => p.ProductID == id);
 
             if (product != null)
             {
