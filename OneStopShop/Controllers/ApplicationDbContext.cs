@@ -19,5 +19,9 @@ namespace OneStopShop.Models
         public DbSet<Blogs> Blogs { get; set; }
 
         public DbSet<OneStopShop.Models.Orders> Orders { get; set; }
+
+        public DbSet<OneStopShop.Models.Users> Users { get; set; }
+
+        public DbSet<OneStopShop.Models.Reviews> Reviews { get; set; }
     }
 }
