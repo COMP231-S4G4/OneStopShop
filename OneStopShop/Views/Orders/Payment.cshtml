@@ -1,8 +1,13 @@
 ﻿@using Microsoft.Extensions.Options
 @inject IOptions<OneStopShop.Models.StripeSettings> Stripe
+@inject IOptions<OneStopShop.Models.Orders> Order
 
 @{
     ViewData["Title"] = "Payment";
+}
+
+@{
+    var TotalCost = ViewBag.Message;
 }
 
 <head>
@@ -10,16 +15,17 @@
 </head>
 
 <div class="text-center">
-    <form asp-controller="Products" asp-action="Payment" method="post">
+    <form asp-controller="Orders" asp-action="Payment" method="post">
         <article>
-            <label> Amount: $5.00</label>
+
+            <label>@TotalCost</label>
         </article>
         <script src="//checkout.stripe.com/v2/checkout.js"
                 class="stripe-button"
                 data-key="@Stripe.Value.PublishableKey"
                 data-locale="auto"
                 data-description="Sample charge"
-                data-amount="500">
+                data-amount="@TotalCost">
 
         </script>
     </form>
