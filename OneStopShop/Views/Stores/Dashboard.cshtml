@@ -24,7 +24,7 @@
             </div>
         </a>
 
-        <a asp-action="Orders" asp-route-id="@Model.StoreId">
+        <a asp-action="Orders" asp-route-StoreID="@Model.StoreId">
             <div class="gallery">
                 <img src="~/images/dashboard_orders.jpg" />
                 <div class="desc">
@@ -32,28 +32,29 @@
                 </div>
             </div>
         </a>
-
-        <div class="gallery">
-            <img src="~/images/dashboard_blog.png" />
-            <div class="desc">
-                <h4>Blogs</h4>
-            </div>
-        </div>
-
-        <div class="gallery">
-            <img src="~/images/dashboard_subscribers.png" />
-            <div class="desc">
-                <h4>Subscribers</h4>
-            </div>
-        </div>
-        <div>
-            <a id="Productlist" asp-action="Productlist" asp-route-id="@Model.StoreId">
-                <div class="gallery">
-                    <div class="desc">
-                        <h4>STORE PAGE FOR BUYER</h4>
-                    </div>
+        <a  asp-controller="Blogs"   asp-action="Create" asp-route-id="@Model.StoreId">
+            <div class="gallery">
+                <img src="~/images/dashboard_blog.png" />
+                <div class="desc">
+                    <h4>Blogs</h4>
                 </div>
+            </div>
             </a>
-        </div>
+
+            <div class="gallery">
+                <img src="~/images/dashboard_subscribers.png" />
+                <div class="desc">
+                    <h4>Subscribers</h4>
+                </div>
+            </div>
+            <div>
+                <a id="Productlist" asp-action="Productlist" asp-route-id="@Model.StoreId">
+                    <div class="gallery">
+                        <div class="desc">
+                            <h4>STORE PAGE FOR BUYER</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
     </div>
 </div>

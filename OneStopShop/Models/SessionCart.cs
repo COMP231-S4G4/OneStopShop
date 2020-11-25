@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OneStopShop.Models
 {
-    public class SessionCart:Cart
+    public class SessionCart : Cart
     {
         public static Cart GetCart(IServiceProvider services)
         {
@@ -30,6 +30,10 @@ namespace OneStopShop.Models
             Session.SetJson("Cart", this);
         }
 
-        
+        public override void RemoveLine(Product product)
+        {
+            base.RemoveLine(product);
+            Session.SetJson("Cart", this);
+        }
     }
 }
