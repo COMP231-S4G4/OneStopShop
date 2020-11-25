@@ -18,6 +18,7 @@
     <tbody>
         @foreach (var line in Model.Lines)
         {
+
             <tr>
                 <td class="td"><img src="~/@line.Product.ProductImage" height="auto" width="200" /></td>
                 <td class="td">@line.Quantity</td>
@@ -37,7 +38,7 @@
                 </button>
             </form>*@
 
-                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@line.Product.ProductID"
+                    <form asp-action="RemoveFromCart" asp-route-id="@line.Product.ProductID"
                           method="post">
 
                         <input type="hidden" asp-route-id="@line.Product.ProductID" />
@@ -53,6 +54,7 @@
                     </form>
                 </td>
             </tr>
+
         }
     </tbody>
     <tfoot>
@@ -67,12 +69,10 @@
     </tfoot>
 </table>
 
-
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
     @*<a class="btn btn-primary" asp-controller="Stores" asp-action="Index">Continue Shopping</a>*@
 </div>
-
 
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
