@@ -97,6 +97,8 @@ namespace OneStopShop.Controllers
                         fs.Flush();
                     }
                 }
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
                 product.StoreId = StoreId;
                 product.IsAddedToCart = false;
                 _context.Add(product);
@@ -111,7 +113,9 @@ namespace OneStopShop.Controllers
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
             product.IsAddedToCart = true;
             _context.Update(product);
+                       
             await _context.SaveChangesAsync();
+
 
             return RedirectToAction("Index", "Cart");
         }
@@ -217,9 +221,21 @@ namespace OneStopShop.Controllers
             return View("ProductList", tupleData);
         }
 
-        public ActionResult OrderConfirmation()
+        public async Task<IActionResult> ViewProduct(int? id)
         {
-            return View("OrderConfirmation");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

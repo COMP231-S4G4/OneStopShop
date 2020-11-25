@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OneStopShop.Models;
+using Stripe;
 
 namespace OneStopShop.Controllers
 {
@@ -13,10 +14,13 @@ namespace OneStopShop.Controllers
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
+        private Cart cart;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, Cart cartService)
         {
             _context = context;
+            cart = cartService;
+
         }
 
         // GET: Orders
@@ -149,6 +153,100 @@ namespace OneStopShop.Controllers
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        //Get Checkout
+        public IActionResult Checkout()
+        {
+            Orders order = new Orders();
+           
+            order.Lines = cart.Lines.ToArray();
+            _context.Update(order);
+           
+
+            //ViewModel model = new ViewModel();
+            //model.product = product;
+            //model.order = order;         
+
+
+            return View(order);
+            
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(Orders order)
+        {
+            //model.order.Lines = cart.Lines.ToArray();
+            //_context.Orders.Add(model.order);
+            //return View("Payment");
+
+           
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                order.Lines = cart.Lines.ToArray();
+                var cost=order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
+                ViewBag.Message = cost;
+                _context.Update(order);
+                _context.SaveChanges();
+                return View("Payment");
+
+               // return RedirectToAction(nameof(Completed));
+            }
+            else
+            {
+                return View(order);
+            }
+
+        }
+
+        //Get payment
+        public IActionResult Payment()
+        {
+            return View();
+        }
+
+        //post payment
+
+        [HttpPost]
+        public IActionResult Payment(string stripeEmail, string stripeToken)
+        {
+            var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+            var charge = charges.Create(new ChargeCreateOptions
+            {                 
+
+                Amount =Convert.ToInt64(cost*100),
+                Description = "OneStopShopPayment",
+                Currency = "CAD",
+                Customer = customer.Id,
+                ReceiptEmail = stripeEmail
+
+            });
+
+            if (charge.Status == "succeeded")
+            {
+                string BalanceTransactionId = charge.BalanceTransactionId;
+                return View();
+            }
+
+
+            return View();
+
+        }
+        public ActionResult OrderConfirmation()
+        {
+            return View();
         }
     }
 }
