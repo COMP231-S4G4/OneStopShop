@@ -1,27 +1,32 @@
 ﻿@model OneStopShop.Models.Cart
 
-
-<h2>Your cart</h2>
-<table class="table table-bordered table-striped">
+<head>
+    <link href="~/css/Cart.css" rel="stylesheet" />
+</head>
+<h2 class="YourCart">Your cart</h2>
+<table class="table  table-striped">
     <thead>
         <tr>
-            <th>Quantity</th>
-            <th>Item</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Subtotal</th>
+            <th class="th">Product Image</th>
+            <th class="th">Quantity</th>
+            <th class="th">Item</th>
+            <th class="th">Price</th>
+            <th class="th">Subtotal</th>
+            <th class="th">Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var line in Model.Lines)
         {
             <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Product.ProductName</td>
-                <td class="text-right">@line.Product.ProductPrice.ToString("c")</td>
-                <td class="text-right">
+                <td class="td"><img src="~/@line.Product.ProductImage" height="auto" width="200" /></td>
+                <td class="td">@line.Quantity</td>
+                <td class="td">@line.Product.ProductName</td>
+                <td class="td">@line.Product.ProductPrice.ToString("c")</td>
+                <td class="td">
                     @((line.Quantity * line.Product.ProductPrice).ToString("c"))
                 </td>
-                <td>
+                <td class="td">
                         @*<form asp-action="RemoveFromCart" method="post">
                 <input type="hidden" name="ProductID"
                        value="@line.Product.ProductID" />
@@ -52,10 +57,12 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right">Total:</td>
-            <td class="text-right">
-                @Model.ComputeTotalValue().ToString("c")
+            <td colspan="3" class="th">Total:</td>
+            <td class="th">
+                @*@Model.ComputeTotalValue().ToString("c")*@
             </td>
+            <td class="th"> @Model.ComputeTotalValue().ToString("c")</td>
+            <td class="th"></td>
         </tr>
     </tfoot>
 </table>
@@ -63,13 +70,14 @@
 
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    <a asp-controller="Stores" asp-action="Index">Continue Shopping</a>
+    @*<a class="btn btn-primary" asp-controller="Stores" asp-action="Index">Continue Shopping</a>*@
 </div>
 
 
 <div class="text-center">
     @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
+    <a class="btn btn-primary" asp-controller="Stores" asp-action="Index">Continue Shopping</a>
     <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
-    
+
 
 </div>
