@@ -244,5 +244,9 @@ namespace OneStopShop.Controllers
             return View();
 
         }
+        public ActionResult OrderConfirmation()
+        {
+            return View();
+        }
     }
 }

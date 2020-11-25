@@ -3,10 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class order : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Blogs",
+                columns: table => new
+                {
+                    BlogId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreId = table.Column<int>(nullable: false),
+                    BlogImage = table.Column<string>(nullable: true),
+                    BlogTitle = table.Column<string>(nullable: false),
+                    BlogCreatedDate = table.Column<DateTime>(nullable: false),
+                    BlogModifiedDate = table.Column<DateTime>(nullable: false),
+                    BlogDescription = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blogs", x => x.BlogId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
@@ -123,6 +141,9 @@ namespace OneStopShop.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Blogs");
+
             migrationBuilder.DropTable(
                 name: "CartItems");
 
