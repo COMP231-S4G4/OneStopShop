@@ -76,11 +76,92 @@ namespace OneStopShop.Controllers
                         fs.Flush();
                     }
                 }
+                blogs.BlogCreatedDate = DateTime.Now;
+                blogs.BlogModifiedDate = DateTime.Now;
                 blogs.StoreId = StoreId;
                 _context.Add(blogs);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Index", new { StoreId = StoreId });
+        }
+        // GET: Blogs/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var blogs = await _context.Blogs.FindAsync(id);
+            ViewData["StoreId"] = new SelectList(_context.Stores.Where(a => a.StoreId == currentStore), "StoreId", "StoreName");
+
+            if (blogs == null)
+            {
+                return NotFound();
+            }
+            return View(blogs);
+        }
+
+        // POST: Blogs/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, IFormFile BlogFile, [Bind("BlogId,StoreId,BlogImage,BlogTitle,BlogCreatedDate,BlogModifiedDate,BlogDescription")] Blogs blogs)
+        {
+            if (id != blogs.BlogId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (BlogFile != null)
+                    {
+                        string wwwPath = this.Environment.WebRootPath;
+                        string contentPath = this.Environment.ContentRootPath;
+                        string folderName = "Product" + blogs.BlogId;
+                        string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
+
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileName = Path.GetFileNameWithoutExtension(BlogFile.FileName);
+                        string extension = Path.GetExtension(BlogFile.FileName);
+                        string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                        string folderPath = "Upload/Events/" + folderName;
+                        blogs.BlogImage = folderPath + '/' + fileNameBanner;
+
+                        var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
+                        using (FileStream fs = System.IO.File.Create(filepath))
+                        {
+                            BlogFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                    }
+                    blogs.BlogCreatedDate = blogs.BlogCreatedDate;
+                    blogs.BlogModifiedDate = DateTime.Now;
+                    _context.Update(blogs);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BlogsExists(blogs.BlogId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", new { StoreId = blogs.StoreId });
+            }
+            return View(blogs);
         }
 
         // GET: Blogs/Delete/5
