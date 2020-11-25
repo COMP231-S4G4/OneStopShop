@@ -16,8 +16,8 @@ namespace OneStopShop.Models
         [ForeignKey("ProductID")]
         public virtual Product product { get; set; }
 
-        //[ForeignKey("UserID")]
-        //public virtual Users user { get; set; }
+        [ForeignKey("UserID")]
+        public virtual Users user { get; set; }
 
         [Required(ErrorMessage = "Please enter a rating"), Range(1, 5, ErrorMessage = "Rating must be between 1 star and 5 star")]
         public int Rating { get; set; }
