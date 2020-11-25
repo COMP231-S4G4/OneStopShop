@@ -17,7 +17,8 @@ namespace OneStopShop.Controllers
 {
     public class BlogsController : BaseController
     {
-        private readonly ApplicationDbContext _context;
+        // private readonly ApplicationDbContext _context;
+        private static int currentStore = 0;
 
         //public BlogsController(ApplicationDbContext context)
         //{
@@ -27,16 +28,26 @@ namespace OneStopShop.Controllers
         public BlogsController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
+
+        // GET: Blogs
+        public async Task<IActionResult> Index(int StoreId)
+        {
+            currentStore = StoreId;
+            var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
+            return View(blogs);
+        }
+
         // GET: Blogs/Create
         public IActionResult Create()
         {
-            
+            ViewData["StoreId"] = new SelectList(_context.Stores.Where(a => a.StoreId == currentStore), "StoreId", "StoreName");
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id,IFormFile BlogFile,[Bind("BlogId,StoreId,BlogImage,BlogTitle,BlogCreatedDate,BlogModifiedDate,BlogDescription")] Blogs blogs)
+        public async Task<IActionResult> Create(int StoreId, IFormFile BlogFile, [Bind("BlogId,StoreId,BlogImage,BlogTitle,BlogCreatedDate,BlogModifiedDate,BlogDescription")] Blogs blogs)
         {
             if (ModelState.IsValid)
             {
@@ -65,13 +76,45 @@ namespace OneStopShop.Controllers
                         fs.Flush();
                     }
                 }
-                blogs.StoreId = id;
+                blogs.StoreId = StoreId;
                 _context.Add(blogs);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
+            return RedirectToAction("Index", new { StoreId = StoreId });
+        }
+
+        // GET: Blogs/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var blogs = await _context.Blogs
+                .FirstOrDefaultAsync(m => m.BlogId == id);
+            if (blogs == null)
+            {
+                return NotFound();
+            }
+
             return View(blogs);
         }
 
+        // POST: Blogs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var blogs = await _context.Blogs.FindAsync(id);
+            _context.Blogs.Remove(blogs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", new { StoreId = blogs.StoreId });
+        }
+
+        private bool BlogsExists(int id)
+        {
+            return _context.Blogs.Any(e => e.BlogId == id);
+        }
     }
 }
