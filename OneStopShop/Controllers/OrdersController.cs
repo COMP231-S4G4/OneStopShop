@@ -24,10 +24,10 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int StoreID)
         {
-            currentStore = id;
-            return View(await _context.Orders.Where(i => i.StoreId.Equals(id)).ToListAsync());
+            currentStore = StoreID;
+            return View(await _context.Orders.Where(i => i.StoreId.Equals(StoreID)).ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -159,36 +159,49 @@ namespace OneStopShop.Controllers
         public IActionResult Checkout()
         {
             Orders order = new Orders();
-            var product = _context.Products.Where(a => a.IsAddedToCart.Equals(true)).ToList();
-            
-            ViewModel model = new ViewModel();
-            model.product = product;
-            model.order = order;         
+           
+            order.Lines = cart.Lines.ToArray();
+            _context.Update(order);
+           
+
+            //ViewModel model = new ViewModel();
+            //model.product = product;
+            //model.order = order;         
 
 
-            return View(model);
+            return View(order);
             
         }
 
         [HttpPost]
-        public IActionResult Checkout(ViewModel model)
+        public IActionResult Checkout(Orders order)
         {
-            //if (cart.Lines.Count() == 0)
-            //{
-            //    ModelState.AddModelError("", "Sorry, your cart is empty!");
-            //}
+            //model.order.Lines = cart.Lines.ToArray();
+            //_context.Orders.Add(model.order);
+            //return View("Payment");
 
-            //if (ModelState.IsValid)
-            //{
-                model.order.Lines = cart.Lines.ToArray();
-                _context.Orders.Add(model.order);
+           
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                order.Lines = cart.Lines.ToArray();
+                var cost=order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
+                ViewBag.Message = cost;
+                _context.Update(order);
+                _context.SaveChanges();
                 return View("Payment");
-            //}
-            //else
-            //{
-            //    return View(model.order);
-            //}           
-            
+
+               // return RedirectToAction(nameof(Completed));
+            }
+            else
+            {
+                return View(order);
+            }
+
         }
 
         //Get payment
@@ -202,6 +215,7 @@ namespace OneStopShop.Controllers
         [HttpPost]
         public IActionResult Payment(string stripeEmail, string stripeToken)
         {
+            var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
             var customers = new CustomerService();
             var charges = new ChargeService();
             var customer = customers.Create(new CustomerCreateOptions
@@ -210,9 +224,10 @@ namespace OneStopShop.Controllers
                 Source = stripeToken
             });
             var charge = charges.Create(new ChargeCreateOptions
-            {
-                Amount = 500,
-                Description = "Test Payment",
+            {                 
+
+                Amount =Convert.ToInt64(cost*100),
+                Description = "OneStopShopPayment",
                 Currency = "CAD",
                 Customer = customer.Id,
                 ReceiptEmail = stripeEmail
@@ -228,6 +243,10 @@ namespace OneStopShop.Controllers
 
             return View();
 
+        }
+        public ActionResult OrderConfirmation()
+        {
+            return View();
         }
     }
 }
