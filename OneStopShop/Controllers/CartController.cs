@@ -70,10 +70,10 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToActionResult RemoveFromCart(int id, string returnUrl)
         {
             Product product = _context.Products
-                .FirstOrDefault(p => p.ProductID == productId);
+                .FirstOrDefault(p => p.ProductID == id);
 
             if (product != null)
             {
