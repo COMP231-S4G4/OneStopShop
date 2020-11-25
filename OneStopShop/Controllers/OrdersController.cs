@@ -24,10 +24,10 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int StoreID)
         {
-            currentStore = id;
-            return View(await _context.Orders.Where(i => i.StoreId.Equals(id)).ToListAsync());
+            currentStore = StoreID;
+            return View(await _context.Orders.Where(i => i.StoreId.Equals(StoreID)).ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -243,6 +243,10 @@ namespace OneStopShop.Controllers
 
             return View();
 
+        }
+        public ActionResult OrderConfirmation()
+        {
+            return View();
         }
     }
 }
