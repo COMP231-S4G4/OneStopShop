@@ -57,8 +57,8 @@
 						<a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductID">Details</a> &nbsp;
 
 						<span id="confirmDeleteSpan_@item.ProductID" style="display:none">
-							<br />
-							<span>Are you sure you want to delete?</span>
+							<br /><br />
+							<span>Are you sure you want to delete?</span><br />
 							<button type="submit" class="btn btn-danger">Yes</button>
 							<a href="#" class="btn btn-primary" onclick="confirmDelete('@item.ProductID', false)">No</a>
 						</span>
