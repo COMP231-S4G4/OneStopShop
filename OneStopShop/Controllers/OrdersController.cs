@@ -248,5 +248,12 @@ namespace OneStopShop.Controllers
         {
             return View();
         }
+
+        public ActionResult OrderStatusUpdate(int id,string status)
+        {
+            Orders order= _context.Orders.Find(id);
+            order.status = status;
+            return View("index");
+        }
     }
 }
