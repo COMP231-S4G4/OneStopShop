@@ -6,52 +6,50 @@
 
 <h1>Index</h1>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="~/css/ProductList.css" />
-</head>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductColor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-<body>
-    <div id="div">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProductID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProductName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ProductPrice)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductPrice)
-                        </td>
-                        <td>
-                            <a id="Edit" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
-                            <a id="Details" asp-action="Details" asp-route-id="@item.ProductID">Details</a>
-                            <a id="Delete" asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div id="divInline">
-        <a id="Create" asp-action="Create">Create New</a>
-    </div>
-</body>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductColor)
+                </td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+				</td>
+            </tr>
+        }
+    </tbody>
+</table>
