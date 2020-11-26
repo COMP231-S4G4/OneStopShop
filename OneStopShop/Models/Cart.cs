@@ -31,6 +31,13 @@ namespace OneStopShop.Models
 
         }
 
+        public virtual void RemoveLine(Product product) =>
+           itemCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
+
+        public decimal ComputeTotalValue() =>
+            itemCollection.Sum(e => e.Product.ProductPrice * e.Quantity);
+
+        public virtual void Clear() => itemCollection.Clear();
         public IEnumerable<CartItem> Lines => itemCollection;
 
 

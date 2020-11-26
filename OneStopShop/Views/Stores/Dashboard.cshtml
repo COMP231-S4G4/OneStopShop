@@ -1,6 +1,7 @@
 ﻿@model Store
 
 @{
+    Layout = "_HomeLayout";
     ViewData["Title"] = "Dashboard";
 }
 
@@ -23,7 +24,7 @@
             </div>
         </a>
 
-        <a asp-action="Orders" asp-route-id="@Model.StoreId">
+        <a asp-action="Orders" asp-route-StoreID="@Model.StoreId">
             <div class="gallery">
                 <img src="~/images/dashboard_orders.jpg" />
                 <div class="desc">
@@ -31,13 +32,14 @@
                 </div>
             </div>
         </a>
-
-        <div class="gallery">
-            <img src="~/images/dashboard_blog.png" />
-            <div class="desc">
-                <h4>Blogs</h4>
+        <a asp-controller="Blogs" asp-action="Index" asp-route-StoreId="@Model.StoreId">
+            <div class="gallery">
+                <img src="~/images/dashboard_blog.png" />
+                <div class="desc">
+                    <h4>Blogs</h4>
+                </div>
             </div>
-        </div>
+        </a>
 
         <div class="gallery">
             <img src="~/images/dashboard_subscribers.png" />

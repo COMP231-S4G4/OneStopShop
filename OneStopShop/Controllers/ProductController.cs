@@ -97,6 +97,8 @@ namespace OneStopShop.Controllers
                         fs.Flush();
                     }
                 }
+                product.ProductCreatedDate = DateTime.Now;
+                product.ProductModifiedDate = DateTime.Now;
                 product.StoreId = StoreId;
                 product.IsAddedToCart = false;
                 _context.Add(product);
@@ -217,11 +219,6 @@ namespace OneStopShop.Controllers
             var store = _context.Stores.Find(currentStore);
             var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
             return View("ProductList", tupleData);
-        }
-
-        public ActionResult OrderConfirmation()
-        {
-            return View("OrderConfirmation");
         }
 
         public async Task<IActionResult> ViewProduct(int? id)

@@ -12,6 +12,8 @@ namespace OneStopShop.Models.ViewModels
 
         public IEnumerable<Product> Product { get; set; }
 
+        public Store Store { get; set; }
+
         public Orders order { get; set; }
     }
 }
