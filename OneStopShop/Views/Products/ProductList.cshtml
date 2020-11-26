@@ -30,24 +30,16 @@
     </script>
 </head>
 
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container">
     <div class="well well-sm">
         <div class="row searchFilter">
             <div class="col-sm-12">
-
-                @*<input id="table_filter" type="text" class="form-control" aria-label="Text input with segmented button dropdown">
-                    <div class="input-group-btn">
-                        <button id="searchBtn" type="button" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
-                    </div>*@
-
                 <form asp-action="ProductSearch" method="get">
                     <div class="form-actions no-color">
                         <div class="input-group">
                             <input id="table_filter" type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]" />
                             <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button> |
-                            <a asp-action="ProductList">RESET</a>
+                            <a asp-action="ProductList">Reset</a>
                         </div>
                     </div>
                 </form>
