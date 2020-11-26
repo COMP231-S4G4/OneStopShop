@@ -1,0 +1,22 @@
+﻿body {
+    background-color: whitesmoke;
+    height: 100vh;
+    margin: auto;
+    flex-wrap: wrap;
+    background-color: #192537;
+}
+.th {
+    background-color: #B09E80;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.td{
+    background-color: #192537;
+    text-align: center;
+    color: white;
+}
+.YourCart{
+    color: white;
+    text-align: center;
+}
