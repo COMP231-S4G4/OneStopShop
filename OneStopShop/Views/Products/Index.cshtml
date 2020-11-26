@@ -15,7 +15,7 @@
 		<col style="width:30%" />
 		<col style="width:10%" />
 		<col style="width:15%" />
-		<col style="width:30%" />
+		<col style="width:35%" />
 	</colgroup>
 	<thead>
 		<tr>
@@ -37,7 +37,7 @@
 	<tbody>
 		@foreach (var item in Model)
 		{
-			<tr>
+			<tr id="current">
 
 				<td>
 					@Html.DisplayFor(modelItem => item.ProductName)
@@ -51,12 +51,13 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.ProductColor)
 				</td>
-				<td>
+				<td class="text-center">
 					<form asp-action="Delete" asp-route-id="@item.ProductID" method="post">
-						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-						<a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
+						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> &nbsp;
+						<a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductID">Details</a> &nbsp;
 
 						<span id="confirmDeleteSpan_@item.ProductID" style="display:none">
+							<br />
 							<span>Are you sure you want to delete?</span>
 							<button type="submit" class="btn btn-danger">Yes</button>
 							<a href="#" class="btn btn-primary" onclick="confirmDelete('@item.ProductID', false)">No</a>
