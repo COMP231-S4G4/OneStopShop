@@ -37,7 +37,7 @@ namespace OneStopShop.Controllers
             foreach (var item in StoreOrderList)
             {
                 var order = _context.Orders.FirstOrDefault(o => o.OrderId == item.OrderId);
-                if(order.OrderStatus== "succeeded")
+                if(order.PaymentConfirmation== true)
                 {
                     StoreOrders.Add(item);
                 }
@@ -173,11 +173,11 @@ namespace OneStopShop.Controllers
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
                 order.OrderCreatedDate = DateTime.Now;
-                order.OrderStatus = "succeeded";
+                order.PaymentConfirmation = true;
                 _context.Update(order);
                 _context.SaveChanges();
 
-                return View("OrderConfirmation");
+                return View("OrderConfirmation",order);
             }
 
 
