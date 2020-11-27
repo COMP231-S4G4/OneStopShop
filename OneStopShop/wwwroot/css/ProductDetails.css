@@ -5,16 +5,28 @@
     font: 12px Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #ffffff;
-    background: #A58964;
+    background-color: #1C293D;
+}
+
+.details-container {
+    padding-left: 30px;
+    max-width: 1300px;
+    width: 100%;
+    background-color: #192537;
 }
 
 h2 {
     margin-top: 10px;
     color: black;
     width: 100%;
-    text-align: center
+    text-align: center;
+    color:white;
 }
 
+.image{
+    margin-left:30px;
+
+}
 #Image {
     float: left;
     height: auto;
@@ -24,6 +36,7 @@ h2 {
 
 #divInline {
     display: inline-block;
+    padding-left: 20px;
 }
 
 table {
@@ -44,7 +57,7 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#Create:link, Create:visited {
+/*#Create:link, Create:visited {
     color: black;
     background: white;
     border: 2px solid green;
@@ -129,5 +142,5 @@ tr:nth-child(even) {
 
     #Back:hover {
         background-color: #bd1b1b;
-    }
+    }*/
 
