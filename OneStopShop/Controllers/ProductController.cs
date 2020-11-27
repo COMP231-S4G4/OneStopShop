@@ -208,8 +208,7 @@ namespace OneStopShop.Controllers
             IList<Product> Produnewlist = null;
             ViewData["CurrentFilter"] = searchString;
             
-            var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(currentStore))
-                           select s;
+            var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(currentStore)) select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 Produnewlist = prodlist.Where(s => s.ProductName.Contains(searchString)
