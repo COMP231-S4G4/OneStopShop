@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OneStopShop.Models.Orders>
+﻿@model IEnumerable<OneStopShop.Models.OrderItem>
 
 
 <!DOCTYPE html>
@@ -15,16 +15,20 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductID)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.StoreId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderCreatedDate)
+                @Html.DisplayNameFor(model => model.OrderId)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.OrderItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -32,17 +36,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.StoreId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderCreatedDate)
+                @Html.DisplayFor(modelItem => item.OrderId)
             </td>
-            
             <td>
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                @Html.DisplayFor(modelItem => item.OrderItemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            <td>
+                <a asp-action="Details" asp-route-id="@item.OrderItemId">Details</a>
             </td>
         </tr>
 }

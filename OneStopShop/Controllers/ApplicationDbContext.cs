@@ -23,5 +23,7 @@ namespace OneStopShop.Models
         public DbSet<OneStopShop.Models.Users> Users { get; set; }
 
         public DbSet<OneStopShop.Models.Reviews> Reviews { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

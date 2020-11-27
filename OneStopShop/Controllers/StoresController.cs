@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
@@ -154,8 +155,9 @@ namespace OneStopShop.Controllers
 		}
 
         public IActionResult Orders(int id)
-        {
-            return RedirectToAction("Index", "Orders", new { ID = id });
+        {   
+
+            return RedirectToAction("Index", "Orders" ,new { Id = id } );
         }
     }
 }

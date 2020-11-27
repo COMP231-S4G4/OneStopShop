@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace OneStopShop.Models
 {
-    public class CartItem
+    public class OrderItem
     {
         [Key]
-        public int CartItemID { get; set; }
+        public int OrderItemId { get; set; }
 
-        public int Quantity { get; set; }
+        public int OrderId { get; set; }
+
+       public int ProductId { get; set; }
 
         public int StoreId { get; set; }
 
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public int Quantity { get; set; }
 
-        
-       
+        public decimal Cost { get; set; }
     }
 }

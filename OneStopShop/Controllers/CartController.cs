@@ -64,9 +64,10 @@ namespace OneStopShop.Controllers
 
             if (product != null)
             {
-                cart.AddItem(product, 1);
+                cart.AddItem(product, 1,product.StoreId);
             }
-
+            var a = cart;
+            
             return RedirectToAction("Index");
         }
 

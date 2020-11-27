@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OneStopShop.Models;
 using Stripe;
 
@@ -23,11 +24,17 @@ namespace OneStopShop.Controllers
 
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index(int StoreID)
+        // GET: List of Orders
+        public  IActionResult Index(int id)
         {
-            currentStore = StoreID;
-            return View(await _context.Orders.Where(i => i.StoreId.Equals(StoreID)).ToListAsync());
+            var OrderList = _context.OrderItems.ToList();
+
+            var StoreOrders = (from item in OrderList
+                               where item.StoreId == id
+                               select item).ToList();
+
+
+            return View(StoreOrders);
         }
 
         // GET: Orders/Details/5
@@ -38,8 +45,14 @@ namespace OneStopShop.Controllers
                 return NotFound();
             }
 
+            var orderitem = await _context.OrderItems
+               .FirstOrDefaultAsync(m => m.OrderId == id);
+            var products= await _context.Products
+               .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
             var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);         
+            
+
             if (orders == null)
             {
                 return NotFound();
@@ -129,14 +142,10 @@ namespace OneStopShop.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
+           
+            
 
-            return View(orders);
+            return View();
         }
 
         // POST: Orders/Delete/5
@@ -158,17 +167,22 @@ namespace OneStopShop.Controllers
         //Get Checkout
         public IActionResult Checkout()
         {
-            Orders order = new Orders();
+           Orders order = new Orders();
            
-            order.Lines = cart.Lines.ToArray();
-            _context.Update(order);
            
+           order.Lines = cart.Lines.ToArray();
+
+           // ViewBag.Lines = cart.Lines.ToArray();
+           _context.Add(order);
+          // _context.SaveChanges();
+
+
 
             //ViewModel model = new ViewModel();
             //model.product = product;
             //model.order = order;         
 
-
+           // var a= cart.Lines.ToArray();
             return View(order);
             
         }
@@ -188,11 +202,35 @@ namespace OneStopShop.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 order.Lines = cart.Lines.ToArray();
+                
                 var cost=order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
                 _context.Update(order);
                 _context.SaveChanges();
+
+                foreach(var line in order.Lines)
+                {
+                    Models.OrderItem item = new Models.OrderItem()
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = line.Product.ProductID,
+                        StoreId=line.Product.StoreId,
+                        Quantity= line.Quantity,
+                        Cost=line.Product.ProductPrice*line.Quantity
+                    };
+                    _context.OrderItems.Add(item);
+                    _context.SaveChanges();
+                    
+
+                }
+                
+
+
+
+
+
                 return View("Payment");
 
                // return RedirectToAction(nameof(Completed));
