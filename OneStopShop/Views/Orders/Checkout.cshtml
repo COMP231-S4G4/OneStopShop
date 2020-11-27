@@ -95,6 +95,8 @@
 <form asp-action="Checkout" method="post">
     <h3>Shipping Address</h3>
     @*<input asp-for="OrderId" type="hidden" />*@
+
+    @Html.HiddenFor(model => model.OrderId)
     <div class="form-group">
         <label>Name:</label><input asp-for="CustomerName" class="form-control" />
     </div>

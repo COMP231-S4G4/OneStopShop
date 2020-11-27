@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201126203842_order")]
-    partial class order
+    [Migration("20201127180714_payment")]
+    partial class payment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,6 +81,33 @@ namespace OneStopShop.Migrations
                     b.ToTable("CartItems");
                 });
 
+            modelBuilder.Entity("OneStopShop.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderItemId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("OneStopShop.Models.Orders", b =>
                 {
                     b.Property<int>("OrderId")
@@ -109,6 +136,9 @@ namespace OneStopShop.Migrations
                     b.Property<DateTime>("OrderCreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("OrderStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ProductID")
                         .HasColumnType("int");
 
@@ -130,6 +160,24 @@ namespace OneStopShop.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PaymentId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>

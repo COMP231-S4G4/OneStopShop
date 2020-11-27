@@ -45,6 +45,8 @@ namespace OneStopShop.Models
 
         public decimal? TotalCost { get; set; }
 
+        public string? OrderStatus { get; set; }
+
        
 
 

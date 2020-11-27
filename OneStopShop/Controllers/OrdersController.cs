@@ -24,20 +24,31 @@ namespace OneStopShop.Controllers
 
         }
 
-        // GET: List of Orders
+        // GET: List of orders for a store
         public  IActionResult Index(int id)
         {
             var OrderList = _context.OrderItems.ToList();
 
-            var StoreOrders = (from item in OrderList
+            List<Models.OrderItem> StoreOrders = new List<Models.OrderItem>();
+
+            var StoreOrderList = (from item in OrderList
                                where item.StoreId == id
                                select item).ToList();
+            foreach (var item in StoreOrderList)
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.OrderId == item.OrderId);
+                if(order.OrderStatus== "succeeded")
+                {
+                    StoreOrders.Add(item);
+                }
+            }
 
 
             return View(StoreOrders);
         }
 
-        // GET: Orders/Details/5
+
+        // GET: Orders/Details/id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,105 +70,10 @@ namespace OneStopShop.Controllers
             }
 
             return View(orders);
-        }
+        }   
 
-        // GET: Orders/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ProductID,StoreId,OrderCreatedDate,OrderModifiedDate")] Orders orders)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(orders);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(orders);
-        }
-
-        // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
-            return View(orders);
-        }
-
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ProductID,StoreId,OrderCreatedDate,OrderModifiedDate")] Orders orders)
-        {
-            if (id != orders.OrderId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(orders);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrdersExists(orders.OrderId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(orders);
-        }
-
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-           
-            
-
-            return View();
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var orders = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(orders);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
+       
 
         private bool OrdersExists(int id)
         {
@@ -168,33 +84,20 @@ namespace OneStopShop.Controllers
         public IActionResult Checkout()
         {
            Orders order = new Orders();
-           
-           
-           order.Lines = cart.Lines.ToArray();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
 
-           // ViewBag.Lines = cart.Lines.ToArray();
-           _context.Add(order);
-          // _context.SaveChanges();
+            order.Lines = cart.Lines.ToArray();
 
-
-
-            //ViewModel model = new ViewModel();
-            //model.product = product;
-            //model.order = order;         
-
-           // var a= cart.Lines.ToArray();
             return View(order);
             
         }
 
+        //Post/CheckOut
+
         [HttpPost]
         public IActionResult Checkout(Orders order)
         {
-            //model.order.Lines = cart.Lines.ToArray();
-            //_context.Orders.Add(model.order);
-            //return View("Payment");
-
-           
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -202,38 +105,31 @@ namespace OneStopShop.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 order.Lines = cart.Lines.ToArray();
-                
-                var cost=order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
+
+                var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
+                ViewBag.OrderId = order.OrderId;
                 _context.Update(order);
                 _context.SaveChanges();
 
-                foreach(var line in order.Lines)
+                foreach (var line in order.Lines)
                 {
                     Models.OrderItem item = new Models.OrderItem()
                     {
                         OrderId = order.OrderId,
                         ProductId = line.Product.ProductID,
-                        StoreId=line.Product.StoreId,
-                        Quantity= line.Quantity,
-                        Cost=line.Product.ProductPrice*line.Quantity
+                        StoreId = line.Product.StoreId,
+                        Quantity = line.Quantity,
+                        Cost = line.Product.ProductPrice * line.Quantity
                     };
                     _context.OrderItems.Add(item);
                     _context.SaveChanges();
-                    
+                }              
 
-                }
-                
-
-
-
-
-
-                return View("Payment");
-
-               // return RedirectToAction(nameof(Completed));
+                return View("Payment",order);
+               
             }
             else
             {
@@ -251,8 +147,9 @@ namespace OneStopShop.Controllers
         //post payment
 
         [HttpPost]
-        public IActionResult Payment(string stripeEmail, string stripeToken)
+        public IActionResult Payment(string stripeEmail, string stripeToken,Orders order)
         {
+            
             var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -275,7 +172,12 @@ namespace OneStopShop.Controllers
             if (charge.Status == "succeeded")
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
+                order.OrderCreatedDate = DateTime.Now;
+                order.OrderStatus = "succeeded";
+                _context.Update(order);
+                _context.SaveChanges();
+
+                return View("OrderConfirmation");
             }
 
 
