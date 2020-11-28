@@ -349,7 +349,7 @@ namespace OneStopShop.Migrations
             modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
                 {
                     b.HasOne("OneStopShop.Models.Store", "Store")
-                        .WithMany()
+                        .WithMany("JoinedStore")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
