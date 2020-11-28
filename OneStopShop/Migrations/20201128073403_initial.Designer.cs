@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201127221831_Initial")]
-    partial class Initial
+    [Migration("20201128073403_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,34 @@ namespace OneStopShop.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
+                {
+                    b.Property<int>("JoinedStoreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsOwner")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsersUserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("JoinedStoreId");
+
+                    b.HasIndex("StoreId");
+
+                    b.HasIndex("UsersUserID");
+
+                    b.ToTable("JoinedStore");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Orders", b =>
@@ -287,6 +315,9 @@ namespace OneStopShop.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
                     b.Property<string>("TransitNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -301,6 +332,8 @@ namespace OneStopShop.Migrations
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("StoreId");
+
                     b.ToTable("Users");
                 });
 
@@ -313,6 +346,19 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
+                {
+                    b.HasOne("OneStopShop.Models.Store", "Store")
+                        .WithMany("JoinedStore")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OneStopShop.Models.Users", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersUserID");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
@@ -342,6 +388,10 @@ namespace OneStopShop.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("OneStopShop.Models.Store", "Store")
+                        .WithMany("Users")
+                        .HasForeignKey("StoreId");
                 });
 #pragma warning restore 612, 618
         }
