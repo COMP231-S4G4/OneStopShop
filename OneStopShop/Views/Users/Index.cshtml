@@ -1,0 +1,96 @@
+﻿@model IEnumerable<OneStopShop.Models.Users>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BankName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransitNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstitutionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransitNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InstitutionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
