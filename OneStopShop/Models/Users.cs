@@ -46,8 +46,10 @@ namespace OneStopShop.Models
 
         [Display(Name = "Institution#")]
         public string InstitutionNumber { get; set; }
+
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
+        public virtual Store Store { get; set; }
     }
 }
