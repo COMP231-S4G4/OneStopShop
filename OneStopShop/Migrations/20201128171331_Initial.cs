@@ -51,6 +51,19 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
                 {
@@ -66,28 +79,6 @@ namespace OneStopShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stores", x => x.StoreId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    PhoneNum = table.Column<string>(nullable: true),
-                    AccountType = table.Column<string>(nullable: false),
-                    BankName = table.Column<string>(nullable: true),
-                    AccountNumber = table.Column<int>(nullable: false),
-                    TransitNumber = table.Column<string>(nullable: true),
-                    InstitutionNumber = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,6 +110,42 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    PhoneNum = table.Column<string>(nullable: true),
+                    AccountType = table.Column<string>(nullable: false),
+                    BankName = table.Column<string>(nullable: true),
+                    AccountNumber = table.Column<int>(nullable: false),
+                    TransitNumber = table.Column<string>(nullable: true),
+                    InstitutionNumber = table.Column<string>(nullable: true),
+                    RoleId = table.Column<int>(nullable: false),
+                    StoreId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "StoreId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CartItems",
                 columns: table => new
                 {
@@ -142,6 +169,34 @@ namespace OneStopShop.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JoinedStore",
+                columns: table => new
+                {
+                    JoinedStoreId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    IsOwner = table.Column<bool>(nullable: false),
+                    UsersUserID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JoinedStore", x => x.JoinedStoreId);
+                    table.ForeignKey(
+                        name: "FK_JoinedStore_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "StoreId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JoinedStore_Users_UsersUserID",
+                        column: x => x.UsersUserID,
+                        principalTable: "Users",
+                        principalColumn: "UserID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -184,6 +239,16 @@ namespace OneStopShop.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JoinedStore_StoreId",
+                table: "JoinedStore",
+                column: "StoreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JoinedStore_UsersUserID",
+                table: "JoinedStore",
+                column: "UsersUserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_StoreId",
                 table: "Products",
                 column: "StoreId");
@@ -197,6 +262,16 @@ namespace OneStopShop.Migrations
                 name: "IX_Reviews_UserID",
                 table: "Reviews",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_StoreId",
+                table: "Users",
+                column: "StoreId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -206,6 +281,9 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "CartItems");
+
+            migrationBuilder.DropTable(
+                name: "JoinedStore");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
@@ -218,6 +296,9 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Stores");

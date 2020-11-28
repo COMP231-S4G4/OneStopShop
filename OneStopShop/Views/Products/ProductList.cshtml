@@ -51,17 +51,13 @@
                     </div>
                 </form>
 
-                        <div class="col-sm-6">
-                            <a asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId">Blogs</a>
-                        </div>
-                        </div>
-                        </form>
-             
-            </div>
+                <div class="col-sm-6">
+                    <a asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId">Blogs</a>
+                </div>
+            </div>             
         </div>
     </div>
 </div>
-
 
 <div id="products" class="row list-group">
     @foreach (var item in Model.Item1)
