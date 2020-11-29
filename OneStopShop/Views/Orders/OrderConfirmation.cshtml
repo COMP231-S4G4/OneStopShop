@@ -1,4 +1,4 @@
-﻿
+﻿@model OneStopShop.Models.Orders
 @{
     ViewData["Title"] = "Order Confirmation";
 }
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="checkout-success">
-            <p>Your order # is: @*<span>0012345678</span>.*@</p>
+            <p>Your order # is: <span>@Model.OrderId</span>.</p>
             <p>Thanks For Shopping ! Your order hasn't shipped yet, but we will send you an email when it does.</p>
             <div class="actions-toolbar">
                 <div class="primary">                    

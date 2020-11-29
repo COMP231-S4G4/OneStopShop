@@ -27,6 +27,9 @@ namespace OneStopShop.Models
         public DbSet<JoinedStore> JoinedStore { get; set; }
 
         public DbSet<OneStopShop.Models.Reviews> Reviews { get; set; }
-     
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<Payment> Payment { get; set; }
     }
 }

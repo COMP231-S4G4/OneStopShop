@@ -31,25 +31,8 @@ namespace OneStopShop.Controllers
             return product;
         }
 
-        //private async Task<List<Product>> GetProducts()
-        //{
-        //    var products = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> totalquantity(int quntity, int productid)
-        //{
-        //    var product = _context.Products
-        //      .FirstOrDefault(p => p.ProductID == productid);
-        //    var price = product.ProductPrice;
-        //    var total = price * quntity;
-        //    product.ProductPrice = total;
-        //    _context.Update(product);
-        //    await _context.SaveChangesAsync();
-
-        //    return RedirectToAction("Index", new { id = product.ProductID });
-        //}
-
+       
+        //Add products to cart
         public RedirectToActionResult AddToCart(int productId)
         {
             var product = _context.Products
@@ -64,12 +47,14 @@ namespace OneStopShop.Controllers
 
             if (product != null)
             {
-                cart.AddItem(product, 1);
+                cart.AddItem(product, 1,product.StoreId);
             }
-
+            var a = cart;
+            
             return RedirectToAction("Index");
         }
 
+        //Remove Products from Cart
         public RedirectToActionResult RemoveFromCart(int id, string returnUrl)
         {
             Product product = _context.Products
