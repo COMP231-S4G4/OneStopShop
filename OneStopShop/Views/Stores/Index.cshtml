@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<OneStopShop.Models.Store>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
-	ViewData["Title"] = "Store";
+    ViewData["Title"] = "Store";
 }
 
 <head>
@@ -43,31 +45,36 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StoreName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SellerFirstname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SellerLasttname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StoreDescription)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            <a id="Details" asp-action="Dashboard" asp-route-id="@item.StoreId">Dashboard</a>
-                            <a id="Edit" asp-action="Edit" asp-route-id="@item.StoreId">Edit</a>
-                            <a id="Delete" asp-action="Delete" asp-route-id="@item.StoreId">Delete</a>
-                        </td>
-                    </tr>
+                    @if (item.JoinedStore.Where(m => m.UserId == (HttpContextAccessor.HttpContext.Session.GetInt32("UserId")) && m.IsOwner.Equals(true)).FirstOrDefault() != null)
+                    {
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoreName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SellerFirstname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SellerLasttname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StoreDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    <a id="Details" asp-action="Dashboard" asp-route-id="@item.StoreId">Dashboard</a>
+                                    <a id="Edit" asp-action="Edit" asp-route-id="@item.StoreId">Edit</a>
+                                    <a id="Delete" asp-action="Delete" asp-route-id="@item.StoreId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>
