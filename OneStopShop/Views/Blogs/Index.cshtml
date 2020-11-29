@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OneStopShop.Models.Blogs>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+	<a asp-action="Create" asp-route-StoreId="StoreId">Create New</a>
+</p>
+<table class="table">
+	<colgroup>
+		<col style="width:20%" />
+		<col style="width:15%" />
+		<col style="width:30%" />
+		<col style="width:35%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.BlogTitle)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BlogCreatedDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BlogDescription)
+			</th>
+			<th class="text-center">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.BlogTitle)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.BlogCreatedDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.BlogDescription)
+				</td>
+				<td class="text-center">
+					<form asp-action="Delete" asp-route-id="@item.BlogId" method="post">
+						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.BlogId">Edit</a> &nbsp;
+						<a class="btn btn-success" asp-action="Details" asp-route-id="@item.BlogId">Details</a> &nbsp;
+
+						<span id="confirmDeleteSpan_@item.BlogId" style="display:none">
+							<br /><br />
+							<span>Are you sure you want to delete?</span><br />
+							<button type="submit" class="btn btn-danger">Yes</button>
+							<a href="#" class="btn btn-primary" onclick="confirmDelete('@item.BlogId', false)">No</a>
+						</span>
+						<span id="deleteSpan_@item.BlogId">
+							<a href="#" class="btn btn-danger" onclick="confirmDelete('@item.BlogId', true)">Delete</a>
+						</span>
+					</form>
+				</td>
+				@*<td>
+						<a asp-action="Edit" asp-route-id="@item.BlogId">Edit</a> |
+						<a asp-action="Details" asp-route-id="@item.BlogId">Details</a> |
+						<a asp-action="Delete" asp-route-id="@item.BlogId">Delete</a>
+					</td>*@
+			</tr>
+		}
+	</tbody>
+</table>
+
+@section Scripts {
+	<script src="~/js/DeleteConfirmation.js"></script>
+}
