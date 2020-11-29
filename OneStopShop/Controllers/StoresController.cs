@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +12,11 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
-    public class StoresController : Controller
+    public class StoresController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public StoresController(ApplicationDbContext context)
+        public StoresController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
             _context = context;
         }
@@ -31,8 +34,20 @@ namespace OneStopShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                await HttpContext.Session.LoadAsync();
+                int userID = (int)HttpContext.Session.GetInt32("UserId");
                 _context.Add(store);
                 await _context.SaveChangesAsync();
+
+                JoinedStore joined = new JoinedStore()
+                {
+                    UserId = userID,
+                    StoreId = store.StoreId,
+                    IsOwner = true,
+                };
+                await _context.JoinedStore.AddAsync(joined);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(store);
@@ -41,22 +56,41 @@ namespace OneStopShop.Controllers
         // GET:List of Stores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Stores.ToListAsync());
+            return View(await _context.Stores.Include(a => a.JoinedStore).ToListAsync());
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product)
-               .FirstOrDefaultAsync();
-            return View(storeDetails);
+            //var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product)
+            //   .FirstOrDefaultAsync();
+            //return View(storeDetails);
+
+            var productlist = await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync();
+            var store = _context.Stores.Find(id);
+            var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(productlist, store);
+            return View(tupleData);
+        }
+
+        public async Task<IActionResult> Search(int id, string searchTerm)
+        {
+            IList<Product> Produnewlist = null;
+
+            var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(id)) select s;
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                Produnewlist = prodlist.Where(i => i.ProductName.Contains(searchTerm)
+                                       || i.ProductDescription.Contains(searchTerm)).ToList();
+            }
+
+            var store = _context.Stores.Find(id);
+            var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
+            return View("Details", tupleData);
         }
 
         public IActionResult Productlist(int id)
-        {            
+        {
             return RedirectToAction("ProductList", "Products", new { ID = id });
         }
-
-        
 
         // GET: Stores/Edit/id
         public IActionResult Edit(int id)
@@ -130,7 +164,7 @@ namespace OneStopShop.Controllers
         public IActionResult Dashboard(int id)
         {
             return View(_context.Stores.FirstOrDefault(s => s.StoreId == id));
-		}
+        }
 
         public IActionResult Orders(int id)
         {

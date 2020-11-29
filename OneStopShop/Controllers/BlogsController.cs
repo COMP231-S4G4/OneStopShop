@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +36,23 @@ namespace OneStopShop.Controllers
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
         }
+        // GET: Blogs/Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var blogs = await _context.Blogs
+                .FirstOrDefaultAsync(m => m.BlogId == id);
+            if (blogs == null)
+            {
+                return NotFound();
+            }
+
+            return View(blogs);
+        }
         // GET: Blogs/Create
         public IActionResult Create()
         {
