@@ -17,7 +17,8 @@ namespace OneStopShop.Models
 
         [MinLength(5, ErrorMessage = "The Address must be at least 5 characters long")]
         [Display(Name = "Address")]
-        public string Address { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
 
         [Display(Name = "Email")]
         public string email { get; set; }
@@ -26,16 +27,15 @@ namespace OneStopShop.Models
         public string PhoneNum { get; set; }
 
         [Required(ErrorMessage = "Please enter a Created Date")]
-        public DateTime ProductCreatedDate { get; set; }
+        public DateTime OrderCreatedDate { get; set; }
 
-        [Display(Name = "Order Status")]
-        public string OrderStatus { get; set; }
+        
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Display(Name = "Type")]
-        public string Type { get; set; }
+        public string ProductType { get; set; }
 
         [Display(Name = "Chest Measurement")]
         public string Chest { get; set; }
@@ -44,7 +44,7 @@ namespace OneStopShop.Models
         public string Neck { get; set; }
 
         [Display(Name = "Shoulder Measurement")]
-        public string Shouder { get; set; }
+        public string Shoulder { get; set; }
 
         [Display(Name = "Sleeve Measurement")]
         public string Sleeve { get; set; }

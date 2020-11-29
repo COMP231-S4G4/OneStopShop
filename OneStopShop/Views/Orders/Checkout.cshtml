@@ -55,46 +55,13 @@
 </table>
 <p>Please enter your details, and we'll ship your goods right away!</p>
 
-@*<div asp-validation-summary="All" class="text-danger"></div>
-<div class="row">
-    <div class="col-sm-12" id="results">
 
-        @foreach (var item in Model.product)
-        {
-
-            <div class="card mt-2 mb-2">
-                <div class="card-body">
-                    <div class="col-sm-3 float-left mb-">
-
-                        @if (item.ProductImage == null)
-                        {
-                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/images/default-banner-ssf.png" alt="Card image cap">
-                        }
-
-                        else
-                        {
-
-                            <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%; height: 20vh" src="~/@item.ProductImage" alt="Card image cap">
-                        }
-                    </div>
-                    <div class="col-sm-4 float-left">
-                        <h5 class="card-title"><a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID"> @item.ProductName</a></h5>
-                        <div class="btn-group pl-1" role="group">
-
-                            <i class="far fa-calendar-alt"></i> @item.ProductPrice
-                        </div>
-                        <p class="card-text">@item.ProductDescription</p>
-                    </div>
-                </div>
-            </div>
-
-        }
-    </div>
-</div>*@
 
 <form asp-action="Checkout" method="post">
     <h3>Shipping Address</h3>
-    <input asp-for="OrderId" type="hidden" />
+    @*<input asp-for="OrderId" type="hidden" />*@
+
+    @Html.HiddenFor(model => model.OrderId)
     <div class="form-group">
         <label>Name:</label><input asp-for="CustomerName" class="form-control" />
     </div>
@@ -105,9 +72,7 @@
     <div class="form-group">
         <label>Line 2:</label><input asp-for="Line2" class="form-control" />
     </div>
-    <div class="form-group">
-        <label>Line 3:</label><input asp-for="Line3" class="form-control" />
-    </div>
+   
     <div class="form-group">
         <label>City:</label><input asp-for="City" class="form-control" />
     </div>
