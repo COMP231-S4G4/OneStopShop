@@ -60,7 +60,7 @@
                     <img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
                     <span>add to cart</span>
                 </button>*@
-                     <form id="@Model.ProductID" asp-action="AddToCart"
+                     <form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart"
                   method="post">
 
                 <input type="hidden" asp-for="ProductID" />
