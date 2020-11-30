@@ -1,15 +1,21 @@
 ﻿@model OneStopShop.Models.Blogs
 
 @{
+    Layout = "_HomeLayout";
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<head>
+    <link href="~/css/BlogEdit.css" rel="stylesheet" />
+</head>
+<h1 class="EditBlog">Edit Blog</h1>
 
-<h4>Blogs</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row col-md-12" id="BlogEdit">
+        <div class="col-md-3">
+             <img id="previewImg" asp-for="BlogImage" src="~/@Model.BlogImage" asp-append-version="true"
+             style="border:1px solid grey; width:310px; height:300px;" />
+        </div>
+    <div class="col-md-8" style="margin-left: 7%;">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="BlogId" />
@@ -41,21 +47,21 @@
                 <input asp-for="BlogDescription" class="form-control" />
                 <span asp-validation-for="BlogDescription" class="text-danger"></span>
             </div>
-            <div class="col-sm-6 p-4"> <img id="previewImg" asp-for="BlogImage" src="~/@Model.BlogImage" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>
-            <div class="form-group">
+            @*<div class="col-sm-6 p-4"> <img id="previewImg" asp-for="BlogImage" src="~/@Model.BlogImage" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>*@
+            <div class="form-group" style="text-align:center;">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="margin-bottom:50px;">
+    <a id="Back" asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@
 <script type="text/javascript">
 
     // Add the following code if you want the name of the file appear on select
