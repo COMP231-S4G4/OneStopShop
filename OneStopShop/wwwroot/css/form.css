@@ -1,4 +1,10 @@
-﻿input {
+﻿form {
+	text-align: -webkit-center;
+	font-size: 15px;
+}
+
+
+.text {
 	width: 400px;
 	height: 40px;
 	outline-style: none;
@@ -7,4 +13,29 @@
 
 .measurements{
 	width:100px;
+}
+
+.radio{
+	width:auto;
+}
+
+.top-bottom {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: -webkit-center;
+	max-width:1300px;
+	width:100%;
+}
+
+.top {
+	display: block;
+	max-width: 500px;
+	width: 100%;
+	overflow:auto;
+}
+.bottom {
+	display: block;
+	max-width: 500px;
+	width: 100%;
+	overflow: auto;
 }
