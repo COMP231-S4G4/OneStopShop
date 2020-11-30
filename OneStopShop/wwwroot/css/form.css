@@ -1,0 +1,10 @@
+﻿input {
+	width: 400px;
+	height: 40px;
+	outline-style: none;
+	border-radius: 8px;
+}
+
+.measurements{
+	width:100px;
+}

@@ -6,108 +6,128 @@
 
 <head>
 	<link href="~/css/AddProduct.css" rel="stylesheet" />
+	<link href="~/css/form.css" rel="stylesheet" />
+	@*<script>
+		function type(x) {
+			if (x == 0) {
+				document.getElementById("top").style.display = 'block';
+			}
+			else if (x == 1) {
+				document.getElementById("bottom").style.display = 'block'
+			}
+			else {
+				document.getElementById("top").style.display = 'block'
+				document.getElementById("bottom").style.display = 'block'
+			}
+			return;
+		}
+	</script>*@
 </head>
 
 
 <h2>Customized Order Form</h2>
 
 <form action="CustomizedOrderForm">
-	<div class="customer-info">
+	<div class="customer-info align-content-center">
 		<div class="form-group">
 			<label asp-for="email" class="control-label"></label>
-			<input asp-for="email" class="form-control" />
+			<input asp-for="email" class="" />
 			<span asp-validation-for="email" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="PhoneNum" class="control-label"></label>
-			<input asp-for="PhoneNum" class="form-control" />
+			<input asp-for="PhoneNum" class="" />
 			<span asp-validation-for="PhoneNum" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Description" class="control-label"></label>
-			<input asp-for="Description" class="form-control" />
+			<input asp-for="Description" class="" />
 			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="ProductType" class="control-label"></label>
-			<input asp-for="ProductType" class="form-control" />
+			<input type="radio" value="top" name="type" class="" />Top
+			<input type="radio" value="bottom" name="type" class="" />Bottom
 			<span asp-validation-for="ProductType" class="text-danger"></span>
 		</div>
 		<!--<div class="form-group">
 		<label for="province">Province: </label>
 		<input type="text" id="province" name="province" />-->
 		@*<label asp-for="province" class="control-label"></label>
-		<input asp-for="province" class="form-control" />
-		<span asp-validation-for="province" class="text-danger"></span>*@
+			<input asp-for="province" class="form-control" />
+			<span asp-validation-for="province" class="text-danger"></span>*@
 		<!--</div>-->
 	</div>
 
-	<div class="top">
+	<div id="box top">
+		<h3>Top</h3>
 		<div class="form-group">
 			<label asp-for="Chest" class="control-label"></label>
-			<input asp-for="Chest" class="form-control" />
+			<input asp-for="Chest" class="measurements" />
 			<span asp-validation-for="Chest" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Neck" class="control-label"></label>
-			<input asp-for="Neck" class="form-control" />
+			<input asp-for="Neck" class="measurements" />
 			<span asp-validation-for="Neck" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Waist" class="control-label"></label>
-			<input asp-for="Waist" class="form-control" />
+			<input asp-for="Waist" class="measurements" />
 			<span asp-validation-for="Waist" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Shoulder" class="control-label"></label>
-			<input asp-for="Shoulder" class="form-control" />
+			<input asp-for="Shoulder" class="measurements" />
 			<span asp-validation-for="Shoulder" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Sleeve" class="control-label"></label>
-			<input asp-for="Sleeve" class="form-control" />
+			<input asp-for="Sleeve" class="measurements" />
 			<span asp-validation-for="Sleeve" class="text-danger"></span>
 		</div>
 	</div>
 
-	<div class="bottom">
+	<div id="box bottom">
+		<h3>Bottom</h3>
 		<div class="form-group">
-			<label for="Waist">Waist: </label>
-			<input type="text" id="Waist" name="Waist" />
-			@*<label asp-for="Waist" class="control-label"></label>
-				<input asp-for="Waist" class="form-control" />
-				<span asp-validation-for="Waist" class="text-danger"></span>*@
+			<label asp-for="Waist" class="control-label"></label>
+			<input asp-for="Waist" class="measurements" />
+			<span asp-validation-for="Waist" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label for="Hip">Hip: </label>
-			<input type="text" id="Hip" name="Hip" />
-			@*<label asp-for="Hip" class="control-label"></label>
-				<input asp-for="Hip" class="form-control" />
-				<span asp-validation-for="Hip" class="text-danger"></span>*@
+			<label asp-for="Hip" class="control-label"></label>
+			<input asp-for="Hip" class="measurements" />
+			<span asp-validation-for="Hip" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label for="InseamLength">InseamLength: </label>
-			<input type="text" id="InseamLength" name="InseamLength" />
-			@*<label asp-for="InseamLength" class="control-label"></label>
-				<input asp-for="InseamLength" class="form-control" />
-				<span asp-validation-for="InseamLength" class="text-danger"></span>*@
+			<label asp-for="InseamLength" class="control-label"></label>
+			<input asp-for="InseamLength" class="measurements" />
+			<span asp-validation-for="InseamLength" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label for="FullLength">FullLength: </label>
-			<input type="text" id="FullLength" name="FullLength" />
-			@*<label asp-for="FullLength" class="control-label"></label>
-				<input asp-for="FullLength" class="form-control" />
-				<span asp-validation-for="FullLength" class="text-danger"></span>*@
+			<label asp-for="FullLength" class="control-label"></label>
+			<input asp-for="FullLength" class="measurements" />
+			<span asp-validation-for="FullLength" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label for="AnkleLength">AnkleLength: </label>
-			<input type="text" id="AnkleLength" name="AnkleLength" />
-			@*<label asp-for="AnkleLength" class="control-label"></label>
-				<input asp-for="AnkleLength" class="form-control" />
-				<span asp-validation-for="AnkleLength" class="text-danger"></span>*@
+			<label asp-for="AnkleLength" class="control-label"></label>
+			<input asp-for="AnkleLength" class="measurements" />
+			<span asp-validation-for="AnkleLength" class="text-danger"></span>
 		</div>
 	</div>
 	<div class="form-group">
-		<input type="submit" value="Create" class="btn btn-success" />
+		<input type="submit" value="Submit" class="btn btn-success" />
 	</div>
 </form>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('input[type="radio"]').click(function () {
+			var inputValue = $(this).attr("value")
+			var targetBox = $("." + inputValue);
+			$(".box").not(targetBox).hide();
+			$(targetBox).show();
+		});
+	});
+</script>
