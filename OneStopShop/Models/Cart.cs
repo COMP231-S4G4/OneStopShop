@@ -10,7 +10,7 @@ namespace OneStopShop.Models
        
         private List<CartItem> itemCollection = new List<CartItem>();
 
-        public virtual void AddItem(Product product, int quantity)
+        public virtual void AddItem(Product product, int quantity,int storeid)
         {
             CartItem item = itemCollection
                 .Where(p => p.Product.ProductID == product.ProductID)
@@ -21,13 +21,16 @@ namespace OneStopShop.Models
                 itemCollection.Add(new CartItem
                 {
                     Product = product,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    StoreId= storeid
                 });
             }
             else
             {
                 item.Quantity += quantity;
             }
+
+
 
         }
 
