@@ -190,11 +190,5 @@ namespace OneStopShop.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public ActionResult CustomizedOrderForm()
-        {
-            return View();
-        }
     }
 }
