@@ -52,7 +52,16 @@ namespace OneStopShop.Models
         [Display(Name = "Waist Measurement")]
         public string Waist { get; set; }
 
-        [Display(Name = "Height Measurement")]
-        public string Height { get; set; }
+        [Display(Name = "Hip Measurement")]
+        public string Hip { get; set; }
+
+        [Display(Name = "Inseam Measurement")]
+        public string InseamLength { get; set; }
+
+        [Display(Name = "Full Measurement")]
+        public string FullLength { get; set; }
+
+        [Display(Name = "Ankle Measurement")]
+        public string AnkleLength { get; set; }
     }
 }
