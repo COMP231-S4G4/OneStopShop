@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - OneStopShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/css/Index.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -29,11 +28,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Index">StoreList</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">My Cart</a>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="OrderConfirmation">Order Confirmation</a>
-                            </li>
+                            @*<li class="nav-item">
+
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Create">SignUp</a>
+
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Stores" asp-action="Index">StoreList</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">My Cart</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="OrderConfirmation">Order Confirmation</a>
+                                </li>*@
                         </ul>
                     </div>
                 </div>
@@ -79,16 +82,16 @@
                 </div>
             </nav>*@
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - OneStopShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+		<div class="container">
+			&copy; 2020 - OneStopShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

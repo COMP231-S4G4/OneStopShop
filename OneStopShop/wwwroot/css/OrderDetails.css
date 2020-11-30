@@ -18,22 +18,26 @@ h4 {
 table {
     height: 300px;
     width: 500px;
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: #192537;
     border-collapse: collapse;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
     margin-left: auto;
     margin-right: auto;
+    border: 2px solid white;
 }
+
+
 
 th, td {
     text-align: left;
     padding: 8px;
+    border-bottom: 1px solid white;
 }
 
-tr:nth-child(even) {
+/*tr:nth-child(even) {
     background-color: #f2f2f2;
-}
+}*/
 
 #Back {
     background-color: #031327;
@@ -52,3 +56,32 @@ tr:nth-child(even) {
     #Back:hover {
         background-color: #bd1b1b;
     }
+
+
+.producttable {
+    height: auto;
+    width: 100%;
+    color: white;
+    background-color: #192537;
+    border-collapse: collapse;
+    /*border-radius: 15px;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.th {
+    background-color: #B09E80;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.td {
+    background-color: #192537;
+    text-align: center;
+    color: white;
+}
+.OrderDetails {
+    color: white;
+    text-align: center;
+}
