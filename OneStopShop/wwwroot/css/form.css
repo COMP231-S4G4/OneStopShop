@@ -1,4 +1,18 @@
-﻿form {
+﻿body {
+	background-color: #1d2c42;
+}
+
+.container {
+	color: white;
+	background-color: #192537;
+}
+
+h3{
+	text-align:center;
+	margin-bottom:1em;
+}
+
+form {
 	text-align: -webkit-center;
 	font-size: 15px;
 }
@@ -31,11 +45,13 @@
 	display: block;
 	max-width: 500px;
 	width: 100%;
-	overflow:auto;
+	overflow: auto;
+	background-color: #B09E80
 }
 .bottom {
 	display: block;
 	max-width: 500px;
 	width: 100%;
 	overflow: auto;
+	background-color: #B09E80
 }
