@@ -154,7 +154,7 @@ namespace sampleUsser.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users",new { UserId=user.UserID });
             }
             return View(user);
         }
