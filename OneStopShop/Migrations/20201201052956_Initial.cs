@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,18 +154,11 @@ namespace OneStopShop.Migrations
                     AccountNumber = table.Column<int>(nullable: false),
                     TransitNumber = table.Column<string>(nullable: true),
                     InstitutionNumber = table.Column<string>(nullable: true),
-                    RoleId = table.Column<int>(nullable: false),
                     StoreId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserID);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Stores_StoreId",
                         column: x => x.StoreId,
@@ -294,11 +287,6 @@ namespace OneStopShop.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_StoreId",
                 table: "Users",
                 column: "StoreId");
@@ -325,6 +313,9 @@ namespace OneStopShop.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
@@ -332,9 +323,6 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Stores");

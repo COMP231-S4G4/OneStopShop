@@ -89,7 +89,7 @@ namespace sampleUsser.Controllers
                 if (username == user.Username && password == user.Password)
                 {
                     HttpContext.Session.SetInt32("UserId", userId);
-                    if (user.RoleId == 1)
+                    if (user.AccountType == "Seller")
                     {
                         var storeid = _context.JoinedStore.Where(a => a.UserId.Equals(user.UserID) && a.IsOwner.Equals(true)).Select(a => a.StoreId).FirstOrDefault();
                         if (storeid != 0)

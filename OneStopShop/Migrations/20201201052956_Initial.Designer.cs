@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201129022308_initial")]
-    partial class initial
+    [Migration("20201201052956_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -349,9 +349,6 @@ namespace OneStopShop.Migrations
                     b.Property<string>("PhoneNum")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("StoreId")
                         .HasColumnType("int");
 
@@ -366,8 +363,6 @@ namespace OneStopShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
-
-                    b.HasIndex("RoleId");
 
                     b.HasIndex("StoreId");
 
@@ -420,12 +415,6 @@ namespace OneStopShop.Migrations
 
             modelBuilder.Entity("OneStopShop.Models.Users", b =>
                 {
-                    b.HasOne("OneStopShop.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OneStopShop.Models.Store", "Store")
                         .WithMany("Users")
                         .HasForeignKey("StoreId");
