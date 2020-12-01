@@ -1,4 +1,7 @@
-﻿
+﻿body {
+    background-color: #1d2c42;
+}
+
 .searchFilter {
     margin-bottom: 20px;
 }
@@ -202,6 +205,7 @@
     margin-bottom: 20px;
     padding: 0px;
     -webkit-border-radius: 0px;
+    background-color:#192537;
     -moz-border-radius: 0px;
     border-radius: 0px;
 }
@@ -231,6 +235,7 @@
 
     .item.list-group-item .caption {
         padding: 9px 9px 0px 9px;
+        color:white;
     }
 
     .item.list-group-item:nth-of-type(odd) {
@@ -256,4 +261,24 @@
 
 .list-group {
     flex-direction: row !important;
+}
+
+#Image {
+    max-width: 360px;
+    width: 100%;
+    max-height: 530px;
+    height: 100%;
+}
+
+.search-input {
+    display: block;
+    max-width: 300px;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.container {
+    background-color: #192537;
 }
