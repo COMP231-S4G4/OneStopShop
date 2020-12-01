@@ -352,6 +352,27 @@ namespace OneStopShop.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OneStopShop.Models.Wishlist", b =>
+                {
+                    b.Property<int>("WishlistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAddedToWishlist")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WishlistId");
+
+                    b.ToTable("Wishlists");
+                });
+
             modelBuilder.Entity("OneStopShop.Models.CartItem", b =>
                 {
                     b.HasOne("OneStopShop.Models.Orders", null)

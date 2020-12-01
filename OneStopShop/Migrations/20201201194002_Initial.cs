@@ -98,6 +98,21 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Wishlists",
+                columns: table => new
+                {
+                    WishlistId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    IsAddedToWishlist = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wishlists", x => x.WishlistId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -298,6 +313,9 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Wishlists");
 
             migrationBuilder.DropTable(
                 name: "Orders");
