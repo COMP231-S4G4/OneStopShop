@@ -1,0 +1,27 @@
+﻿body {
+    background-color: #1d2c42;
+}
+.wishlist {
+    color: white;
+    text-align: center;
+}
+
+.list-group-item-text {
+    margin: 0 0 11px;
+}
+
+.list-group {
+    flex-direction: row !important;
+}
+
+#Image {
+    max-width: 360px;
+    width: 100%;
+    max-height: 530px;
+    height: 100%;
+}
+
+
+.container {
+    background-color: #192537;
+}
