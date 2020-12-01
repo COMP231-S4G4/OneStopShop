@@ -1,4 +1,4 @@
-﻿@model OneStopShop.Models.Orders
+﻿@model Tuple<OneStopShop.Models.Product, OneStopShop.Models.OrderItem, OneStopShop.Models.Orders>
 
 @{
     Layout = "_HomeLayout";
@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />    
+    <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
 </head>
@@ -39,7 +39,7 @@
             <table>
                 <tr>
                     <td class="font-weight-bold">Order ID</td>
-                    <td></td>
+                    <td>@Model.Item2.OrderId</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Date Created</td>
@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold"> Customer Name</td>
-                    <td></td>
+                    <td>@Model.Item3.CustomerName</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Address</td>
@@ -89,18 +89,11 @@
                     {*@
 
                 <tr>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                </tr>
-                <tr>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
+                    <td class="td">@Model.Item1.ProductID</td>
+                    <td class="td">@Model.Item1.ProductName</td>
+                    <td class="td">@Model.Item1.ProductPrice</td>
+                    <td class="td">@Model.Item2.Quantity</td>
+                    <td class="td">@Model.Item2.Cost</td>
                 </tr>
 
                 @*}*@

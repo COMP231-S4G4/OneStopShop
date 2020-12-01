@@ -64,14 +64,12 @@ namespace OneStopShop.Controllers
                .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
             var orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);         
-            
-
             if (orders == null)
             {
                 return NotFound();
             }
-
-            return View(orders);
+            var tupleData = new Tuple<OneStopShop.Models.Product, OneStopShop.Models.OrderItem, OneStopShop.Models.Orders>(products, orderitem, orders);
+            return View("Details", tupleData);
         }   
 
        
