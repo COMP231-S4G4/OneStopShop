@@ -18,8 +18,6 @@ namespace OneStopShop.Models
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Blogs> Blogs { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
-
         public DbSet<OneStopShop.Models.Orders> Orders { get; set; }
 
         public DbSet<OneStopShop.Models.Users> Users { get; set; }
