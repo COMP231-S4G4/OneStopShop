@@ -272,21 +272,6 @@ namespace OneStopShop.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("OneStopShop.Models.Role", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("OneStopShop.Models.Store", b =>
                 {
                     b.Property<int>("StoreId")
