@@ -46,13 +46,11 @@ namespace sampleUsser.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
+          
             return View();
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,StoreId,Username,Password,Address,email,PhoneNum,AccountType,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
