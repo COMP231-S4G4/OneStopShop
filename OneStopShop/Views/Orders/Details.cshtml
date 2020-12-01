@@ -6,6 +6,19 @@
 }
 <!DOCTYPE html>
 
+<script language="javascript" type="text/javascript">
+    function CallPrint(strid) {
+        var prtContent = document.getElementById(strid);
+        var WinPrint = window.open('', '', 'letf=0,top=0,width=800,height=100,toolbar=0,scrollbars=0,status=0,dir=ltr');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+        prtContent.innerHTML = strOldOne;
+    }
+</script>
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
@@ -45,27 +58,27 @@
                     <td class="font-weight-bold">Date Created</td>
                     <td>@DateTime.Now.ToString()</td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td class="font-weight-bold">Order Status</td>
                     <td>
-                        <select class="form-control" name="OrderStatus">
+                        <select class="form-control" name="OrderStatus" onchange="StatusChanged()">
                             <option value="Pending" selected>Pending</option>
                             <option value="Approved">Approved</option>
                             <option value="Delivered">Delivered</option>
                         </select>
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td class="font-weight-bold"> Customer Name</td>
                     <td>@Model.Item3.CustomerName</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Address</td>
-                    <td></td>
+                    <td>@Model.Item3.Line1 @Model.Item3.Line2 @Model.Item3.Zip</td>
                 </tr>
                 <tr>
                     <td class="font-weight-bold">City</td>
-                    <td></td>
+                    <td>@Model.Item3.City</td>
                 </tr>
             </table>
         </div>
