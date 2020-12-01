@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneStopShop.Models;
 
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201201210204_initial2")]
+    partial class initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,69 +79,6 @@ namespace OneStopShop.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.CustomOrders", b =>
-                {
-                    b.Property<int>("CustomOrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddressLine1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AddressLine2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AnkleLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Chest")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Hip")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InseamLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Neck")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderCreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Shoulder")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sleeve")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Waist")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomOrderID");
-
-                    b.ToTable("CustomOrders");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
@@ -240,6 +179,24 @@ namespace OneStopShop.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PaymentId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
