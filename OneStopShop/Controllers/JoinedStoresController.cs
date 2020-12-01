@@ -37,7 +37,7 @@ namespace OneStopShop.Controllers
                 joined.IsOwner = false;
                 _context.Add(joined);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ProductList", "Product", new { id = StoreId });
+                return RedirectToAction("ProductList", "Products", new { id = StoreId });
             }
             return View();
         }
