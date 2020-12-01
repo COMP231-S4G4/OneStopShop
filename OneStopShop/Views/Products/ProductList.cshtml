@@ -42,19 +42,19 @@
                         </div>
                     </div>
                 </div>
-                @*<div>
+                <div>
                     <a class="btn btn-primary text-white mr-1" data-toggle="tooltip" data-placement="top" title="Subscribe Store" asp-controller="JoinedStores" asp-action="JoinStore" asp-route-StoreId="@Model.Item2.StoreId">
                         <i class="fas fa-plus" title="Join Club"></i>  Join
                     </a>
-                </div>*@
+                </div>
             </form>
             <div>
                 <a asp-action="Create" asp-controller="CustomOrders" asp-route-id="@Model.Item2.StoreId" class="btn btn-danger">Custom Order Form</a>
             </div>
 
-            @*<div class="col-sm-6">
+            <div class="col-sm-6">
                 <a asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId">Blogs</a>
-            </div>*@
+            </div>
         </div>             
              
     </div>
