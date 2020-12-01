@@ -59,11 +59,12 @@ namespace OneStopShop.Controllers
             }
 
             var orderitem = await _context.OrderItems
-               .FirstOrDefaultAsync(m => m.OrderId == id);
+               .FirstOrDefaultAsync(m => m.OrderItemId == id);
+            var orders = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);
             var products= await _context.Products
                .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
-            var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);         
+                 
             if (orders == null)
             {
                 return NotFound();
@@ -147,7 +148,7 @@ namespace OneStopShop.Controllers
         //post payment
 
         [HttpPost]
-        public IActionResult Payment(string stripeEmail, string stripeToken,Orders order)
+        public IActionResult Payment(string stripeEmail, string stripeToken,int id)
         {
             
             var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
@@ -172,6 +173,8 @@ namespace OneStopShop.Controllers
             if (charge.Status == "succeeded")
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
+                var order =_context.Orders
+                .FirstOrDefault(m => m.OrderId == id);
                 order.OrderCreatedDate = DateTime.Now;
                 order.PaymentConfirmation = true;
                 _context.Update(order);

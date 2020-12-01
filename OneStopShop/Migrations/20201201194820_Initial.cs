@@ -238,32 +238,6 @@ namespace OneStopShop.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Subscribers",
-                columns: table => new
-                {
-                    SubscriberID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreId = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subscribers", x => x.SubscriberID);
-                    table.ForeignKey(
-                        name: "FK_Subscribers_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
-                        principalColumn: "StoreId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Subscribers_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_OrdersOrderId",
                 table: "CartItems",
@@ -300,16 +274,6 @@ namespace OneStopShop.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscribers_StoreId",
-                table: "Subscribers",
-                column: "StoreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Subscribers_UserID",
-                table: "Subscribers",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_StoreId",
                 table: "Users",
                 column: "StoreId");
@@ -334,9 +298,6 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reviews");
-
-            migrationBuilder.DropTable(
-                name: "Subscribers");
 
             migrationBuilder.DropTable(
                 name: "Orders");

@@ -10,7 +10,7 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201201105354_Initial")]
+    [Migration("20201201194820_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -304,28 +304,6 @@ namespace OneStopShop.Migrations
                     b.ToTable("Stores");
                 });
 
-            modelBuilder.Entity("OneStopShop.Models.Subscribers", b =>
-                {
-                    b.Property<int>("SubscriberID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SubscriberID");
-
-                    b.HasIndex("StoreId");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Subscribers");
-                });
-
             modelBuilder.Entity("OneStopShop.Models.Users", b =>
                 {
                     b.Property<int>("UserID")
@@ -414,17 +392,6 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Product", "product")
                         .WithMany()
                         .HasForeignKey("ProductID");
-
-                    b.HasOne("OneStopShop.Models.Users", "user")
-                        .WithMany()
-                        .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.Subscribers", b =>
-                {
-                    b.HasOne("OneStopShop.Models.Store", "store")
-                        .WithMany()
-                        .HasForeignKey("StoreId");
 
                     b.HasOne("OneStopShop.Models.Users", "user")
                         .WithMany()
