@@ -26,15 +26,15 @@ namespace sampleUsser.Controllers
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? UserId)
         {
-            if (id == null)
+            if (UserId == null)
             {
                 return NotFound();
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserID == id);
+                .FirstOrDefaultAsync(m => m.UserID == UserId);
             if (user == null)
             {
                 return NotFound();
@@ -110,11 +110,54 @@ namespace sampleUsser.Controllers
             return View();
         }
 
-        // GET: Users/Edit/5
+        // GET: Users/Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Users/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("UserID,Username,Password,AccountType,Address,email,PhoneNum,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
+        {
+            if (id != user.UserID)
+            {
+                return NotFound();
+            }
+           
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.UserID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
 
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
