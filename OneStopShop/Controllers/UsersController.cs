@@ -46,13 +46,11 @@ namespace sampleUsser.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
+          
             return View();
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,StoreId,Username,Password,Address,email,PhoneNum,AccountType,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
@@ -89,7 +87,7 @@ namespace sampleUsser.Controllers
                 if (username == user.Username && password == user.Password)
                 {
                     HttpContext.Session.SetInt32("UserId", userId);
-                    if (user.RoleId == 1)
+                    if (user.AccountType == "Seller")
                     {
                         var storeid = _context.JoinedStore.Where(a => a.UserId.Equals(user.UserID) && a.IsOwner.Equals(true)).Select(a => a.StoreId).FirstOrDefault();
                         if (storeid != 0)
