@@ -72,46 +72,46 @@ namespace OneStopShop.Controllers
             return View(tupleData);
         }
 
-        public async Task<IActionResult> Search(int id, string searchTerm)
-        {
-            IList<Product> Produnewlist = null;
+		//public async Task<IActionResult> Search(int id, string searchTerm)
+		//{
+		//    IList<Product> Produnewlist = null;
 
-            var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(id)) select s;
-            if (!String.IsNullOrEmpty(searchTerm))
-            {
-                Produnewlist = prodlist.Where(i => i.ProductName.Contains(searchTerm)
-                                       || i.ProductDescription.Contains(searchTerm)).ToList();
-            }
+		//    var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(id)) select s;
+		//    if (!String.IsNullOrEmpty(searchTerm))
+		//    {
+		//        Produnewlist = prodlist.Where(i => i.ProductName.Contains(searchTerm)
+		//                               || i.ProductDescription.Contains(searchTerm)).ToList();
+		//    }
 
-            var store = _context.Stores.Find(id);
-            var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
-            return View("Details", tupleData);
-        }
+		//    var store = _context.Stores.Find(id);
+		//    var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
+		//    return View("Details", tupleData);
+		//}
 
-        public IActionResult Productlist(int id)
-        {
-            return RedirectToAction("ProductList", "Products", new { ID = id });
-        }
+		//public IActionResult Productlist(int id)
+		//{
+		//    return RedirectToAction("ProductList", "Products", new { ID = id });
+		//}
 
-        // GET: Stores/Edit/id
-        public IActionResult Edit(int id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		// GET: Stores/Edit/id
+		public IActionResult Edit(int id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            var store = _context.Stores.Find(id);
-            if (store == null)
-            {
-                return NotFound();
-            }
-            return View(store);
-        }
+			var store = _context.Stores.Find(id);
+			if (store == null)
+			{
+				return NotFound();
+			}
+			return View(store);
+		}
 
-        // POST: Stores/Edit/id
+		//POST: Stores/Edit/id
 
-        [HttpPost]
+	   [HttpPost]
         public IActionResult Edit(int id, [Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (id != store.StoreId)
