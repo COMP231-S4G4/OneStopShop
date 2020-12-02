@@ -37,8 +37,8 @@
                 <div class="form-actions no-color">
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <input id="table_filter" type="text" class="search-input" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                            <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
+                            <input id="table_filter" type="text" class="col-md-4 search-input" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            <button id="searchBtn" type="submit" class="btn btn-secondary btn-search" style="margin-left:5px;"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
                         </div>
                     </div>
                 </div>
@@ -46,11 +46,12 @@
                     <a class="btn btn-primary text-white mr-1" data-toggle="tooltip" data-placement="top" title="Subscribe Store" asp-controller="JoinedStores" asp-action="JoinStore" asp-route-StoreId="@Model.Item2.StoreId">
                         <i class="fas fa-plus" title="Join Club"></i>  Join
                     </a>
+                    <a  style="float:right;" asp-action="Create" asp-controller="CustomOrders" asp-route-id="@Model.Item2.StoreId" class="btn btn-danger">Custom Order Form</a>
                 </div>
             </form>
-            <div>
+            @*<div>
                 <a asp-action="Create" asp-controller="CustomOrders" asp-route-id="@Model.Item2.StoreId" class="btn btn-danger">Custom Order Form</a>
-            </div>
+            </div>*@
 
             <div class="col-sm-6">
                 <a asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId">Blogs</a>
