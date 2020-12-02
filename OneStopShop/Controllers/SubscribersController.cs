@@ -15,25 +15,31 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
-    public class JoinedStoresController : BaseController
+    public class SubscribersController : BaseController
     {
-        public JoinedStoresController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
+        public SubscribersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int StoreId)
         {
-            return View();
+            var subs = await _context.Subscribers.Where(i => i.StoreId.Equals(StoreId)).ToListAsync();
+            var tupleData = new Tuple<IList<OneStopShop.Models.Subscribers>, int>(subs, StoreId);
+            return View(tupleData);
         }
 
         public async Task<IActionResult> JoinStore(int StoreId)
         {
             await HttpContext.Session.LoadAsync();
             int userID = (int)HttpContext.Session.GetInt32("UserId");
+            var user = await _context.Users
+               .FirstOrDefaultAsync(m => m.UserID == userID);
             if (ModelState.IsValid)
             {
-                JoinedStore joined = new JoinedStore();
+                Subscribers joined = new Subscribers();
                 joined.StoreId = StoreId;
                 joined.UserId = userID;
+                joined.Username = user.Username;
+                joined.email = user.email;
                 joined.IsOwner = false;
                 _context.Add(joined);
                 await _context.SaveChangesAsync();
