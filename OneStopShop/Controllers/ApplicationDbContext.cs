@@ -29,6 +29,8 @@ namespace OneStopShop.Models
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<CustomOrders> CustomOrders { get; set; }
+
         public DbSet<Payment> Payment { get; set; }
     }
 }

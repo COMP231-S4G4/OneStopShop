@@ -1,122 +1,127 @@
 ﻿@model CustomOrders
 
 @{
-	ViewData["Title"] = "Custom Order";
+    ViewData["Title"] = "Custom Order";
 }
 
 <head>
-	<link href="~/css/AddProduct.css" rel="stylesheet" />
-	<link href="~/css/form.css" rel="stylesheet" />
+    <link href="~/css/AddProduct.css" rel="stylesheet" />
+    <link href="~/css/form.css" rel="stylesheet" />
 </head>
-
 
 <h3>Customized Order Form</h3>
 
-<form action="CustomizedOrderForm">
-	<div class="customer-info align-content-center">
-		<div class="form-group">
-			<label asp-for="email" class="col-md-1 control-label"></label>
-			<input class="text" asp-for="email" class="" />
-			<span asp-validation-for="email" class="text-danger"></span>
-		</div>
-		<div class="form-group">
-			<label asp-for="PhoneNum" class="col-md-1 control-label"></label>
-			<input class="text" asp-for="PhoneNum" class="" />
-			<span asp-validation-for="PhoneNum" class="text-danger"></span>
-		</div>
-		<div class="form-group">
-			<label asp-for="Description" class="col-md-1 control-label"></label>
-			<input class="text" asp-for="Description" class="" />
-			<span asp-validation-for="Description" class="text-danger"></span>
-		</div>
-		<div class="form-group">
-			<label asp-for="ProductType" class="col-md-1 control-label"></label>
-			<input type="radio" value="top" name="type" class="radio" onclick="showTop();" />Top
-			<input type="radio" value="bottom" name="type" class="radio" onclick="showBottom();" />Bottom
-			<input type="radio" value="both" name="type" class="radio" onclick="showBoth();" checked />Both
-			<span asp-validation-for="ProductType" class="text-danger"></span>
-		</div>
-	</div>
+<form asp-action="Create" enctype="multipart/form-data">
 
-	<div class="top-bottom">
-		<div class="top" id="top">
-			<h3>Top</h3>
-			<div class="form-group">
-				<label asp-for="Chest" class="control-label"></label>
-				<input asp-for="Chest" class="text measurements" />
-				<span asp-validation-for="Chest" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Neck" class="control-label"></label>
-				<input asp-for="Neck" class="text measurements" />
-				<span asp-validation-for="Neck" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Waist" class="control-label"></label>
-				<input asp-for="Waist" class="text measurements" />
-				<span asp-validation-for="Waist" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Shoulder" class="control-label"></label>
-				<input asp-for="Shoulder" class="text measurements" />
-				<span asp-validation-for="Shoulder" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Sleeve" class="control-label"></label>
-				<input asp-for="Sleeve" class="text measurements" />
-				<span asp-validation-for="Sleeve" class="text-danger"></span>
-			</div>
-		</div>
+    <div class="customer-info align-content-center">
+        <div class="form-group">
+            <label asp-for="StoreId" class="control-label socioverse-label"></label>
+            <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+        </div>
+        <div class="form-group">
 
-		<div class="bottom" id="bottom">
-			<h3>Bottom</h3>
-			<div class="form-group">
-				<label asp-for="Waist" class="control-label"></label>
-				<input asp-for="Waist" class="text measurements" />
-				<span asp-validation-for="Waist" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="Hip" class="control-label"></label>
-				<input asp-for="Hip" class="text measurements" />
-				<span asp-validation-for="Hip" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="InseamLength" class="control-label"></label>
-				<input asp-for="InseamLength" class="text measurements" />
-				<span asp-validation-for="InseamLength" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="FullLength" class="control-label"></label>
-				<input asp-for="FullLength" class="text measurements" />
-				<span asp-validation-for="FullLength" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="AnkleLength" class="control-label"></label>
-				<input asp-for="AnkleLength" class="text measurements" />
-				<span asp-validation-for="AnkleLength" class="text-danger"></span>
-			</div>
-		</div>
-	</div>
-	<div class="form-group text-center pt-2">
-		<input type="submit" value="Submit" class="btn btn-success" />
-		<input type="reset" value="Reset" class="btn btn-warning" />
-		<input type="button" value="Cancel" asp-controller="Products" asp-action="ProductList" class="btn btn-danger" />
-	</div>
+            <label asp-for="email" class="col-md-1 control-label"></label>
+            <input class="text" asp-for="email" class="" />
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNum" class="col-md-1 control-label"></label>
+            <input class="text" asp-for="PhoneNum" class="" />
+            <span asp-validation-for="PhoneNum" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-md-1 control-label"></label>
+            <input class="text" asp-for="Description" class="" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductType" class="col-md-1 control-label"></label>
+            <input type="radio" value="top" name="type" class="radio" onclick="showTop();" />Top
+            <input type="radio" value="bottom" name="type" class="radio" onclick="showBottom();" />Bottom
+            <input type="radio" value="both" name="type" class="radio" onclick="showBoth();" checked />Both
+            <span asp-validation-for="ProductType" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="top-bottom">
+        <div class="top" id="top">
+            <h3>Top</h3>
+            <div class="form-group">
+                <label asp-for="Chest" class="control-label"></label>
+                <input asp-for="Chest" class="text measurements" />
+                <span asp-validation-for="Chest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Neck" class="control-label"></label>
+                <input asp-for="Neck" class="text measurements" />
+                <span asp-validation-for="Neck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Waist" class="control-label"></label>
+                <input asp-for="Waist" class="text measurements" />
+                <span asp-validation-for="Waist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shoulder" class="control-label"></label>
+                <input asp-for="Shoulder" class="text measurements" />
+                <span asp-validation-for="Shoulder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sleeve" class="control-label"></label>
+                <input asp-for="Sleeve" class="text measurements" />
+                <span asp-validation-for="Sleeve" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="bottom" id="bottom">
+            <h3>Bottom</h3>
+            <div class="form-group">
+                <label asp-for="Waist" class="control-label"></label>
+                <input asp-for="Waist" class="text measurements" />
+                <span asp-validation-for="Waist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hip" class="control-label"></label>
+                <input asp-for="Hip" class="text measurements" />
+                <span asp-validation-for="Hip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InseamLength" class="control-label"></label>
+                <input asp-for="InseamLength" class="text measurements" />
+                <span asp-validation-for="InseamLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullLength" class="control-label"></label>
+                <input asp-for="FullLength" class="text measurements" />
+                <span asp-validation-for="FullLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnkleLength" class="control-label"></label>
+                <input asp-for="AnkleLength" class="text measurements" />
+                <span asp-validation-for="AnkleLength" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center pt-2">
+        <input type="submit" value="Submit" class="btn btn-success" />
+        <input type="reset" value="Reset" class="btn btn-warning" />
+        <input type="button" value="Cancel" asp-controller="Products" asp-action="ProductList" class="btn btn-danger" />
+    </div>
 </form>
 
 <script type="text/javascript">
-	function showTop() {
-		document.getElementById('top').style.display = 'block';
-		document.getElementById('top').style.float = 'none';
-		document.getElementById('bottom').style.display = 'none';
-	}
-	function showBottom() {
-		document.getElementById('bottom').style.display = 'block';
-		document.getElementById('top').style.display = 'none';
-	}
-	function showBoth() {
-		document.getElementById('top').style.display = 'block';
-		document.getElementById('top').style.float = 'left';
-		document.getElementById('bottom').style.display = 'block';
-	}
+    function showTop() {
+        document.getElementById('top').style.display = 'block';
+        document.getElementById('top').style.float = 'none';
+        document.getElementById('bottom').style.display = 'none';
+    }
+    function showBottom() {
+        document.getElementById('bottom').style.display = 'block';
+        document.getElementById('top').style.display = 'none';
+    }
+    function showBoth() {
+        document.getElementById('top').style.display = 'block';
+        document.getElementById('top').style.float = 'left';
+        document.getElementById('bottom').style.display = 'block';
+    }
 </script>
