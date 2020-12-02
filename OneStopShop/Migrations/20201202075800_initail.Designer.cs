@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201201181845_initial")]
-    partial class initial
+    [Migration("20201202075800_initail")]
+    partial class initail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,72 @@ namespace OneStopShop.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.CustomOrders", b =>
+                {
+                    b.Property<int>("CustomOrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddressLine1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AnkleLength")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Chest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullLength")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InseamLength")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Neck")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Shoulder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sleeve")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Waist")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CustomOrderID");
+
+                    b.ToTable("CustomOrders");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
@@ -352,6 +418,27 @@ namespace OneStopShop.Migrations
                     b.HasIndex("StoreId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Wishlist", b =>
+                {
+                    b.Property<int>("WishlistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAddedToWishlist")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WishlistId");
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.CartItem", b =>
