@@ -25,6 +25,9 @@ namespace OneStopShop.Models
         [Display(Name = "Address")]
         public string Address { get; set; }
 
+        [Display(Name = "Email")]
+        public string email { get; set; }
+
         [Display(Name = "Phone Number")]
         public string PhoneNum { get; set; }
 
@@ -43,5 +46,7 @@ namespace OneStopShop.Models
 
         [Display(Name = "Institution#")]
         public string InstitutionNumber { get; set; }
+
+        public virtual Store Store { get; set; }
     }
 }

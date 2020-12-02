@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "Blogs";
+
+}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link href="~/css/BlogList.css" rel="stylesheet" />
+    <script src="~/js/DeleteConfirmation.js"></script>
+</head>
+
+<body>
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create" asp-route-StoreId="StoreId">Create New</a>
+    </p>
+
+    <div class="wrap">
+        @foreach (var item1 in Model)
+        {
+            <div class="post">
+                <div class="feat-img">
+                    <img src="@item1.BlogImage" />
+                </div>
+                <article>
+                    <header>
+                        <h2><a href="#">@item1.BlogTitle</a></h2>
+                        <p class="author-cred">on @item1.BlogCreatedDate </p>
+                    </header>
+
+                    <p>@item1.BlogDescription</p>
+
+                    <footer>
+                        <form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">
+                            <span id="confirmDeleteSpan_@item1.BlogId" style="display:none">
+                                <br /><br />
+                                <span>Are you sure you want to delete?</span><br />
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item1.BlogId', false)">No</a>
+                            </span>
+
+                            <span id="deleteSpan_@item1.BlogId">
+                                <a style="margin-right:2px;" href="#" class="btn btn-danger rigth" onclick="confirmDelete('@item1.BlogId', true)">Delete</a>
+                            </span>
+                            <a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
+                            <a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
+                        </form>
+                    </footer>
+                </article>
+            </div>
+        }
+    </div>
+</body>
+</html>

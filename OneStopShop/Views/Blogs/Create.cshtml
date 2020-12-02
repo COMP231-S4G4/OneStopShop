@@ -10,41 +10,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data" asp-route-StoreId="StoreId">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <input asp-for="StoreId" class="form-control" />
-                <span asp-validation-for="StoreId" class="text-danger"></span>
+                <label asp-for="StoreId" class="control-label socioverse-label"></label>
+                <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
             </div>
-            @*<div class="form-group">
-                <label asp-for="BlogImage" class="control-label"></label>
-                <input asp-for="BlogImage" class="form-control" />
-                <span asp-validation-for="BlogImage" class="text-danger"></span>
-            </div>*@
+
             <div class="form-group">
                 <label asp-for="BlogTitle" class="control-label"></label>
                 <input asp-for="BlogTitle" class="form-control" />
                 <span asp-validation-for="BlogTitle" class="text-danger"></span>
             </div>
-            <div class="form-group" hidden>
-                <label asp-for="BlogCreatedDate" class="control-label"></label>
-                <input asp-for="BlogCreatedDate" class="form-control" />
-                <span asp-validation-for="BlogCreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogFile" id="image2"></label>
-                <input asp-for="BlogFile" id="image" accept="image/*" onchange="previewFile(this)" class="form-control">
-            </div>
-            <div class="form-group" hidden>
-                <label asp-for="BlogModifiedDate" class="control-label"></label>
-                <input asp-for="BlogModifiedDate" class="form-control" />
-                <span asp-validation-for="BlogModifiedDate" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="BlogDescription" class="control-label"></label>
                 <input asp-for="BlogDescription" class="form-control" />
                 <span asp-validation-for="BlogDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogFile" id="image2"></label>
+                <input asp-for="BlogFile" id="image" accept="image/*" onchange="previewFile(this)" class="form-control">
             </div>
 
             <div class="col-sm-6 p-4"> <img id="previewImg" asp-for="BlogImage" src="/images/default-banner.jpg" asp-append-version="true" style="border:1px solid grey; width:auto; height:300px; " /></div>
@@ -70,7 +55,7 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
-}
+
 
 <script type="text/javascript">
     $(document).ready(function () {
