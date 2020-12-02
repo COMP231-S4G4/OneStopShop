@@ -46,5 +46,7 @@ namespace OneStopShop.Models
 
         [Display(Name = "Institution#")]
         public string InstitutionNumber { get; set; }
+
+        public virtual Store Store { get; set; }
     }
 }

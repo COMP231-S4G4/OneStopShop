@@ -19,5 +19,7 @@ namespace OneStopShop.Models
         public string Email { get; set; }
 
         public virtual ICollection<Product> product { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<Subscribers> JoinedStore { get; set; }
     }
 }

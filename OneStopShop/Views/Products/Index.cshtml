@@ -1,55 +1,77 @@
 ﻿@model IEnumerable<OneStopShop.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductColor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+	<colgroup>
+		<col style="width:10%" />
+		<col style="width:30%" />
+		<col style="width:10%" />
+		<col style="width:15%" />
+		<col style="width:35%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.ProductName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ProductDescription)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ProductPrice)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ProductColor)
+			</th>
+			<th class="text-center">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr id="current">
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductColor)
-                </td>
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-					<a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-					<a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+					@Html.DisplayFor(modelItem => item.ProductName)
 				</td>
-            </tr>
-        }
-    </tbody>
+				<td>
+					@Html.DisplayFor(modelItem => item.ProductDescription)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ProductPrice)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ProductColor)
+				</td>
+				<td class="text-center">
+					<form asp-action="Delete" asp-route-id="@item.ProductID" method="post">
+						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> &nbsp;
+						<a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProductID">Details</a> &nbsp;
+
+						<span id="confirmDeleteSpan_@item.ProductID" style="display:none">
+							<br /><br />
+							<span>Are you sure you want to delete?</span><br />
+							<button type="submit" class="btn btn-danger">Yes</button>
+							<a href="#" class="btn btn-primary" onclick="confirmDelete('@item.ProductID', false)">No</a>
+						</span>
+						<span id="deleteSpan_@item.ProductID">
+							<a href="#" class="btn btn-danger" onclick="confirmDelete('@item.ProductID', true)">Delete</a>
+						</span>
+					</form>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+
+@section Scripts {
+	<script src="~/js/DeleteConfirmation.js"></script>
+}

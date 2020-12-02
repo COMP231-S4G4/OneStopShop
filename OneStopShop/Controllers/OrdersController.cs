@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OneStopShop.Models;
 using Stripe;
 
@@ -23,14 +24,33 @@ namespace OneStopShop.Controllers
 
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index(int StoreID)
+        // GET: List of orders for a store
+        public  IActionResult Index(int id)
         {
-            currentStore = StoreID;
-            return View(await _context.Orders.Where(i => i.StoreId.Equals(StoreID)).ToListAsync());
+            var OrderList = _context.OrderItems.ToList();
+
+            List<Models.OrderItem> StoreOrders = new List<Models.OrderItem>();
+
+            var StoreOrderList = (from item in OrderList
+                               where item.StoreId == id
+                               select item).ToList();
+            foreach (var item in StoreOrderList)
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.OrderId == item.OrderId);
+                if(order.PaymentConfirmation== true)
+                {
+                    StoreOrders.Add(item);
+                }
+
+
+            }
+
+
+            return View(StoreOrders);
         }
 
-        // GET: Orders/Details/5
+
+        // GET: Orders/Details/id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,117 +58,23 @@ namespace OneStopShop.Controllers
                 return NotFound();
             }
 
+            var orderitem = await _context.OrderItems
+               .FirstOrDefaultAsync(m => m.OrderItemId == id);
             var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);
+            var products= await _context.Products
+               .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
+                 
             if (orders == null)
             {
                 return NotFound();
             }
+            var tupleData = new Tuple<OneStopShop.Models.Product, OneStopShop.Models.OrderItem, OneStopShop.Models.Orders>(products, orderitem, orders);
+            return View("Details", tupleData);
+        }   
 
-            return View(orders);
-        }
-
-        // GET: Orders/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,ProductID,StoreId,OrderCreatedDate,OrderModifiedDate")] Orders orders)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(orders);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(orders);
-        }
-
-        // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
-            return View(orders);
-        }
-
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ProductID,StoreId,OrderCreatedDate,OrderModifiedDate")] Orders orders)
-        {
-            if (id != orders.OrderId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(orders);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrdersExists(orders.OrderId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(orders);
-        }
-
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (orders == null)
-            {
-                return NotFound();
-            }
-
-            return View(orders);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var orders = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(orders);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
+       
 
         private bool OrdersExists(int id)
         {
@@ -158,29 +84,21 @@ namespace OneStopShop.Controllers
         //Get Checkout
         public IActionResult Checkout()
         {
-            Orders order = new Orders();
-           
+           Orders order = new Orders();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
             order.Lines = cart.Lines.ToArray();
-            _context.Update(order);
-           
-
-            //ViewModel model = new ViewModel();
-            //model.product = product;
-            //model.order = order;         
-
 
             return View(order);
             
         }
 
+        //Post/CheckOut
+
         [HttpPost]
         public IActionResult Checkout(Orders order)
         {
-            //model.order.Lines = cart.Lines.ToArray();
-            //_context.Orders.Add(model.order);
-            //return View("Payment");
-
-           
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -188,14 +106,31 @@ namespace OneStopShop.Controllers
 
             if (ModelState.IsValid)
             {
+
                 order.Lines = cart.Lines.ToArray();
-                var cost=order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
+
+                var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
+                ViewBag.OrderId = order.OrderId;
                 _context.Update(order);
                 _context.SaveChanges();
-                return View("Payment");
 
-               // return RedirectToAction(nameof(Completed));
+                foreach (var line in order.Lines)
+                {
+                    Models.OrderItem item = new Models.OrderItem()
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = line.Product.ProductID,
+                        StoreId = line.Product.StoreId,
+                        Quantity = line.Quantity,
+                        Cost = line.Product.ProductPrice * line.Quantity
+                    };
+                    _context.OrderItems.Add(item);
+                    _context.SaveChanges();
+                }              
+
+                return View("Payment",order);
+               
             }
             else
             {
@@ -213,8 +148,9 @@ namespace OneStopShop.Controllers
         //post payment
 
         [HttpPost]
-        public IActionResult Payment(string stripeEmail, string stripeToken)
+        public IActionResult Payment(string stripeEmail, string stripeToken,int id)
         {
+            
             var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -237,7 +173,14 @@ namespace OneStopShop.Controllers
             if (charge.Status == "succeeded")
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
+                var order =_context.Orders
+                .FirstOrDefault(m => m.OrderId == id);
+                order.OrderCreatedDate = DateTime.Now;
+                order.PaymentConfirmation = true;
+                _context.Update(order);
+                _context.SaveChanges();
+
+                return View("OrderConfirmation",order);
             }
 
 
