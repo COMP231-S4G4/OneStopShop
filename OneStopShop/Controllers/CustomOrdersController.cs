@@ -48,11 +48,30 @@ namespace OneStopShop.Controllers
                 _context.Add(customOrders);
                 customOrders.status = true;
                 customOrders.StoreId = StoreId;
+                customOrders.OrderCreatedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProductList", "Products", new { id = StoreId });
             }
             //return View(customOrders);
             return RedirectToAction("ProductList", "Products", new { id = StoreId });
+        }
+
+        // GET: CustomOrders/Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customOrders = await _context.CustomOrders
+                .FirstOrDefaultAsync(m => m.CustomOrderID == id);
+            if (customOrders == null)
+            {
+                return NotFound();
+            }
+
+            return View(customOrders);
         }
     }
 }

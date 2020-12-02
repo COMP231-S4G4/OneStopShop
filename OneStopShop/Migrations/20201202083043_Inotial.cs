@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class initail : Migration
+    public partial class Inotial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
