@@ -183,34 +183,6 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JoinedStore",
-                columns: table => new
-                {
-                    JoinedStoreId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    IsOwner = table.Column<bool>(nullable: false),
-                    UsersUserID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JoinedStore", x => x.JoinedStoreId);
-                    table.ForeignKey(
-                        name: "FK_JoinedStore_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
-                        principalColumn: "StoreId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JoinedStore_Users_UsersUserID",
-                        column: x => x.UsersUserID,
-                        principalTable: "Users",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -242,23 +214,27 @@ namespace OneStopShop.Migrations
                 name: "Subscribers",
                 columns: table => new
                 {
-                    SubscriberID = table.Column<int>(nullable: false)
+                    JoinedStoreId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreId = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: true)
+                    StoreId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Username = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    IsOwner = table.Column<bool>(nullable: false),
+                    UsersUserID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscribers", x => x.SubscriberID);
+                    table.PrimaryKey("PK_Subscribers", x => x.JoinedStoreId);
                     table.ForeignKey(
                         name: "FK_Subscribers_Stores_StoreId",
                         column: x => x.StoreId,
                         principalTable: "Stores",
                         principalColumn: "StoreId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subscribers_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Subscribers_Users_UsersUserID",
+                        column: x => x.UsersUserID,
                         principalTable: "Users",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Restrict);
@@ -273,16 +249,6 @@ namespace OneStopShop.Migrations
                 name: "IX_CartItems_ProductId",
                 table: "CartItems",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JoinedStore_StoreId",
-                table: "JoinedStore",
-                column: "StoreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JoinedStore_UsersUserID",
-                table: "JoinedStore",
-                column: "UsersUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_StoreId",
@@ -305,9 +271,9 @@ namespace OneStopShop.Migrations
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subscribers_UserID",
+                name: "IX_Subscribers_UsersUserID",
                 table: "Subscribers",
-                column: "UserID");
+                column: "UsersUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_StoreId",
@@ -322,9 +288,6 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "CartItems");
-
-            migrationBuilder.DropTable(
-                name: "JoinedStore");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");

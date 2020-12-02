@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OneStopShop.Models
 {
-    public class JoinedStore
+    public class Subscribers
     {
         [Key]
         public int JoinedStoreId { get; set; }
@@ -14,6 +14,10 @@ namespace OneStopShop.Models
         public int StoreId { get; set; }
 
         public int UserId { get; set; }
+
+        public string Username { get; set; }
+
+        public string email { get; set; }
 
         public bool IsOwner { get; set; }
 
