@@ -80,19 +80,6 @@ namespace OneStopShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    RoleId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.RoleId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
                 {
@@ -154,18 +141,11 @@ namespace OneStopShop.Migrations
                     AccountNumber = table.Column<int>(nullable: false),
                     TransitNumber = table.Column<string>(nullable: true),
                     InstitutionNumber = table.Column<string>(nullable: true),
-                    RoleId = table.Column<int>(nullable: false),
                     StoreId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserID);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Stores_StoreId",
                         column: x => x.StoreId,
@@ -294,11 +274,6 @@ namespace OneStopShop.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_StoreId",
                 table: "Users",
                 column: "StoreId");
@@ -332,9 +307,6 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Stores");
