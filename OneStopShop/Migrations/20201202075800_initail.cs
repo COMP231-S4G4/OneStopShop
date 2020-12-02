@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneStopShop.Migrations
 {
-    public partial class initial : Migration
+    public partial class initail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,36 @@ namespace OneStopShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blogs", x => x.BlogId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomOrders",
+                columns: table => new
+                {
+                    CustomOrderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    status = table.Column<bool>(nullable: false),
+                    AddressLine1 = table.Column<string>(nullable: true),
+                    StoreId = table.Column<int>(nullable: false),
+                    AddressLine2 = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    PhoneNum = table.Column<string>(nullable: true),
+                    OrderCreatedDate = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ProductType = table.Column<string>(nullable: true),
+                    Chest = table.Column<string>(nullable: true),
+                    Neck = table.Column<string>(nullable: true),
+                    Shoulder = table.Column<string>(nullable: true),
+                    Sleeve = table.Column<string>(nullable: true),
+                    Waist = table.Column<string>(nullable: true),
+                    Hip = table.Column<string>(nullable: true),
+                    InseamLength = table.Column<string>(nullable: true),
+                    FullLength = table.Column<string>(nullable: true),
+                    AnkleLength = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomOrders", x => x.CustomOrderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +125,21 @@ namespace OneStopShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stores", x => x.StoreId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Wishlists",
+                columns: table => new
+                {
+                    WishlistId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    IsAddedToWishlist = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wishlists", x => x.WishlistId);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,6 +333,9 @@ namespace OneStopShop.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
+                name: "CustomOrders");
+
+            migrationBuilder.DropTable(
                 name: "JoinedStore");
 
             migrationBuilder.DropTable(
@@ -298,6 +346,9 @@ namespace OneStopShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Wishlists");
 
             migrationBuilder.DropTable(
                 name: "Orders");
