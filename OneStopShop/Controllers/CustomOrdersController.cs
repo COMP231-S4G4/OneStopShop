@@ -63,7 +63,12 @@ namespace OneStopShop.Controllers
             return View(customOrders);
         }
 
-        // GET: CustomOrders/Details
+        // GET: CustomOrder/Details
+        /// <summary>
+        /// This action will get triggered when user/Seller will click on Details Tab on Custom Order Page
+        /// Seller will be able to see the custom order form filled by buyer
+        /// </summary>
+        /// <returns>Seller will get Custom Order details with all the information</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
