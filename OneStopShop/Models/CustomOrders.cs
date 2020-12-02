@@ -11,11 +11,17 @@ namespace OneStopShop.Models
         [Key]
         public int CustomOrderID { get; set; }
 
-        public int UserID { get; set; }
+        //[Required(ErrorMessage = "Please enter your Username")]
+        //[Display(Name = "Username")]
+        //public string Username { get; set; }
+
+        public bool status { get; set; }
 
         [MinLength(5, ErrorMessage = "The Address must be at least 5 characters long")]
         [Display(Name = "Address")]
         public string AddressLine1 { get; set; }
+
+        public int StoreId { get; set; }
         public string AddressLine2 { get; set; }
 
         [Display(Name = "Email")]
@@ -25,7 +31,7 @@ namespace OneStopShop.Models
         public string PhoneNum { get; set; }
 
         [Required(ErrorMessage = "Please enter a Created Date")]
-        public DateTime OrderCreatedDate { get; set; }        
+        public DateTime OrderCreatedDate { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }

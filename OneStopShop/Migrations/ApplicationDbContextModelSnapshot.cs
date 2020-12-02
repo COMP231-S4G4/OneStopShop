@@ -79,97 +79,6 @@ namespace OneStopShop.Migrations
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("OneStopShop.Models.CustomOrders", b =>
-                {
-                    b.Property<int>("CustomOrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddressLine1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AddressLine2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AnkleLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Chest")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Hip")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InseamLength")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Neck")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OrderCreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Shoulder")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sleeve")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Waist")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomOrderID");
-
-                    b.ToTable("CustomOrders");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
-                {
-                    b.Property<int>("JoinedStoreId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsOwner")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersUserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("JoinedStoreId");
-
-                    b.HasIndex("StoreId");
-
-                    b.HasIndex("UsersUserID");
-
-                    b.ToTable("JoinedStore");
-                });
-
             modelBuilder.Entity("OneStopShop.Models.OrderItem", b =>
                 {
                     b.Property<int>("OrderItemId")
@@ -240,6 +149,24 @@ namespace OneStopShop.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PaymentId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
@@ -347,6 +274,40 @@ namespace OneStopShop.Migrations
                     b.ToTable("Stores");
                 });
 
+            modelBuilder.Entity("OneStopShop.Models.Subscribers", b =>
+                {
+                    b.Property<int>("JoinedStoreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsOwner")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UsersUserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("JoinedStoreId");
+
+                    b.HasIndex("StoreId");
+
+                    b.HasIndex("UsersUserID");
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("OneStopShop.Models.Users", b =>
                 {
                     b.Property<int>("UserID")
@@ -397,6 +358,27 @@ namespace OneStopShop.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OneStopShop.Models.Wishlist", b =>
+                {
+                    b.Property<int>("WishlistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsAddedToWishlist")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WishlistId");
+
+                    b.ToTable("Wishlists");
+                });
+
             modelBuilder.Entity("OneStopShop.Models.CartItem", b =>
                 {
                     b.HasOne("OneStopShop.Models.Orders", null)
@@ -406,19 +388,6 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.JoinedStore", b =>
-                {
-                    b.HasOne("OneStopShop.Models.Store", "Store")
-                        .WithMany("JoinedStore")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OneStopShop.Models.Users", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersUserID");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
@@ -439,6 +408,19 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Users", "user")
                         .WithMany()
                         .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Subscribers", b =>
+                {
+                    b.HasOne("OneStopShop.Models.Store", "Store")
+                        .WithMany("JoinedStore")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OneStopShop.Models.Users", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersUserID");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Users", b =>
