@@ -173,22 +173,6 @@ namespace OneStopShop.Controllers
             // return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", new { id = product.StoreId });
         }
-
-        // POST: Product/Edit
-
-        [HttpPost]
-        public IActionResult Edit(int id, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                product.ProductModifiedDate = DateTime.Now;
-                _context.Update(product);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", new { id = product.StoreId });
-            }
-            return View("Details");
-        }
         public async Task<IActionResult> ProductList(int id)
         {
             if(id == 0)
@@ -235,6 +219,56 @@ namespace OneStopShop.Controllers
             }
 
             return View(product);
+        }
+
+        // 01/Dec/2020 I have updated code for Edit Product (Image)
+
+        [HttpPost]
+        public IActionResult Edit(int id, IFormFile EventBannerFile, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.ProductModifiedDate = DateTime.Now;
+
+                if (EventBannerFile != null)
+                {
+                    string wwwPath = this.Environment.WebRootPath;
+                    string contentPath = this.Environment.ContentRootPath;
+                    string folderName = "Product" + product.ProductID;
+                    string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string fileName = Path.GetFileNameWithoutExtension(EventBannerFile.FileName);
+                    string extension = Path.GetExtension(EventBannerFile.FileName);
+                    string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                    string folderPath = "Upload/Events/" + folderName;
+                    product.ProductImage = folderPath + '/' + fileNameBanner;
+
+                    var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        EventBannerFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+
+                _context.Update(product);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", new { id = product.StoreId });
+            }
+            return View("Details");
+        }
+
+
+        // 01/Dec/2020 I put WishList Action just for View testing
+        public ActionResult WishList()
+        {
+            return View("WishList");
         }
     }
 }
