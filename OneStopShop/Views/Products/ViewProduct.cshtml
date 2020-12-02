@@ -11,7 +11,71 @@
 
 <h1>ViewProduct</h1>
 
-<div class="container">
+<div class="product-container">
+	<div class="product-image">
+		<img src="~/@Model.ProductImage" id="Image" />
+	</div>
+	<div class="product-details">
+		<header>
+			<h1 class="title">@Html.DisplayFor(model => model.ProductName)</h1>
+			<span class="colorcat">@Html.DisplayFor(model => model.ProductColor)</span>
+			<div class="rating">
+				<a href="#!" class="sActive">★</a>
+				<a href="#!" class="sActive">★</a>
+				<a href="#!" class="sActive">★</a>
+				<a href="#!">★</a>
+				<a href="#!">★</a>
+			</div>
+			<div class="price">
+				<span class="current">@String.Format("{0:c}", Model.ProductPrice)</span>
+			</div>
+		</header>
+		<article>
+			<h4>Description</h4>
+			<p>@Html.DisplayFor(model => model.ProductDescription)</p>
+		</article>
+		<div class="controls">
+			<div class="size">
+				<h4>size</h4>
+				<div id="sizes">
+					<button class="btn text-uppercase text-center">s</button>
+					<button class="btn active text-uppercase text-center">m</button>
+					<button class="btn text-uppercase text-center">l</button>
+					<button class="btn text-uppercase text-center">xl</button>
+					<button class="btn text-uppercase text-center">xxl</button>
+				</div>
+
+			</div>
+			@*<div class="quantity">
+				<h4>qty</h4>
+				<select class="qty">
+					<option value="1" selected>1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</div>*@
+		<div class="footer">
+			<form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart"
+				  method="post">
+				<input type="hidden" asp-for="ProductID" />
+				<span class="card-text p-1">
+					<button id="AddToCart" type="submit">
+						<img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+						<span>add to cart</span>
+					</button>
+				</span>
+			</form>
+			@*<button type="button">
+				<img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+				<span>add to cart</span>
+			</button>*@
+		</div>
+		</div>
+	</div>
+</div>
+<!--<div class="container">
     <div class="product-image">
         <img src="~/@Model.ProductImage" id="Image" />
     </div>
@@ -44,7 +108,7 @@
                     <button class="btn text-uppercase text-center">xl</button>
                     <button class="btn text-uppercase text-center">xxl</button>
                 </div>
-            </div>
+            </div>-->
             @*<div class="quantity">
                     <h4>qty</h4>
                     <select class="qty" asp-for="Quantity">
@@ -55,12 +119,12 @@
                         <option value="5">5</option>
                     </select>
                 </div>*@
-            <div class="footer">
-                <@*button type="button">
+            <!--<div class="footer">
+                <button type="button">
                     <img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
                     <span>add to cart</span>
-                </button>*@
-                     <form id="@Model.ProductID" asp-action="AddToCart"
+                </button>
+                     <form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart"
                   method="post">
 
                 <input type="hidden" asp-for="ProductID" />
@@ -77,4 +141,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
