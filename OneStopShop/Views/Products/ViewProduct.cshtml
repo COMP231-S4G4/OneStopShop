@@ -58,6 +58,18 @@
                     </span>
                 </form>
             </div>
+            <div>
+                <form asp-controller="Products" asp-action="AddToWishlist" asp-route-id="@Model.ProductID"
+                      method="post">
+                    <input type="hidden" asp-for="ProductID" />
+                    <span class="card-text p-1">
+                        <button id="AddToWishlist" type="submit"
+                                class="btn btn-success">
+                            Add to WishList
+                        </button>
+                    </span>
+                </form>
+            </div>
             @*<div class="quantity">
             <h4>qty</h4>
             <select class="qty">
