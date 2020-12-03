@@ -6,7 +6,7 @@
     ViewData["Title"] = "ProductList";
 }
 
-<h2 class="text-white">@Model.Item2.StoreName</h2>
+<h2 class="text-white" style="text-align:center;">@Model.Item2.StoreName</h2>
 @if (TempData["ErrorSubscribed"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show">
@@ -14,6 +14,7 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
 }
+<hr />
 
 <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -46,10 +47,11 @@
 
             <form asp-action="ProductSearch" method="get">
                 <div class="form-actions no-color">
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                         <div class="input-group">
                             <input id="table_filter" type="text" class="col-md-4 search-input" name="SearchString" value="@ViewData["CurrentFilter"]" />
                             <button id="searchBtn" type="submit" class="btn btn-secondary btn-search" style="margin-left:5px;"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
+                            <a style="margin-left: 5px;" asp-action="ProductList" asp-controller="Products" asp-route-id="@Model.Item2.StoreId" class="btn btn-primary">Reset</a>
                         </div>
                     </div>
                 </div>
@@ -72,25 +74,37 @@
 </div>
 
 <div id="products" class="row list-group">
-
-    @foreach (var item in Model.Item1)
+    @if (Model.Item1 != null && Model.Item1.Count > 0)
     {
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <a asp-action="ViewProduct" asp-route-id="@item.ProductID">
-                    <img class="group list-group-image" src="~/@item.ProductImage" id="Image" />
-                </a>
-                <div class="caption text-white">
-                    <h4 class="group inner list-group-item-heading">
-                        @item.ProductName
-                    </h4>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $@item.ProductPrice
-                            </p>
+        @foreach (var item in Model.Item1)
+        {
+            <div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+                    <a asp-action="ViewProduct" asp-route-id="@item.ProductID">
+                        <img class="group list-group-image" src="~/@item.ProductImage" id="Image" />
+                    </a>
+                    <div class="caption text-white">
+                        <h4 class="group inner list-group-item-heading">
+                            @item.ProductName
+                        </h4>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <p class="lead">
+                                    $@item.ProductPrice
+                                </p>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span style="color:white;margin:5px;font-size:20px;"> No Record Found!</span>
                 </div>
             </div>
         </div>
