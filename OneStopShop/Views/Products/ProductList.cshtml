@@ -1,11 +1,19 @@
-﻿
-@model Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>
+﻿@model Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-	Layout = "_HomeLayout";
-	ViewData["Title"] = "ProductList";
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "ProductList";
 }
 
-<h1>@Model.Item2.StoreName</h1>
+<h2 class="text-white">@Model.Item2.StoreName</h2>
+@if (TempData["ErrorSubscribed"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <strong>Error!</strong> <br /> @TempData["ErrorSubscribed"]
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+}
 
 <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,11 +22,8 @@
 
     <script src="//code.jquery.com/jquery.min.js"></script>
 
-
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -29,49 +34,53 @@
         });
     </script>
 </head>
+<style>
+    .show {
+        display: contents !important;
+    }
+</style>
 
 <div class="container">
-    <div class="well well-sm">
-        <div class="row searchFilter">
-            <div class="col-sm-12">
-                <form asp-action="ProductSearch" method="get">
-                    <div class="form-actions no-color">
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <input id="table_filter" type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                                <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button> |
-                                <a asp-action="ProductList">Reset</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <a class="btn btn-primary text-white mr-1" data-toggle="tooltip" data-placement="top" title="Subscribe Store" asp-controller="JoinedStores" asp-action="JoinStore" asp-route-StoreId="@Model.Item2.StoreId">
-                            <i class="fas fa-plus" title="Join Club"></i>  Join
-                        </a>
-                    </div>
-                </form>
+    <div class="row searchFilter">
+        <div class="col-sm-12">
 
-                        <div class="col-sm-6">
-                            <a asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId">Blogs</a>
+            <form asp-action="ProductSearch" method="get">
+                <div class="form-actions no-color">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input id="table_filter" type="text" class="col-md-4 search-input" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            <button id="searchBtn" type="submit" class="btn btn-secondary btn-search" style="margin-left:5px;"><span class="glyphicon glyphicon-search">&nbsp;</span> <span class="label-icon">Search</span></button>
                         </div>
-                        </div>
-                        </form>
-             
-            </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+
+                    <a class="btn btn-primary text-white mr-1" data-toggle="tooltip" data-placement="top" title="Subscribe Store" asp-controller="Subscribers" asp-action="JoinStore" asp-route-StoreId="@Model.Item2.StoreId">
+                        <i class="fas fa-plus"></i>  Subscribe
+                    </a>
+
+                    <a style="float:right;" asp-action="Create" asp-controller="CustomOrders" asp-route-id="@Model.Item2.StoreId" class="btn btn-danger">Custom Order Form</a>
+
+                    <a class="btn btn-primary text-white mr-1" data-toggle="tooltip" data-placement="top" asp-action="Index" asp-controller="Blogs" asp-route-StoreId="@Model.Item2.StoreId"><i class="fas fa-plus" title="Blogs"></i> Blogs</a>
+                </div>
+            </form>
+            @*<div>
+                    <a asp-action="Create" asp-controller="CustomOrders" asp-route-id="@Model.Item2.StoreId" class="btn btn-danger">Custom Order Form</a>
+                </div>*@
         </div>
     </div>
 </div>
 
-
 <div id="products" class="row list-group">
+
     @foreach (var item in Model.Item1)
     {
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductID">
-                    <img width="400" height="250" class="group list-group-image" src="~/@item.ProductImage" id="Image" />
+                <a asp-action="ViewProduct" asp-route-id="@item.ProductID">
+                    <img class="group list-group-image" src="~/@item.ProductImage" id="Image" />
                 </a>
-                <div class="caption">
+                <div class="caption text-white">
                     <h4 class="group inner list-group-item-heading">
                         @item.ProductName
                     </h4>
@@ -81,15 +90,9 @@
                                 $@item.ProductPrice
                             </p>
                         </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="">Add to cart</a>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     }
 </div>
-
-
-

@@ -24,15 +24,20 @@ namespace OneStopShop.Models
         [JsonIgnore] //Session property will be ignored when serializing
         public ISession Session { get; set; }
 
-        public override void AddItem(Product product, int quantity)
+        public override void AddItem(Product product, int quantity,int id)
         {
-            base.AddItem(product, quantity);
+            base.AddItem(product, quantity,id);
             Session.SetJson("Cart", this);
         }
 
         public override void RemoveLine(Product product)
         {
             base.RemoveLine(product);
+            Session.SetJson("Cart", this);
+        }
+
+        public virtual void Clear() {
+            base.Clear();
             Session.SetJson("Cart", this);
         }
     }

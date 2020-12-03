@@ -16,7 +16,8 @@
 
 
 <div class="text-center">
-    <form asp-controller="Orders" asp-action="Payment" method="post">
+    <form asp-controller="Orders" asp-action="Payment" asp-route-id="@ViewBag.OrderId" method="post">
+        <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
         <article>
 
             <label>@TotalCost</label>

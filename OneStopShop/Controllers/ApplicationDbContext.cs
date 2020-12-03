@@ -18,15 +18,21 @@ namespace OneStopShop.Models
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Blogs> Blogs { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
-
         public DbSet<OneStopShop.Models.Orders> Orders { get; set; }
 
         public DbSet<OneStopShop.Models.Users> Users { get; set; }
 
-        public DbSet<JoinedStore> JoinedStore { get; set; }
+        public DbSet<Subscribers> JoinedStore { get; set; }
 
         public DbSet<OneStopShop.Models.Reviews> Reviews { get; set; }
-     
+        public DbSet<Wishlist> Wishlists { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<CustomOrders> CustomOrders { get; set; }
+
+        
+
+        public DbSet<Subscribers> Subscribers { get; set; }
     }
 }

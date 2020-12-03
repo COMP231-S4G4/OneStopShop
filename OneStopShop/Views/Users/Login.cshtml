@@ -2,19 +2,24 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "_Layout";
+    Layout = "_HomeLayout";
 }
+
+<head>
+    <link href="~/css/Login.css" rel="stylesheet" />
+</head>
 
 <div class="container">
     <div class="row">
 
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-header">
-                    <div class="mx-auto pt-3 pb-3" style="width: 200px;">
+            <div class="card card-signin my-5 border-0">
+                <div class="card-header form-head">
+                    <div class="mx-auto pt-1 pb-1">
+                        <h4>One Stop Shop</h4>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body fields-container">
                     @if (@TempData["AccountCreationSuccessMSG"] != null)
                     {
                         <div class="alert alert-success alert-dismissible fade show">
@@ -41,8 +46,8 @@
                             <input type="password" asp-for="Password" id="inputPassword" class="form-control" placeholder="Password" required>
                         </div>
                         <br />
-                        <button class="btn btn-lg btn-block text-uppercase" type="submit" style="background: #330170; color:#fff;">Sign in</button>
-                        <p class="mt-3 mb-3" style="text-align:center;">Need Help? <a style="text-align:center;" asp-area="" asp-controller="Users" asp-action="ForgotPassword">Forgot your password?</a></p>
+                        <button class="btn btn-lg btn-block text-uppercase signin-btn" type="submit">Sign in</button>
+                        <p class="mt-3 mb-3" style="text-align:center;">Need Help? <a class="need-help" asp-area="" asp-controller="Users" asp-action="ForgotPassword">Forgot your password?</a></p>
                         <hr class="my-4">
                     </form>
                 </div>
