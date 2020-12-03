@@ -33,8 +33,12 @@ namespace OneStopShop.Controllers
         /// </summary>
         /// <returns>Buyer will get list of blogs with the information that seller has provided while creating the blog</returns>
 
-        public async Task<IActionResult> Index(int StoreId)
+        public async Task<IActionResult> Index(int StoreId = 0)
         {
+            if (StoreId == 0)
+            {
+                return NotFound();
+            }
             currentStore = StoreId;
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
