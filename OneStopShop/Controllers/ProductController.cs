@@ -264,11 +264,26 @@ namespace OneStopShop.Controllers
             return View("Details");
         }
 
-
-        // 01/Dec/2020 I put WishList Action just for View testing
-        public ActionResult WishList()
+        [HttpPost]
+        public IActionResult AddToWishlist(int id)
         {
-            return View("WishList");
+
+            Wishlist item = new Wishlist()
+            {
+                ProductId = id,
+                UserId = (int)HttpContext.Session.GetInt32("UserId"),
+                IsAddedToWishlist = true
+            };
+            if (!_context.Wishlists.Any(o => o.ProductId==id))
+            {
+                _context.Wishlists.Add(item);
+                _context.SaveChanges();
+            }
+            
+            return View ("WishList");
+
         }
+
+       
     }
 }
