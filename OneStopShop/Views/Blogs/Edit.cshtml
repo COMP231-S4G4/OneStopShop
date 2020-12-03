@@ -11,10 +11,10 @@
 <h1 class="EditBlog">Edit Blog</h1>
 
 <div class="row col-md-12" id="BlogEdit">
-        <div class="col-md-3">
-             <img id="previewImg" asp-for="BlogImage" src="~/@Model.BlogImage" asp-append-version="true"
+    <div class="col-md-3">
+        <img id="previewImg" asp-for="BlogImage" src="~/@Model.BlogImage" asp-append-version="true"
              style="border:1px solid grey; width:310px; height:300px;" />
-        </div>
+    </div>
     <div class="col-md-8" style="margin-left: 7%;">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -56,12 +56,12 @@
 </div>
 
 <div style="margin-bottom:50px;">
-    <a id="Back" asp-action="Index">Back to List</a>
+    <a id="Back" asp-action="Index" asp-route-StoreId="StoreId">Back to List</a>
 </div>
 
 @*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
 <script type="text/javascript">
 
     // Add the following code if you want the name of the file appear on select
@@ -70,7 +70,6 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
-
 
 <script type="text/javascript">
     $(document).ready(function () {

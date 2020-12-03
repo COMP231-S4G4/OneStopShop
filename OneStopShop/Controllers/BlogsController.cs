@@ -17,25 +17,27 @@ namespace OneStopShop.Controllers
 {
     public class BlogsController : BaseController
     {
-        // private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
-
-        //public BlogsController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
 
         public BlogsController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
 
         // GET: Blogs
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Blogs button on Product List Page
+        /// This action will pass all the Blogs to the view that the seller has provided
+        /// Buyer will be able to see all the list of blogs
+        /// </summary>
+        /// <returns>Buyer will get list of blogs with the information that seller has provided while creating the blog</returns>
+
         public async Task<IActionResult> Index(int StoreId)
         {
             currentStore = StoreId;
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
         }
+
         // GET: Blogs/Details
         public async Task<IActionResult> Details(int? id)
         {
@@ -53,6 +55,7 @@ namespace OneStopShop.Controllers
 
             return View(blogs);
         }
+
         // GET: Blogs/Create
         public IActionResult Create()
         {
@@ -100,6 +103,7 @@ namespace OneStopShop.Controllers
             }
             return RedirectToAction("Index", new { StoreId = StoreId });
         }
+
         // GET: Blogs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -119,7 +123,7 @@ namespace OneStopShop.Controllers
         }
 
         // POST: Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

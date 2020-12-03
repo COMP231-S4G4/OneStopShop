@@ -20,6 +20,7 @@ namespace OneStopShop.Controllers
         public JoinedStoresController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
+
         public IActionResult Index()
         {
             return View();
@@ -32,11 +33,21 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 JoinedStore joined = new JoinedStore();
-                joined.StoreId = StoreId;
-                joined.UserId = userID;
-                joined.IsOwner = false;
-                _context.Add(joined);
-                await _context.SaveChangesAsync();
+                var IsMember = _context.JoinedStore.Where(j => j.StoreId.Equals(StoreId)
+              && j.UserId.Equals(userID)).FirstOrDefault();
+                if (IsMember == null)
+                {
+                    joined.StoreId = StoreId;
+                    joined.UserId = userID;
+                    joined.IsOwner = false;
+                    _context.Add(joined);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("ProductList", "Products", new { id = StoreId });
+                }
+                else
+                {
+                    TempData["ErrorSubscribed"] = $"You have already subscribed  this store";
+                }
                 return RedirectToAction("ProductList", "Products", new { id = StoreId });
             }
             return View();
