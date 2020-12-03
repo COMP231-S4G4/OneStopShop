@@ -20,6 +20,6 @@ namespace OneStopShop.Models
 
         public virtual ICollection<Product> product { get; set; }
         public virtual ICollection<Users> Users { get; set; }
-        public virtual ICollection<JoinedStore> JoinedStore { get; set; }
+        public virtual ICollection<Subscribers> JoinedStore { get; set; }
     }
 }

@@ -59,19 +59,18 @@ namespace OneStopShop.Controllers
             }
 
             var orderitem = await _context.OrderItems
-               .FirstOrDefaultAsync(m => m.OrderId == id);
+               .FirstOrDefaultAsync(m => m.OrderItemId == id);
+            var orders = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);
             var products= await _context.Products
                .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
-            var orders = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);         
-            
-
+                 
             if (orders == null)
             {
                 return NotFound();
             }
-
-            return View(orders);
+            var tupleData = new Tuple<OneStopShop.Models.Product, OneStopShop.Models.OrderItem, OneStopShop.Models.Orders>(products, orderitem, orders);
+            return View("Details", tupleData);
         }   
 
        
@@ -181,6 +180,8 @@ namespace OneStopShop.Controllers
                 _context.Update(order);
                 _context.SaveChanges();
 
+                cart.Clear();
+               
                 return View("OrderConfirmation",order);
             }
 
