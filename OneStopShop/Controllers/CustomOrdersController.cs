@@ -54,5 +54,12 @@ namespace OneStopShop.Controllers
             //return View(customOrders);
             return RedirectToAction("ProductList", "Products", new { id = StoreId });
         }
+
+        public async Task<IActionResult> Index(int id)
+        {
+            var customOrders = await _context.CustomOrders.Where(i => i.StoreId.Equals(id)).ToListAsync();
+
+            return View(customOrders);
+        }
     }
 }
