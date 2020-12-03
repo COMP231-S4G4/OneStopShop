@@ -279,8 +279,9 @@ namespace OneStopShop.Controllers
                 _context.Wishlists.Add(item);
                 _context.SaveChanges();
             }
-            
-            return View ("WishList");
+
+            //return View ("WishList");
+            return RedirectToAction("Index","Wishlist", new { productID = id });
 
         }
 
