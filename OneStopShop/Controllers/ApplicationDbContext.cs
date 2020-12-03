@@ -31,7 +31,7 @@ namespace OneStopShop.Models
 
         public DbSet<CustomOrders> CustomOrders { get; set; }
 
-        public DbSet<Payment> Payment { get; set; }
+        
 
         public DbSet<Subscribers> Subscribers { get; set; }
     }
