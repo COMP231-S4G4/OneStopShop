@@ -44,13 +44,23 @@ namespace sampleUsser.Controllers
         }
 
         // GET: Users/Create
+        /// <summary>
+        /// This action will get triggered when user will click on SignUp button
+        /// </summary>
+        /// <returns>User will get Registration form with required fields</returns>
         public IActionResult Create()
         {
           
             return View();
         }
 
-        // POST: Users/Create
+        // Post: Users/Create
+        /// <summary>
+        /// This action will get triggered when user will click on Create Button
+        /// This action will pass all the details into the database with the information that the user has provided
+        /// User will be registered with the system and redirected to login screen
+        /// </summary>
+        /// <returns>user will get a new account with the details he provided while registration</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,StoreId,Username,Password,Address,email,PhoneNum,AccountType,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
@@ -60,7 +70,6 @@ namespace sampleUsser.Controllers
                 _context.Add(user);
 
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Login", "Users");
             }
             return View(user);
@@ -111,6 +120,10 @@ namespace sampleUsser.Controllers
         }
 
         // GET: Users/Edit
+        /// <summary>
+        /// This action will get triggered when user will click on Edit Account information button
+        /// </summary>
+        /// <returns>User will get an edit account information form with required fields</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,7 +139,13 @@ namespace sampleUsser.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit
+        // Post: Users/Edit
+        /// <summary>
+        /// This action will get triggered when user will click on Save Button in the edit account information page
+        /// This action will pass all the Updated details into the database with the information that the user has provided
+        /// User account information will be edited according to the inputs
+        /// </summary>
+        /// <returns>User account information will be edited according to the inputs</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,Username,Password,AccountType,Address,email,PhoneNum,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
