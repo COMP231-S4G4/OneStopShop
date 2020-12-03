@@ -38,12 +38,16 @@ namespace OneStopShop.Controllers
                 await HttpContext.Session.LoadAsync();
                 int userID = (int)HttpContext.Session.GetInt32("UserId");
                 _context.Add(store);
+                var user = await _context.Users
+               .FirstOrDefaultAsync(m => m.UserID == userID);
                 await _context.SaveChangesAsync();
 
-                JoinedStore joined = new JoinedStore()
+                Subscribers joined = new Subscribers()
                 {
                     UserId = userID,
                     StoreId = store.StoreId,
+                    Username = user.Username,
+                    email = user.email,                    
                     IsOwner = true,
                 };
                 await _context.JoinedStore.AddAsync(joined);
