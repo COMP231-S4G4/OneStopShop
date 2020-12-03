@@ -26,8 +26,15 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Blogs
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Blogs button on Product List Page
+        /// This action will pass all the Blogs to the view that the seller has provided
+        /// Buyer will be able to see all the list of blogs
+        /// </summary>
+        /// <returns>Buyer will get list of blogs with the information that seller has provided while creating the blog</returns>
+
         public async Task<IActionResult> Index(int StoreId)
-        {           
+        {
             currentStore = StoreId;
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
@@ -38,11 +45,10 @@ namespace OneStopShop.Controllers
         /// </summary>
         /// <returns></returns>
         public async Task<IActionResult> Back()
-        {            
+        {
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(currentStore)).ToListAsync();
             return RedirectToAction("Index", new { StoreId = currentStore });
         }
-
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,6 +66,7 @@ namespace OneStopShop.Controllers
 
             return View(blogs);
         }
+
         // GET: Blogs/Create
         /// <summary>
         /// This action will get triggered when user/seller will click on Create blog button
@@ -67,7 +74,6 @@ namespace OneStopShop.Controllers
         /// <returns>Seller will get Create blog form with required fields</returns>
         public IActionResult Create()
         {
-       
             //This viewbag passes current storeId to the create view
             ViewData["StoreId"] = new SelectList(_context.Stores.Where(a => a.StoreId == currentStore), "StoreId", "StoreName");
             ViewData["Store"] = new SelectList(_context.Stores.Where(a => a.StoreId == currentStore), "StoreId");
@@ -123,6 +129,8 @@ namespace OneStopShop.Controllers
             }
             return RedirectToAction("Index", new { StoreId = StoreId });
         }
+
+        // GET: Blogs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

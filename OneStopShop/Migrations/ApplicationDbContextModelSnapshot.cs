@@ -217,24 +217,6 @@ namespace OneStopShop.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("OneStopShop.Models.Payment", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PaymentId");
-
-                    b.ToTable("Payment");
-                });
-
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
                 {
                     b.Property<int>("ProductID")
