@@ -27,7 +27,13 @@ namespace OneStopShop.Controllers
             var tupleData = new Tuple<IList<OneStopShop.Models.Subscribers>, int>(subs, StoreId);
             return View(tupleData);
         }
-
+        // Post: Subscriber/JoinStore
+        /// <summary>
+        /// This action gets triggered when user/buyer will click on Subscribe button on store page
+        /// This action passes user details and StoreId into the database
+        /// Buyer subscribes to the store
+        /// </summary>
+        /// <returns>Buyer subscribes to a store</returns>
         public async Task<IActionResult> JoinStore(int StoreId)
         {
             await HttpContext.Session.LoadAsync();

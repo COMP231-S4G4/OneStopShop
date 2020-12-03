@@ -26,8 +26,12 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int id = 0)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             currentStore = id;
             var products = await _context.Products.Where(i => i.StoreId.Equals(id)).Include(a => a.store).ToListAsync();
 
