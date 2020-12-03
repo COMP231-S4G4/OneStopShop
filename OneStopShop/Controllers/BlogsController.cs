@@ -50,6 +50,12 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", new { StoreId = currentStore });
         }
 
+        // GET: Blogs/Details
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Blog tab on the store page
+        /// Buyer will be able to see all the blogs and details
+        /// </summary>
+        /// <returns>Buyer will get blog details with all the information</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
