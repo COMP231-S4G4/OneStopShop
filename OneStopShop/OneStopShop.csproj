@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Wishlist\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

@@ -16,5 +16,7 @@ namespace OneStopShop.Models
 
         public int UserId { get; set; }
         public bool IsAddedToWishlist { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }
