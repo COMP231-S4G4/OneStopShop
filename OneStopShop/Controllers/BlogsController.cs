@@ -130,7 +130,12 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", new { StoreId = StoreId });
         }
 
-        // GET: Blogs/Edit/5
+        // GET: Blogs/Edit/CurrentBlogId
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Edit blog button
+        /// This action will display the edit blog page
+        /// </summary>
+        /// <returns>Seller will get Edit blog form with all the information for that particular blog and editable fields</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -149,7 +154,13 @@ namespace OneStopShop.Controllers
             }
             return View(blogs);
         }
-
+        // Post: Blogs/Edit/CurrentBlogId
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Save button on Edit blog form
+        /// This action will fetch all the details from the database with the editable fields
+        /// Seller will be able to edit all the blog fields
+        /// </summary>
+        /// <returns>Seller will get an updated blog with the information that he provided while editing the blog</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, IFormFile BlogFile, [Bind("BlogId,StoreId,BlogImage,BlogTitle,BlogCreatedDate,BlogModifiedDate,BlogDescription")] Blogs blogs)
