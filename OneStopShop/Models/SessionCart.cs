@@ -35,5 +35,10 @@ namespace OneStopShop.Models
             base.RemoveLine(product);
             Session.SetJson("Cart", this);
         }
+
+        public virtual void Clear() {
+            base.Clear();
+            Session.SetJson("Cart", this);
+        }
     }
 }

@@ -107,7 +107,7 @@ tr:nth-child(even) {
 
     #Delete:hover {
         background-color: #bd1b1b;
-    }
+    }*/
 
 #AddToCart {
     background-color: #4CAF50;
@@ -126,7 +126,7 @@ tr:nth-child(even) {
         background-color: #45a049;
     }
 
-#Back {
+/*#Back {
     background-color: #031327;
     color: white;
     padding-top: 10px;

@@ -48,11 +48,42 @@ namespace OneStopShop.Controllers
                 _context.Add(customOrders);
                 customOrders.status = true;
                 customOrders.StoreId = StoreId;
+                customOrders.OrderCreatedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProductList", "Products", new { id = StoreId });
             }
             //return View(customOrders);
             return RedirectToAction("ProductList", "Products", new { id = StoreId });
+        }
+
+        public async Task<IActionResult> Index(int id)
+        {
+            var customOrders = await _context.CustomOrders.Where(i => i.StoreId.Equals(id)).ToListAsync();
+
+            return View(customOrders);
+        }
+
+        // GET: CustomOrder/Details
+        /// <summary>
+        /// This action will get triggered when user/Seller will click on Details Tab on Custom Order Page
+        /// Seller will be able to see the custom order form filled by buyer
+        /// </summary>
+        /// <returns>Seller will get Custom Order details with all the information</returns>
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customOrders = await _context.CustomOrders
+                .FirstOrDefaultAsync(m => m.CustomOrderID == id);
+            if (customOrders == null)
+            {
+                return NotFound();
+            }
+
+            return View(customOrders);
         }
     }
 }
