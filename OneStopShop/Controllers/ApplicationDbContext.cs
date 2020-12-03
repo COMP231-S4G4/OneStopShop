@@ -22,7 +22,7 @@ namespace OneStopShop.Models
 
         public DbSet<OneStopShop.Models.Users> Users { get; set; }
 
-        public DbSet<JoinedStore> JoinedStore { get; set; }
+        public DbSet<Subscribers> JoinedStore { get; set; }
 
         public DbSet<OneStopShop.Models.Reviews> Reviews { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
@@ -32,5 +32,7 @@ namespace OneStopShop.Models
         public DbSet<CustomOrders> CustomOrders { get; set; }
 
         public DbSet<Payment> Payment { get; set; }
+
+        public DbSet<Subscribers> Subscribers { get; set; }
     }
 }
