@@ -14,6 +14,11 @@ body {
 	font-weight: 300;
 }
 
+.container {
+	background-color: #b09e80;
+	padding: 0;
+}
+
 #login-box {
 	position: relative;
 	margin: 5% auto;
@@ -24,20 +29,24 @@ body {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.left {
+.signup-container {
 	/*position: absolute;*/
 	top: 0;
 	left: 0;
-	max-width: 1300px;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
 	box-sizing: border-box;
-	padding: 40px;
-	width: 600px;
+	padding: 30px;
+	width: 510px;
+	border-radius: 3px;
+	background-color:#192537;
+	color:white;
 	/* height: 400px; */
 }
-}
+
 
 h1 {
 	margin: 0 0 20px 0;
@@ -50,11 +59,11 @@ input[type="password"] {
 	display: block;
 	align-items: center;
 	box-sizing: border-box;
-	/* margin-bottom: 20px; */
+	 margin-bottom: 20px; 
 	/* margin-left: 50px; */
 	padding: 4px;
-	width: 300px;
-	height: 32px;
+	width: 450px;
+	height: 40px;
 	border: none;
 	border-bottom: 1px solid #AAA;
 	font-family: 'Roboto', sans-serif;
@@ -71,17 +80,13 @@ input[type="password"] {
 	}
 
 input[type="submit"] {
-	margin-top: 28px;
+	margin-top: 15px;
 	width: 120px;
-	height: 32px;
-	background: #16a085;
-	border: none;
-	border-radius: 2px;
+	border-radius: 5px;
 	color: #FFF;
-	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
 	text-transform: uppercase;
-	transition: 0.1s ease;
+	transition: 0.5s ease;
 	cursor: pointer;
 }
 
