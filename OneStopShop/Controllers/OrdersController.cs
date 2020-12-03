@@ -180,6 +180,8 @@ namespace OneStopShop.Controllers
                 _context.Update(order);
                 _context.SaveChanges();
 
+                cart.Clear();
+               
                 return View("OrderConfirmation",order);
             }
 
