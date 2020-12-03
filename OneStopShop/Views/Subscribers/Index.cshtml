@@ -16,13 +16,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>
+                    <th class="text-center">
                         @Html.DisplayNameFor(model => model.Item1[0].Username)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.DisplayNameFor(model => model.Item1[0].email)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.DisplayNameFor(model => model.Item1[0].IsOwner)
                     </th>
                 </tr>
@@ -31,13 +31,13 @@
                 @foreach (var item in Model.Item1)
                 {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserId)
-                        </td>
-                        <td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.Username)
                         </td>
-                        <td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td class="text-center">
                             @Html.DisplayFor(modelItem => item.IsOwner)
                         </td>
                     </tr>
