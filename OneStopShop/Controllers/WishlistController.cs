@@ -11,12 +11,12 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
-    public class WishlistController : BaseController
+    public class WishlistController : Controller
     {
 
         private readonly ApplicationDbContext _context;
 
-        public WishlistController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
+        public WishlistController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace OneStopShop.Controllers
         /// </summary>
         /// <returns>Buyer will get all the products that he added in the wishlist</returns>
 
-        public async Task<ActionResult> Index(int productID)
+        public async Task<ActionResult> Index()
         {
             int UserId = (int)HttpContext.Session.GetInt32("UserId");
             var list = await _context.Wishlists.Where(a => a.UserId.Equals(UserId)).Include(a => a.Product).ToListAsync();
@@ -37,27 +37,18 @@ namespace OneStopShop.Controllers
         }
 
         // POST: WishlistController/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        /// <summary>
+        /// This action will get triggered when clicks on the delete button attacked to each product on the wishlist page
+        /// Delete action acts as an edit in the case of wishlist ie editing the wishlist.
+        /// </summary>
+        /// <returns>The deleted product is removed from the wishlist and the wishlist is refreshed</returns>
         public ActionResult Delete(int id)
         {
+            var item = _context.Wishlists.Where(i => i.WishlistId == id).FirstOrDefault();
+            _context.Wishlists.Remove(item);
+            _context.SaveChanges();
 
-            try
-            {
-                Product product = _context.Products
-                .FirstOrDefault(p => p.ProductID == id);
-
-                if (product != null)
-                {
-                    //wishList.RemoveLine(product);
-                }
-
-                return RedirectToAction("WishList");
-            }
-            catch
-            {
-                return View("WishList");
-            }
+            return View ("Index");
         }
     }
 }
