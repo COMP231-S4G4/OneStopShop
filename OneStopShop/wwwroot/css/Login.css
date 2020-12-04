@@ -6,9 +6,10 @@
 	padding:0;
 }
 
-.fields-container{
+.fields-container {
 	background-color: #192537;
-	color:white;
+	color: white;
+	border-radius: 3px;
 }
 
 .signin-btn {

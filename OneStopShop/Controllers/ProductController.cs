@@ -26,8 +26,12 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int id = 0)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             currentStore = id;
             var products = await _context.Products.Where(i => i.StoreId.Equals(id)).Include(a => a.store).ToListAsync();
 
@@ -264,11 +268,27 @@ namespace OneStopShop.Controllers
             return View("Details");
         }
 
-
-        // 01/Dec/2020 I put WishList Action just for View testing
-        public ActionResult WishList()
+        [HttpPost]
+        public IActionResult AddToWishlist(int id)
         {
-            return View("WishList");
+
+            Wishlist item = new Wishlist()
+            {
+                ProductId = id,
+                UserId = (int)HttpContext.Session.GetInt32("UserId"),
+                IsAddedToWishlist = true
+            };
+            if (!_context.Wishlists.Any(o => o.ProductId==id))
+            {
+                _context.Wishlists.Add(item);
+                _context.SaveChanges();
+            }
+
+            //return View ("WishList");
+            return RedirectToAction("Index","Wishlist", new { productID = id });
+
         }
+
+       
     }
 }
