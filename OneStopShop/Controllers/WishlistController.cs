@@ -11,14 +11,14 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
-    public class WishlistController : Controller
+    public class WishlistController : BaseController
     {
 
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public WishlistController(ApplicationDbContext context)
+        public WishlistController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
-            _context = context;
+            //_context = context;
         }
 
         // GET: Wishlist
@@ -48,7 +48,7 @@ namespace OneStopShop.Controllers
             _context.Wishlists.Remove(item);
             _context.SaveChanges();
 
-            return View ("Index");
+            return RedirectToAction("Index");
         }
     }
 }
