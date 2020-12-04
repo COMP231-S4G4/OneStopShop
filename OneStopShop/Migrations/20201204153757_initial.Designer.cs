@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201202143954_Initial")]
-    partial class Initial
+    [Migration("20201204153757_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -166,6 +166,9 @@ namespace OneStopShop.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<string>("Staus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
@@ -199,9 +202,6 @@ namespace OneStopShop.Migrations
                     b.Property<DateTime>("OrderCreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool?>("PaymentConfirmation")
                         .HasColumnType("bit");
 
@@ -211,30 +211,15 @@ namespace OneStopShop.Migrations
                     b.Property<decimal?>("TotalCost")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OneStopShop.Models.Payment", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PaymentId");
-
-                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("OneStopShop.Models.Product", b =>
@@ -444,6 +429,8 @@ namespace OneStopShop.Migrations
 
                     b.HasKey("WishlistId");
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Wishlists");
                 });
 
@@ -496,6 +483,15 @@ namespace OneStopShop.Migrations
                     b.HasOne("OneStopShop.Models.Store", "Store")
                         .WithMany("Users")
                         .HasForeignKey("StoreId");
+                });
+
+            modelBuilder.Entity("OneStopShop.Models.Wishlist", b =>
+                {
+                    b.HasOne("OneStopShop.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -24,5 +24,7 @@ namespace OneStopShop.Models
         public int Quantity { get; set; }
 
         public decimal Cost { get; set; }
+
+        public string Staus { get; set; }
     }
 }
