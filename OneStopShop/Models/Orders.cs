@@ -12,6 +12,8 @@ namespace OneStopShop.Models
         [Key]
         public int OrderId { get; set; }       
 
+        public int? UserId { get; set; }
+
         public string? CustomerName { get; set; }
 
        
@@ -33,7 +35,7 @@ namespace OneStopShop.Models
 
         public decimal? TotalCost { get; set; }
 
-        public string? OrderStatus { get; set; }
+      
 
         [BindNever]
         public ICollection<CartItem> Lines { get; set; }
