@@ -92,13 +92,16 @@ namespace OneStopShop.Controllers
         //Get Checkout
         public IActionResult Checkout()
         {
-           Orders order = new Orders();
-            _context.Orders.Add(order);
-            _context.SaveChanges();
+            
+                Orders order = new Orders();
+                _context.Orders.Add(order);
+                _context.SaveChanges();
 
-            order.Lines = cart.Lines.ToArray();
+                order.Lines = cart.Lines.ToArray();
 
-            return View(order);
+                return View(order);
+            
+           
             
         }
 
@@ -208,6 +211,37 @@ namespace OneStopShop.Controllers
         public ActionResult PreviousOrder()
         {
             return View("PreviousOrder");
+        }
+
+        [HttpPost]
+        public IActionResult StatusUpdate(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var selectedValue = Request.Form["OrderStatus"].ToString();
+                var orderitem = _context.OrderItems.FirstOrDefault(m => m.OrderItemId == id);
+               
+                ViewBag.message = orderitem.StoreId;
+                if (selectedValue!=string.Empty)
+                {
+                    orderitem.Staus = selectedValue;
+                    TempData["msg"] = "Order Updated Successfully";               
+                  
+
+                    _context.OrderItems.Update(orderitem);
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    ViewBag.message = orderitem.StoreId;
+                    TempData["msg"] = "Please select a status";
+                }
+
+               
+
+            }
+            return View("OrderUpdateConfirmation");
         }
     }
 }
