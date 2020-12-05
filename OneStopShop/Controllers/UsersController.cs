@@ -126,7 +126,11 @@ namespace sampleUsser.Controllers
             }
             return View();
         }
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
         // GET: Users/Edit
         /// <summary>
         /// This action will get triggered when user will click on Edit Account information button
