@@ -4,11 +4,12 @@
 	ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" type="text/css" href="~/css/ProductList.css" />
 <h1>Index</h1>
 
-<p>
-	<a asp-action="Create">Create New</a>
-</p>
+<div id="divInline">
+    <a id="Create" asp-action="Create">Add New Product</a>
+</div>
 <table class="table">
 	<colgroup>
 		<col style="width:10%" />
@@ -71,6 +72,7 @@
 		}
 	</tbody>
 </table>
+<a asp-action="Dashboard">Back to Dashboard</a>
 
 @section Scripts {
 	<script src="~/js/DeleteConfirmation.js"></script>
