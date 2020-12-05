@@ -42,22 +42,22 @@ namespace OneStopShop.Controllers
             return View(products);
         }
 
-        /// <summary>
-        /// This action will get triggered when user will click on Back to list button on Create Product page
-        /// This action passes the current storeId to Index action
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IActionResult> Back()
+        public IActionResult Back()
         {
-            return View(await _context.Products.Where(i => i.StoreId.Equals(currentStore)).ToListAsync());
+            return RedirectToAction("Index", new { id = currentStore });
         }
 
-        // GET: Product/Details
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
+        }
+
+        // GET: Products/Details/5
         /// <summary>
-        /// This action will get triggered when user will click on Product details tab on the Product page
-        /// User will be able to see all the details of a particular product
+        /// This action gets triggered when user clicks on the details button attached to each product
+        /// details of a particular product is searched for bases on product id
         /// </summary>
-        /// <returns>User will get product details with all the information</returns>
+        /// <returns>returns the details of a particular product</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -136,6 +136,11 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { id = StoreId });
         }
 
+        /// <summary>
+        /// This action gets triggered when user clicks on the add to cart button
+        /// a particular product is added to the cart based on its product ID.
+        /// </summary>
+        /// <returns>displas the cart page with newly added item and existing itmes</returns>
         public async Task<RedirectToActionResult> AddToCartAsync(int productId)
         {
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
@@ -277,7 +282,12 @@ namespace OneStopShop.Controllers
             return View("ProductList", tupleData);
         }
 
-
+        /// <summary>
+        /// This action gets triggered when user enters a string in searchbox and clicks on search button
+        /// First all the products belonging to that particular store is fetched and then it is filtered with the searchstring matching product name or product description.
+        /// All products with name or description matching the search string is stored as a new list.
+        /// </summary>
+        /// <returns>The new filtered product list is returned along with current store details</returns>
         public async Task<IActionResult> ProductSearch(string searchString)
         {
             IList<Product> Produnewlist = null;
