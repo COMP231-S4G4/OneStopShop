@@ -51,6 +51,12 @@ namespace OneStopShop.Controllers
 
 
         // GET: Orders/Details/id
+        /// <summary>
+        /// This action will get triggered when clicks on the details button attached to each order.
+        /// first we get the order item from the OrderItems table using OrderItemID and then we use that to get order from Orderstable and products from Products table.
+        /// products, orderitem, and orders are then passed to the view for display.
+        /// </summary>
+        /// <returns>tupledata containing information about products, orderitem, and orders to Details view</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
