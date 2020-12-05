@@ -1,7 +1,7 @@
 ﻿@model OneStopShop.Models.CustomOrders
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <head>
@@ -10,9 +10,9 @@
 </head>
 
 <div class="co-container">
-    <h2>Custom Order Details</h2>
-    <div class="customer-info">
-		<table>
+	<h2>Custom Order Details</h2>
+	<div class="customer-info">
+		<table class="customer-info-table">
 			<tr>
 				<td class="font-weight-bold">
 					@Html.DisplayNameFor(model => model.email)
@@ -46,7 +46,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="font-weight-bold">
+				<td class="font-weight-bold text-capitalize">
 					@Html.DisplayNameFor(model => model.ProductType)
 				</td>
 				<td>
@@ -58,25 +58,21 @@
 					@Html.DisplayNameFor(model => model.AddressLine1)
 				</td>
 				<td>
-					@Html.DisplayFor(model => model.AddressLine1)
-				</td>
-			</tr>
-			<tr>
-				<td class="font-weight-bold">
-					@Html.DisplayNameFor(model => model.AddressLine2)
-				</td>
-				<td>
+					@Html.DisplayFor(model => model.AddressLine1)<br />
 					@Html.DisplayFor(model => model.AddressLine2)
 				</td>
 			</tr>
 		</table>
-    </div>
+	</div>
 	<div class="measurements">
 		@if (Model.ProductType == "top" || Model.ProductType == "both")
 		{
-			<div class="top">
-				<h3 class="text-uppercase text-center">top</h3>
-				<table>
+			<div id="top">
+				@*<h3 class="text-uppercase text-center">top</h3>*@
+				<table class="top-table">
+					<tr>
+						<td class="text-uppercase text-center" colspan="2"><h3>Top</h3></td>
+					</tr>
 					<tr>
 						<td class="font-weight-bold">@Html.DisplayNameFor(model => model.Chest)</td>
 						<td>@Html.DisplayFor(model => model.Chest)</td>
@@ -99,12 +95,15 @@
 					</tr>
 				</table>
 			</div>
-		};
-		@if(Model.ProductType == "bottom" || Model.ProductType == "both")
+		}
+		@if (Model.ProductType == "bottom" || Model.ProductType == "both")
 		{
-			<div class="bottom">
-				<h3 class="text-uppercase text-center">bottom</h3>
-				<table>
+			<div id="bottom">
+				@*<h3 class="text-uppercase text-center">bottom</h3>*@
+				<table class="bottom-table">
+					<tr>
+						<td class="text-uppercase text-center" colspan="2"><h3>Bottom</h3></td>
+					</tr>
 					<tr>
 						<td class="font-weight-bold">@Html.DisplayNameFor(model => model.Hip)</td>
 						<td>@Html.DisplayFor(model => model.Hip)</td>
@@ -134,109 +133,134 @@
 
 @*<h1>Details</h1>
 
-<div>
-    <h4>CustomOrders</h4>
-    <hr />
-    <dl class="row">
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressLine1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressLine1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressLine2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressLine2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderCreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderCreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Chest)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Chest)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Neck)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Neck)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Shoulder)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Shoulder)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sleeve)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sleeve)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Waist)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Waist)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hip)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hip)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InseamLength)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InseamLength)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullLength)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullLength)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnkleLength)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnkleLength)
-        </dd>
-    </dl>
-</div>
-<div>|
-    <a asp-action="Index" asp-route-id="@Model.StoreId">Back to List</a>
-</div>*@
+	<div>
+		<h4>CustomOrders</h4>
+		<hr />
+		<dl class="row">
+
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.AddressLine1)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.AddressLine1)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.AddressLine2)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.AddressLine2)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.email)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.email)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.PhoneNum)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.PhoneNum)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.OrderCreatedDate)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.OrderCreatedDate)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Description)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Description)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.ProductType)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.ProductType)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Chest)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Chest)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Neck)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Neck)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Shoulder)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Shoulder)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Sleeve)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Sleeve)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Waist)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Waist)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.Hip)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.Hip)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.InseamLength)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.InseamLength)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.FullLength)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.FullLength)
+			</dd>
+			<dt class = "col-sm-2">
+				@Html.DisplayNameFor(model => model.AnkleLength)
+			</dt>
+			<dd class = "col-sm-10">
+				@Html.DisplayFor(model => model.AnkleLength)
+			</dd>
+		</dl>
+	</div>
+	<div>|
+		<a asp-action="Index" asp-route-id="@Model.StoreId">Back to List</a>
+	</div>*@
+
+@if (Model.ProductType == "top")
+{
+
+	<script type="text/javascript">
+		document.getElementById('top').style.display = 'block';
+		document.getElementById('top').style.float = 'none';
+		document.getElementById('bottom').style.display = 'none';
+	</script>
+}
+else if (Model.ProductType == "bottom")
+{
+	<script type="text/javascript">
+		document.getElementById('bottom').style.display = 'block';
+		document.getElementById('top').style.display = 'none';
+	</script>
+}
+else if (Model.ProductType == "both")
+{
+	<script type="text/javascript">
+		document.getElementById('top').style.display = 'block';
+		document.getElementById('top').style.float = 'left';
+		document.getElementById('bottom').style.display = 'block';
+	</script>
+}
