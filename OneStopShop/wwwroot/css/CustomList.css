@@ -1,0 +1,36 @@
+﻿    body
+{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    background: #A58964;
+}
+
+table {
+    border: 5px solid #A58964;
+    width: 100%;
+}
+
+th {
+    background-color: #031327;
+    color: white;
+}
+
+td {
+    text-align: left;
+}
+
+tr {
+    border: 5px solid #A58964;
+    border-radius: 5px;
+}
+
+    tr:hover {
+        background-color: #b2afaf;
+    }
+
+
+

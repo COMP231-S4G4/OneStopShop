@@ -17,15 +17,19 @@ namespace OneStopShop.Controllers
 {
     public class ProductsController : BaseController
     {
-        //private readonly ApplicationDbContext _context;
-        //private readonly IWebHostEnvironment webHostEnvironment;
         private static int currentStore = 0;
 
         public ProductsController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
 
-        // GET: Products
+        // GET: Products/Index
+        /// <summary>
+        /// This action will get triggered when user will click on Products button on Dashboard
+        /// This action will pass all the products to the Index view 
+        /// User will be able to see the list products
+        /// </summary>
+        /// <returns>User will get list of products</returns>
         public async Task<IActionResult> Index(int id = 0)
         {
             if (id == 0)
@@ -72,13 +76,23 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Products/Create
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Create Product button
+        /// </summary>
+        /// <returns>Seller will get Create Product form with required fields</returns>
         public IActionResult Create()
         {
             ViewData["StoreId"] = new SelectList(_context.Stores.Where(a => a.StoreId == currentStore), "StoreId", "StoreName");
             return View();
         }
 
-        // POST: Products/Create
+        // Post: Products/Create
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Submit button on create product form
+        /// This action will pass all the details into the database with the information that the seller has provided
+        /// Seller will be able to add all the product information
+        /// </summary>
+        /// <returns>Seller will post a new product with the information that he provided while creating the product</returns> 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -149,7 +163,12 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
-        // GET: Product/Edit
+        // GET: Products/Edit
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Edit product button
+        /// This action will display the edit product page
+        /// </summary>
+        /// <returns>Seller will get Edit product form with all the information for that particular product and editable fields</returns>
         public IActionResult Edit(int id)
         {
             if (id == null)
@@ -164,9 +183,62 @@ namespace OneStopShop.Controllers
             }
             return View(product);
 
-            //return RedirectToAction("Edit", new { id = product.StoreId });
         }
 
+        // Post: Products/Edit
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Update button on Edit product form
+        /// This action will fetch all the details from the database with the editable fields
+        /// Seller will be able to edit all the product fields
+        /// </summary>
+        /// <returns>Seller will get an updated product with the information that he provided while editing the product</returns>
+        /// 
+        [HttpPost]
+        public IActionResult Edit(int id, IFormFile EventBannerFile, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.ProductModifiedDate = DateTime.Now;
+
+                if (EventBannerFile != null)
+                {
+                    string wwwPath = this.Environment.WebRootPath;
+                    string contentPath = this.Environment.ContentRootPath;
+                    string folderName = "Product" + product.ProductID;
+                    string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string fileName = Path.GetFileNameWithoutExtension(EventBannerFile.FileName);
+                    string extension = Path.GetExtension(EventBannerFile.FileName);
+                    string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                    string folderPath = "Upload/Events/" + folderName;
+                    product.ProductImage = folderPath + '/' + fileNameBanner;
+
+                    var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        EventBannerFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+
+                _context.Update(product);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", new { id = product.StoreId });
+            }
+            return View("Details");
+        }
+        //Get Product/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Delete product button
+        /// This action will display the delete product prompt
+        /// </summary>
+        /// <returns>Seller will get delete product prompt which asks if user wants to delete product</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -181,7 +253,12 @@ namespace OneStopShop.Controllers
             }
             return View(product);
         }
-
+        //Post Product/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Yes button on Delete product prompt
+        /// Seller will be able to delete the particular product
+        /// </summary>
+        /// <returns>The product will get deleted, Seller will get an updated list of products</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -243,49 +320,6 @@ namespace OneStopShop.Controllers
             }
 
             return View(product);
-        }
-
-        // 01/Dec/2020 I have updated code for Edit Product (Image)
-
-        [HttpPost]
-        public IActionResult Edit(int id, IFormFile EventBannerFile, [Bind("ProductID,StoreId,ProductName,ProductDescription,ProductPrice,ProductModifiedDate,ProductSize,ProductColor,ProductImage")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                product.ProductModifiedDate = DateTime.Now;
-
-                if (EventBannerFile != null)
-                {
-                    string wwwPath = this.Environment.WebRootPath;
-                    string contentPath = this.Environment.ContentRootPath;
-                    string folderName = "Product" + product.ProductID;
-                    string path = Path.Combine(this.Environment.WebRootPath, "Upload/Events/" + folderName);
-
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    string fileName = Path.GetFileNameWithoutExtension(EventBannerFile.FileName);
-                    string extension = Path.GetExtension(EventBannerFile.FileName);
-                    string fileNameBanner = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-
-                    string folderPath = "Upload/Events/" + folderName;
-                    product.ProductImage = folderPath + '/' + fileNameBanner;
-
-                    var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderPath)).Root + $@"{fileNameBanner}";
-                    using (FileStream fs = System.IO.File.Create(filepath))
-                    {
-                        EventBannerFile.CopyTo(fs);
-                        fs.Flush();
-                    }
-                }
-
-                _context.Update(product);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", new { id = product.StoreId });
-            }
-            return View("Details");
         }
 
         [HttpPost]
