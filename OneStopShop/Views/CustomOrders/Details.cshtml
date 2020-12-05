@@ -14,6 +14,9 @@
 	<div class="customer-info">
 		<table class="customer-info-table">
 			<tr>
+				<td class="text-uppercase text-center" colspan="2"><h3>Personal Info</h3></td>
+			</tr>
+			<tr>
 				<td class="font-weight-bold">
 					@Html.DisplayNameFor(model => model.email)
 				</td>
@@ -65,8 +68,6 @@
 		</table>
 	</div>
 	<div class="measurements">
-		@if (Model.ProductType == "top" || Model.ProductType == "both")
-		{
 			<div id="top">
 				@*<h3 class="text-uppercase text-center">top</h3>*@
 				<table class="top-table">
@@ -95,9 +96,6 @@
 					</tr>
 				</table>
 			</div>
-		}
-		@if (Model.ProductType == "bottom" || Model.ProductType == "both")
-		{
 			<div id="bottom">
 				@*<h3 class="text-uppercase text-center">bottom</h3>*@
 				<table class="bottom-table">
@@ -126,7 +124,6 @@
 					</tr>
 				</table>
 			</div>
-		}
 	</div>
 </div>
 
