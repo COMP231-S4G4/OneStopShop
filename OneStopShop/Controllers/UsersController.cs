@@ -37,7 +37,7 @@ namespace sampleUsser.Controllers
         /// User will be able to see all the account details he provided while registration
         /// </summary>
         /// <returns>User will get the Account details with all the information he provided</returns>
-        public async Task<IActionResult> Details(int? UserId)
+        public async Task<IActionResult> Details(string UserId)
         {
             var userID = protector.Unprotect(UserId);
             if (userID == null)
