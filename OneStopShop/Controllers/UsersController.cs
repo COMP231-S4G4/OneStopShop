@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OneStopShop.Models;
+using Stripe;
 
 namespace sampleUsser.Controllers
 {
@@ -211,5 +212,62 @@ namespace sampleUsser.Controllers
         {
             return _context.Users.Any(e => e.UserID == id);
         }
+        /// <summary>
+        /// This action will get triggered when user will click on Orders Button in the account information page        /// 
+        /// User's all order information will be listed.
+        /// </summary>
+        public IActionResult ViewOrders(int id)
+        {
+            
+            var OrderList = _context.Orders.ToList();           
+            List<OneStopShop.Models.Orders> Orders = new List<OneStopShop.Models.Orders>();
+           
+
+            var UserOrders = (from item in OrderList
+                                  where item.UserId == id
+                                  select item).ToList();
+           
+           
+
+            foreach (var order in UserOrders)
+            {
+                if (order.PaymentConfirmation == true)
+                {
+                    Orders.Add(order);
+                                    
+                }
+
+            }
+           
+            return View("UserOrders", Orders);
+        }
+
+        public IActionResult ViewOrderDetail(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+            var orderItemlist = _context.OrderItems.ToList();
+            
+            List<OneStopShop.Models.Product> Products = new List<OneStopShop.Models.Product>();
+
+            var orderItems = (from item in orderItemlist
+                              where item.OrderId ==id
+                              select item).ToList();
+            foreach (var item in orderItems)
+            {
+                var product = _context.Products.FirstOrDefault(pd => pd.ProductID == item.ProductId);
+
+                Products.Add(product);
+            }
+            
+
+            var tupledata = new Tuple<OneStopShop.Models.Orders, List<OneStopShop.Models.Product>>(order, Products);
+
+            return View("PreviousOrder", tupledata);
+        }
+
+        
+
     }
+
+   
 }
