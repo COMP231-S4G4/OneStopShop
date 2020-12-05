@@ -212,5 +212,22 @@ namespace OneStopShop.Controllers
         {
             return View("PreviousOrder");
         }
+
+        [HttpPost]
+        public IActionResult StatusUpdate(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var selectedValue = Request.Form["OrderStatus"].ToString();
+                var orderitem = _context.OrderItems.FirstOrDefault(m => m.OrderItemId == id);
+                orderitem.Staus = selectedValue;
+
+                _context.OrderItems.Update(orderitem);
+
+                 _context.SaveChanges();
+                return RedirectToAction("Login", "Users");
+            }
+            return View();
+        }
     }
 }
