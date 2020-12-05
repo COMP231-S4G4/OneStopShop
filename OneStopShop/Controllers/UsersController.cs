@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using OneStopShop.Controllers;
 using OneStopShop.Models;
+using Stripe;
 
 namespace sampleUsser.Controllers
 {
@@ -50,13 +51,23 @@ namespace sampleUsser.Controllers
         }
 
         // GET: Users/Create
+        /// <summary>
+        /// This action will get triggered when user will click on SignUp button
+        /// </summary>
+        /// <returns>User will get Registration form with required fields</returns>
         public IActionResult Create()
         {
           
             return View();
         }
 
-        // POST: Users/Create
+        // Post: Users/Create
+        /// <summary>
+        /// This action will get triggered when user will click on Create Button
+        /// This action will pass all the details into the database with the information that the user has provided
+        /// User will be registered with the system and redirected to login screen
+        /// </summary>
+        /// <returns>user will get a new account with the details he provided while registration</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserID,StoreId,Username,Password,Address,email,PhoneNum,AccountType,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
@@ -66,7 +77,6 @@ namespace sampleUsser.Controllers
                 _context.Add(user);
 
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Login", "Users");
             }
             return View(user);
@@ -118,6 +128,10 @@ namespace sampleUsser.Controllers
         }
 
         // GET: Users/Edit
+        /// <summary>
+        /// This action will get triggered when user will click on Edit Account information button
+        /// </summary>
+        /// <returns>User will get an edit account information form with required fields</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -133,7 +147,13 @@ namespace sampleUsser.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit
+        // Post: Users/Edit
+        /// <summary>
+        /// This action will get triggered when user will click on Save Button in the edit account information page
+        /// This action will pass all the Updated details into the database with the information that the user has provided
+        /// User account information will be edited according to the inputs
+        /// </summary>
+        /// <returns>User account information will be edited according to the inputs</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserID,Username,Password,AccountType,Address,email,PhoneNum,BankName,AccountNumber,TransitNumber,InstitutionNumber,RoleId")] Users user)
@@ -199,5 +219,62 @@ namespace sampleUsser.Controllers
         {
             return _context.Users.Any(e => e.UserID == id);
         }
+        /// <summary>
+        /// This action will get triggered when user will click on Orders Button in the account information page        /// 
+        /// User's all order information will be listed.
+        /// </summary>
+        public IActionResult ViewOrders(int id)
+        {
+            
+            var OrderList = _context.Orders.ToList();           
+            List<OneStopShop.Models.Orders> Orders = new List<OneStopShop.Models.Orders>();
+           
+
+            var UserOrders = (from item in OrderList
+                                  where item.UserId == id
+                                  select item).ToList();
+           
+           
+
+            foreach (var order in UserOrders)
+            {
+                if (order.PaymentConfirmation == true)
+                {
+                    Orders.Add(order);
+                                    
+                }
+
+            }
+           
+            return View("UserOrders", Orders);
+        }
+
+        public IActionResult ViewOrderDetail(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+            var orderItemlist = _context.OrderItems.ToList();
+            
+            List<OneStopShop.Models.Product> Products = new List<OneStopShop.Models.Product>();
+
+            var orderItems = (from item in orderItemlist
+                              where item.OrderId ==id
+                              select item).ToList();
+            foreach (var item in orderItems)
+            {
+                var product = _context.Products.FirstOrDefault(pd => pd.ProductID == item.ProductId);
+
+                Products.Add(product);
+            }
+            
+
+            var tupledata = new Tuple<OneStopShop.Models.Orders, List<OneStopShop.Models.Product>>(order, Products);
+
+            return View("PreviousOrder", tupledata);
+        }
+
+        
+
     }
+
+   
 }

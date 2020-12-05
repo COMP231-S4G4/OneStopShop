@@ -1,0 +1,51 @@
+﻿@model Tuple<OneStopShop.Models.Orders, List<OneStopShop.Models.Product>>
+@{
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "Index";
+}
+<br />
+<h2 class="wishlist">Order Deatils</h2>
+
+
+
+
+
+
+<br />
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/WishList.css" />
+</head>
+
+<div style="color: white;">
+
+    <h4>OrderId: @Model.Item1.OrderId</h4>
+    <h4>Created date:@Model.Item1.OrderCreatedDate</h4>
+    <h4>Total Cost: @Model.Item1.TotalCost</h4>
+    <h4>Shipping Address: @Model.Item1.CustomerName</h4>
+    <h4>                 @Model.Item1.Line1</h4>
+    <h4>                 @Model.Item1.Line2</h4>
+    <h4>                 @Model.Item1.City</h4>
+    <h4>                 @Model.Item1.Zip</h4>
+</div>
+
+@foreach (var item in Model.Item2)
+{
+    <div id="products" class="row list-group">
+        <table class="table">
+            <tr>
+                <td>
+                    <img width="170" height="170" src="~/@item.ProductImage" id="Image" />
+                </td>
+                <td style="color: white;font-size: x-large;">
+                    Product Name  : @item.ProductName <br />
+                    Product Price : @item.ProductPrice <br />
+                    Product Color : @item.ProductColor <br />
+                    Sold By:Store#: @item.StoreId
+                </td>
+               
+            </tr>
+
+
+        </table>
+    </div>
+}

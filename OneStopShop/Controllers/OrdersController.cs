@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -98,9 +100,13 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 order.Lines = cart.Lines.ToArray();
-
+                order.UserId = (int)HttpContext.Session.GetInt32("UserId");
+               
                 var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
+                order.TotalCost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity);
+
+
                 ViewBag.OrderId = order.OrderId;
                 _context.Update(order);
                 _context.SaveChanges();
@@ -176,6 +182,10 @@ namespace OneStopShop.Controllers
         public ActionResult OrderConfirmation()
         {
             return View();
+        }
+        public ActionResult PreviousOrder()
+        {
+            return View("PreviousOrder");
         }
     }
 }
