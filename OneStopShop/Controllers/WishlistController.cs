@@ -11,24 +11,23 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
+    /// <summary>
+    /// This controller has the actions where Buyer is able to Get and Delete the products in the wishlist.
+    /// </summary>
     public class WishlistController : BaseController
     {
-
-        //private readonly ApplicationDbContext _context;
-
         public WishlistController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
-            //_context = context;
+
         }
 
-        // GET: Wishlist
+        // GET: Wishlist/Index
         /// <summary>
         /// This action will get triggered when user/buyer will click on Add to Wishlist button on Product List Page
         /// This action will pass the product added in the wishlist to the wishlist screen
         /// Buyer will be able to see all the products in the wishlist
         /// </summary>
         /// <returns>Buyer will get all the products that he added in the wishlist</returns>
-
         public async Task<ActionResult> Index()
         {
             int UserId = (int)HttpContext.Session.GetInt32("UserId");
@@ -36,7 +35,7 @@ namespace OneStopShop.Controllers
             return View(list);
         }
 
-        // POST: WishlistController/Delete/5
+        // POST: WishlistController/Delete
         /// <summary>
         /// This action will get triggered when clicks on the delete button attacked to each product on the wishlist page
         /// Delete action acts as an edit in the case of wishlist ie editing the wishlist.

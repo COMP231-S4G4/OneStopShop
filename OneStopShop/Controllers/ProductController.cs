@@ -42,6 +42,11 @@ namespace OneStopShop.Controllers
             return View(products);
         }
 
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Back to list button on Product Details, Create, and Edit product page
+        /// This action passes the current storeId to Index action
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Back()
         {
             return RedirectToAction("Index", new { id = currentStore });
@@ -52,7 +57,7 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
-        // GET: Products/Details/5
+        // GET: Products/Details
         /// <summary>
         /// This action gets triggered when user clicks on the details button attached to each product
         /// details of a particular product is searched for bases on product id
@@ -233,6 +238,7 @@ namespace OneStopShop.Controllers
             }
             return View("Details");
         }
+
         //Get Product/Delete
         /// <summary>
         /// This action will get triggered when user/seller will click on Delete product button
@@ -253,6 +259,7 @@ namespace OneStopShop.Controllers
             }
             return View(product);
         }
+
         //Post Product/Delete
         /// <summary>
         /// This action will get triggered when user/seller will click on Yes button on Delete product prompt
