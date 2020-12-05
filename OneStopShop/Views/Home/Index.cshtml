@@ -2,20 +2,20 @@
 @model ViewModel
 
 @{
-	Layout = "_HomeLayout";
-	ViewData["Title"] = "Home Page";
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "Home Page";
 }
 
 <head>
-	<link href="~/css/Index.css" rel="stylesheet" />
+    <link href="~/css/Index.css" rel="stylesheet" />
 </head>
 
 <div class="coverimage">
-	<img id="cover" src="~/images/homepage_cover.jpg" />
-	<div class="centered">
-		<h2>One Stop Shop</h2>
-		<a class="btn" href="#stores">SHOP NOW</a>
-	</div>
+    <img id="cover" src="~/images/homepage_cover.jpg" />
+    <div class="centered">
+        <h2>One Stop Shop</h2>
+        <a class="btn" href="#stores">SHOP NOW</a>
+    </div>
 </div>
 <div class="club-container" id="stores">
     <h2 class="text-center pb-2">Stores</h2>
@@ -27,16 +27,14 @@
                 @foreach (var item in Model.store)
                 {
                     <div class="card-carsoule col-sm-8">
-                        <div class="img-carousel">
-                            <a class="success" asp-controller="Products" asp-action="ProductList" asp-route-id="@item.StoreId">
-                                <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%;" src="~/images/default-banner.jpg" alt="Card image cap">
-                            </a>
-                        </div>
-                        <div class="content-carousel">
-                            <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
-                            <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
-                        </div>
+                        <a class="success" asp-controller="Products" asp-action="ProductList" asp-route-id="@item.StoreId">
+                            <div class="content-carousel">
+                                <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
+                                <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
+                            </div>
+                        </a>
                     </div>
+
                 }
             }
             else
@@ -44,15 +42,14 @@
                 @foreach (var item in Model.store)
                 {
                     <div class="card-carsoule col-sm-8">
-                        <div class="img-carousel">
-                            <a class="success" asp-controller="Products" asp-action="ProductList" asp-route-id="@item.StoreId">
-                                <img class="card-img-top" style="border-radius:10px; object-fit: cover; width: 100%;" src="~/images/default-banner.jpg" alt="Card image cap">
-                            </a>
-                        </div>
-                        <div class="content-carousel">
-                            <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
-                            <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
-                        </div>
+
+                        <a class="success" asp-controller="Products" asp-action="ProductList" asp-route-id="@item.StoreId">
+
+                            <div class="content-carousel">
+                                <h5 class="card-title">@Html.DisplayFor(model => item.StoreName)</h5>
+                                <p class="card-text text-center club-description">@Html.DisplayFor(model => item.StoreDescription)</p>
+                            </div>
+                        </a>
                     </div>
                 }
             }
@@ -63,7 +60,7 @@
     $(".clubs-carousel").owlCarousel({
         loop: true,
         autoplay: true,
-        autoplayTimeout: 3000, //2000ms = 2s;
+        autoplayTimeout: 3000, //3000ms = 3s;
         autoplayHoverPause: true,
         nav: true,
     });
