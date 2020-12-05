@@ -219,15 +219,26 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 var selectedValue = Request.Form["OrderStatus"].ToString();
-                var orderitem = _context.OrderItems.FirstOrDefault(m => m.OrderItemId == id);
-                orderitem.Staus = selectedValue;
+                if (selectedValue!=null)
+                {
+                    TempData["msg"] = "Order Updated Successfully";
+                    var orderitem = _context.OrderItems.FirstOrDefault(m => m.OrderItemId == id);
+                    orderitem.Staus = selectedValue;
+                    ViewBag.message= orderitem.StoreId;
 
-                _context.OrderItems.Update(orderitem);
+                    _context.OrderItems.Update(orderitem);
 
-                 _context.SaveChanges();
-                return RedirectToAction("Login", "Users");
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    TempData["msg"] = "Please select a status";
+                }
+
+               
+
             }
-            return View();
+            return View("OrderUpdateConfirmation");
         }
     }
 }
