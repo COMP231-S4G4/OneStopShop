@@ -1,0 +1,51 @@
+﻿body {
+   margin: 0;
+    padding: 0;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #000000;
+    background: #A58964;
+}
+
+h2 {
+    margin-top: 10px;
+    color: black;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+#BlogEdit {
+    margin: 0;
+    padding: 40px;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background: #192537;
+}
+
+.EditBlog {
+    color: white;
+    text-align: center;
+}
+
+#Back {
+    background-color: #031327;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 22px;
+    padding-right: 22px;
+    position: relative;
+    top: 25px;
+    left: 309px;
+    text-align: center;
+    border-radius: 15px 15px 15px 5px;
+}
+
+    #Back:hover {
+        background-color: #bd1b1b;
+    }
+

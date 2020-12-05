@@ -1,20 +1,19 @@
 ﻿@model IEnumerable<OneStopShop.Models.Orders>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "UserOrders";
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
+    <link href="~/css/UserOrders.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width" />
     <title>UserOrders</title>
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>

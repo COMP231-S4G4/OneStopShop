@@ -6,7 +6,7 @@
     color: #ffffff;
     background: #A58964;
 }
-
+ 
 #div {
     background-color: white
 }
@@ -30,7 +30,7 @@ td {
 }
 
 tr {
-    border: 5px solid #A58964;
+    border: 5px solid #031327;
     border-radius: 5px;
 }
 
@@ -40,7 +40,7 @@ tr {
 
 #Create:link, Create:visited {
     color: white;
-    background: blue;
+    background-color: blue;
     border: 2px solid green;
     margin-left: 1000px;
     padding: 5px 5px;
@@ -48,6 +48,7 @@ tr {
     text-decoration: none;
     display: inline-block;
     border-radius: 5px;
+
 }
 
 #Create:hover, Create:active {
