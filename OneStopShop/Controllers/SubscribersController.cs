@@ -15,6 +15,9 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
+    /// <summary>
+    /// This controller has the actions where Buyer is able to Subscribe/join a store, and seller is able to view the list of subscribers for his store.
+    /// </summary>
     public class SubscribersController : BaseController
     {
         public SubscribersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
