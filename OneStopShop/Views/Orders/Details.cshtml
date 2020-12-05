@@ -21,9 +21,9 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
+	<link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Details</title>
 </head>
 <body>
     <div>
@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Date Created</td>
-                    <td>@DateTime.Now.ToString()</td>
+                    <td>@Model.Item3.OrderCreatedDate</td>
                 </tr>
                 @*<tr>
                     <td class="font-weight-bold">Order Status</td>

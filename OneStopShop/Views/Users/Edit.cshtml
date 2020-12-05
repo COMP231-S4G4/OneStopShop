@@ -5,7 +5,7 @@
 }
 
 <h1>Edit</h1>
-
+<link href="~/css/Edit.css" rel="stylesheet" />
 <h4>User</h4>
 <hr />
 <div class="row">
@@ -38,9 +38,9 @@
                 <input asp-for="PhoneNum" class="form-control" />
                 <span asp-validation-for="PhoneNum" class="text-danger"></span>
             </div>
-           
-                <input asp-for="AccountType" class="form-control"  asp-route-value="@Model.AccountType" hidden />
-               
+
+            <input asp-for="AccountType" class="form-control" asp-route-value="@Model.AccountType" hidden />
+
             <div class="form-group">
                 <label asp-for="BankName" class="control-label"></label>
                 <input asp-for="BankName" class="form-control" />

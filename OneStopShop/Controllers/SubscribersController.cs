@@ -15,12 +15,20 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
+    /// <summary>
+    /// This controller has the actions where Buyer is able to Subscribe/join a store, and seller is able to view the list of subscribers for his store.
+    /// </summary>
     public class SubscribersController : BaseController
     {
         public SubscribersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
 
+        /// <summary>
+        /// Code to display the list of subscribers for the seller
+        /// subscriber list is filtered by StoreID.
+        /// </summary>
+        /// <returns>list of subscribers along with store id of a particular store</returns>
         public async Task<IActionResult> Index(int StoreId)
         {
             var subs = await _context.Subscribers.Where(i => i.StoreId.Equals(StoreId)).ToListAsync();
@@ -28,6 +36,13 @@ namespace OneStopShop.Controllers
             return View(tupleData);
         }
 
+        // Post: Subscriber/JoinStore
+        /// <summary>
+        /// This action gets triggered when user/buyer will click on Subscribe button on store page
+        /// This action passes user details and StoreId into the database
+        /// Buyer subscribes to the store
+        /// </summary>
+        /// <returns>Buyer subscribes to a store</returns>
         public async Task<IActionResult> JoinStore(int StoreId)
         {
             await HttpContext.Session.LoadAsync();

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +53,12 @@ namespace OneStopShop.Controllers
 
 
         // GET: Orders/Details/id
+        /// <summary>
+        /// This action will get triggered when clicks on the details button attached to each order.
+        /// first we get the order item from the OrderItems table using OrderItemID and then we use that to get order from Orderstable and products from Products table.
+        /// products, orderitem, and orders are then passed to the view for display.
+        /// </summary>
+        /// <returns>tupledata containing information about products, orderitem, and orders to Details view</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -108,9 +116,13 @@ namespace OneStopShop.Controllers
             {
 
                 order.Lines = cart.Lines.ToArray();
-
+                order.UserId = (int)HttpContext.Session.GetInt32("UserId");
+               
                 var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
+                order.TotalCost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity);
+
+
                 ViewBag.OrderId = order.OrderId;
                 _context.Update(order);
                 _context.SaveChanges();
@@ -192,6 +204,10 @@ namespace OneStopShop.Controllers
         public ActionResult OrderConfirmation()
         {
             return View();
+        }
+        public ActionResult PreviousOrder()
+        {
+            return View("PreviousOrder");
         }
     }
 }
