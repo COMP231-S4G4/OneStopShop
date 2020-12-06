@@ -52,9 +52,7 @@ namespace OneStopShop.Controllers
                 return RedirectToAction("Login", "Users");
             }
             userID = Convert.ToInt32(protector.Unprotect(userId));
-            
-            //int userID = Convert.ToInt32(userId);
-           // int userID = Convert.ToInt32(userId);
+         
             var user = await _context.Users
                .FirstOrDefaultAsync(m => m.UserID == userID);
 
@@ -62,6 +60,7 @@ namespace OneStopShop.Controllers
             {
                 var IsMember = _context.Subscribers.Where(j => j.StoreId.Equals(StoreId)
              && j.UserId.Equals(userID)).FirstOrDefault();
+
                 if (IsMember == null)
                 {
                     Subscribers joined = new Subscribers();

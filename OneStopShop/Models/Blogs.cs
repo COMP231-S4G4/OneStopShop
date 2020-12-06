@@ -15,8 +15,6 @@ namespace OneStopShop.Models
         [Key]
         public int BlogId { get; set; }
 
-        //[ForeignKey("StoreId")]
-        //public virtual Store store { get; set; }
         [DisplayName("Store Name")]
         public int StoreId { get; set; }
 

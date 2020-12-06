@@ -46,12 +46,15 @@ namespace OneStopShop.Controllers
         /// This action will get triggered when user/seller will click on Back to list button on Product Details, Create, and Edit product page
         /// This action passes the current storeId to Index action
         /// </summary>
-        /// <returns></returns>
         public IActionResult Back()
         {
             return RedirectToAction("Index", new { id = currentStore });
         }
 
+        /// <summary>
+        /// This action will get triggered when user/seller creates a new store
+        /// It acts as a link for the seller to access products, blogs, subscribers, orders and custom order forms
+        /// </summary>
         public IActionResult Dashboard()
         {
             return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
@@ -145,19 +148,22 @@ namespace OneStopShop.Controllers
         /// This action gets triggered when user clicks on the add to cart button
         /// a particular product is added to the cart based on its product ID.
         /// </summary>
-        /// <returns>displas the cart page with newly added item and existing itmes</returns>
+        /// <returns>displays the cart page with newly added item and existing items</returns>
         public async Task<RedirectToActionResult> AddToCartAsync(int productId)
         {
             var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
             product.IsAddedToCart = true;
             _context.Update(product);
-                       
             await _context.SaveChangesAsync();
-
 
             return RedirectToAction("Index", "Cart");
         }
 
+        /// <summary>
+        /// This action gets triggered when user clicks on the remove from cart button
+        /// a particular product is deleted from the cart based on its product ID.
+        /// </summary>
+        /// <returns>remives the deleted item and displays the cart page with the existing items</returns>
         public async Task<RedirectToActionResult> RemoveCartItemAsync(int id)
         {
             var product = _context.Products.Where(a => a.ProductID.Equals(id)).FirstOrDefault();
@@ -273,9 +279,14 @@ namespace OneStopShop.Controllers
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
-            // return RedirectToAction(nameof(Index));
             return RedirectToAction("Index", new { id = product.StoreId });
         }
+
+        /// <summary>
+        /// This action will get triggered when user/buyer clicks on a store
+        /// It displays the store page for a user with all the required information
+        /// </summary>
+        /// <returns>Product and Store Information is returned</returns>
         public async Task<IActionResult> ProductList(int id)
         {
             if(id == 0)
@@ -312,6 +323,12 @@ namespace OneStopShop.Controllers
             return View("ProductList", tupleData);
         }
 
+        // GET: Products/ViewProduct
+        /// <summary>
+        /// This action gets triggered when user clicks on a product on the store page
+        /// details of a particular product is diasplayed for bases on product id
+        /// </summary>
+        /// <returns>returns the details of a particular product</returns>
         public async Task<IActionResult> ViewProduct(int? id)
         {
             if (id == null)
@@ -329,6 +346,12 @@ namespace OneStopShop.Controllers
             return View(product);
         }
 
+        // Post: Product/AddToWishlist
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Add to wishlist button on Product Page
+        /// This action will pass the UserId into the database and add the product to the wishlist table for that user
+        /// </summary>
+        /// <returns>d the product to the wishlist table for a user</returns>
         [HttpPost]
         public IActionResult AddToWishlist(int id)
         {
@@ -345,11 +368,7 @@ namespace OneStopShop.Controllers
                 _context.SaveChanges();
             }
 
-            //return View ("WishList");
             return RedirectToAction("Index","Wishlist", new { productID = id });
-
-        }
-
-       
+        }       
     }
 }
