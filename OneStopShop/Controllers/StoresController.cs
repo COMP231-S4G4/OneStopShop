@@ -36,7 +36,9 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 await HttpContext.Session.LoadAsync();
-                int userID = (int)HttpContext.Session.GetInt32("UserId");
+
+                string userId = HttpContext.Session.GetString("UserId");
+               int userID = Convert.ToInt32(protector.Unprotect(userId));
                 _context.Add(store);
                 var user = await _context.Users
                .FirstOrDefaultAsync(m => m.UserID == userID);
@@ -53,7 +55,8 @@ namespace OneStopShop.Controllers
                 await _context.JoinedStore.AddAsync(joined);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Dashboard", "Stores", new { ID = joined.StoreId });
             }
             return View(store);
         }
@@ -61,8 +64,15 @@ namespace OneStopShop.Controllers
         // GET:List of Stores
         public async Task<IActionResult> Index()
         {
+           
             return View(await _context.Stores.Include(a => a.JoinedStore).ToListAsync());
         }
+
+        //public async Task<IActionResult> ContiniueShopping()
+        //{
+
+        //    return RedirectToAction("ProductList", "Products", new { ID =  });
+        //}
 
         public async Task<IActionResult> Details(int id)
         {

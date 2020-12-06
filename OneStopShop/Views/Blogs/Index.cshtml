@@ -1,11 +1,10 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
     Layout = "_HomeLayout";
     ViewData["Title"] = "Blogs";
-
+    string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
 }
-<!DOCTYPE html>
-
-<html>
 
 <head>
     <link href="~/css/BlogList.css" rel="stylesheet" />
@@ -13,11 +12,14 @@
 </head>
 
 <body>
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Create" >Create New</a>
-    </p>
+    <h1 style="text-align:center">Blogs</h1>
+    @if (userRole == "Seller")
+    {
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+    }
+        
 
     <div class="wrap">
         @foreach (var item1 in Model)
@@ -32,7 +34,7 @@
                         <p class="author-cred">on @item1.BlogCreatedDate </p>
                     </header>
 
-                    <p>@item1.BlogDescription</p>
+				<p>@item1.BlogDescription</p>
 
                     <footer>
                         <form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">
@@ -42,13 +44,15 @@
                                 <button type="submit" class="btn btn-danger">Yes</button>
                                 <a href="#" class="btn btn-primary" onclick="confirmDelete('@item1.BlogId', false)">No</a>
                             </span>
-
-                            <span id="deleteSpan_@item1.BlogId">
-                                <a style="margin-right:2px;" href="#" class="btn btn-danger rigth" onclick="confirmDelete('@item1.BlogId', true)">Delete</a>
-                            </span>
-                            <a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
-                            <a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
-                        </form>
+                            @if (userRole == "Seller")
+                            {
+                                <span id="deleteSpan_@item1.BlogId">
+                                    <a style="margin-right:2px;" href="#" class="btn btn-danger rigth" onclick="confirmDelete('@item1.BlogId', true)">Delete</a>
+                                </span>
+                                <a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
+                                <a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
+                            }
+                            </form>
                     </footer>
                 </article>
             </div>

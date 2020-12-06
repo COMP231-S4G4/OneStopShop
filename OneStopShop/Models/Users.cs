@@ -29,6 +29,8 @@ namespace OneStopShop.Models
         public string email { get; set; }
 
         [Display(Name = "Phone Number")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+                   ErrorMessage = "The phone number must be 10 digits.")]
         public string PhoneNum { get; set; }
 
         [Required(ErrorMessage = "Please enter your Account Type")]
