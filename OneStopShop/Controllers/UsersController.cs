@@ -190,7 +190,7 @@ namespace sampleUsser.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", "Users",new { UserId=user.UserID });
+                return RedirectToAction("Details", "Users",new { UserId= protector.Protect(user.UserID.ToString()) });
             }
             return View(user);
         }

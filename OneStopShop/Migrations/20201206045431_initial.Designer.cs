@@ -10,8 +10,8 @@ using OneStopShop.Models;
 namespace OneStopShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201205055044_Initial")]
-    partial class Initial
+    [Migration("20201206045431_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
