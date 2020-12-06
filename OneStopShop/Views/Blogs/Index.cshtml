@@ -1,7 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
     Layout = "_HomeLayout";
     ViewData["Title"] = "Blogs";
-
+    string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
 }
 
 <head>
@@ -9,43 +11,60 @@
     <script src="~/js/DeleteConfirmation.js"></script>
 </head>
 
-<div class="wrap">
-	<h2 class="text-center text-white">Blog List</h2>
+<body>
+    <h1 class="text-center text-white">Blogs</h1>
+    @if (userRole == "Seller")
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
 
-	<p class="mt-3">
-		<a class="btn btn-primary" asp-action="Create">Create New</a>
-	</p>
-	@foreach (var item1 in Model)
-	{
-		<div class="post">
-			<div class="feat-img">
-				<img src="@item1.BlogImage" />
-			</div>
-			<article>
-				<header>
-					<h2><a href="#">@item1.BlogTitle</a></h2>
-					<p class="author-cred">on @item1.BlogCreatedDate </p>
-				</header>
 
-				<p>@item1.BlogDescription</p>
+    <div class="wrap">
+        @foreach (var item1 in Model)
+        {
+            <div class="post">
+                <div class="feat-img">
+                    <img src="@item1.BlogImage" />
+                </div>
+                <article>
+                    <header>
+                        <h2><a href="#">@item1.BlogTitle</a></h2>
+                        <p class="author-cred">on @item1.BlogCreatedDate </p>
+                    </header>
 
-				<footer>
-					<form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">
-						<span id="confirmDeleteSpan_@item1.BlogId" style="display:none">
-							<br /><br />
-							<span>Are you sure you want to delete?</span><br />
-							<button type="submit" class="btn btn-danger">Yes</button>
-							<a href="#" class="btn btn-primary" onclick="confirmDelete('@item1.BlogId', false)">No</a>
-						</span>
+                    <p>@item1.BlogDescription</p>
 
-						<span id="deleteSpan_@item1.BlogId">
-							<a style="margin-right:2px;" href="#" class="btn btn-danger rigth" onclick="confirmDelete('@item1.BlogId', true)">Delete</a>
-						</span>
-						<a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
-						<a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
-					</form>
-				</footer>
-			</article>
-		</div>
-	}
-</div>
+                    <footer>
+                        <form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">
+                            <span id="confirmDeleteSpan_@item1.BlogId" style="display:none">
+                                <br /><br />
+                                <span>Are you sure you want to delete?</span><br />
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                                <a href="#" class="btn btn-primary" onclick="confirmDelete('@item1.BlogId', false)">No</a>
+                            </span>
+                            @if (userRole == "Seller")
+                            {
+                                <span id="deleteSpan_@item1.BlogId">
+                                    <a style="margin-right:2px;" href="#" class="btn btn-danger rigth" onclick="confirmDelete('@item1.BlogId', true)">Delete</a>
+                                </span>
+                                <a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
+                                <a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
+                            }
+                        </form>
+                    </footer>
+                </article>
+            </div>
+        }
+    </div>
+    @if (userRole == "Seller")
+    {
+        <a asp-action="Dashboard">Back to Dashboard</a>
+    }
+    @if (userRole == "Buyer")
+    {
+        <a asp-controller="Home" asp-action="Index">Back to Home</a>
+    }
+</body>
+</html>

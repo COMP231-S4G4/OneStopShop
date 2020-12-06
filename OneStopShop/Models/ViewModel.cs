@@ -9,9 +9,7 @@ namespace OneStopShop.Models
     {
         public List<Product> product { get; set; }
         public List<Store> store { get; set; }
-
         public List<Cart> cart { get; set; }
-
         public Orders order { get; set; }
     }
 }
