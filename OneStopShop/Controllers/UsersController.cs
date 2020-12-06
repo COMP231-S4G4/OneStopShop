@@ -20,6 +20,7 @@ namespace sampleUsser.Controllers
     public class UsersController : BaseController
     {
         //private readonly ApplicationDbContext _context;
+        string currentUser;
 
      
         public UsersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
@@ -40,6 +41,7 @@ namespace sampleUsser.Controllers
         public async Task<IActionResult> Details(string UserId)
         {
             var userID = protector.Unprotect(UserId);
+            currentUser = userID;
             if (userID == null)
             {
                 return NotFound();
@@ -53,6 +55,12 @@ namespace sampleUsser.Controllers
             }
 
             return View(user);
+        }
+
+        public IActionResult Back()
+        {
+
+            return RedirectToAction("Details", new { UserId = currentUser });
         }
 
         // GET: Users/Create
@@ -86,12 +94,22 @@ namespace sampleUsser.Controllers
             }
             return View(user);
         }
-
+        // GET: Users/Login
+        /// <summary>
+        /// This action will get triggered when user will click on Login button at home page
+        /// </summary>
+        /// <returns>User will get redirected to login screen</returns>
         public ActionResult Login()
         {
             return View();
         }
 
+        // Post: Users/Login
+        /// <summary>
+        /// This action will get triggered when user will click on Login button at the login screen
+        /// It will verify the username and password and authenticate the login for the user 
+        /// </summary>
+        /// <returns>User will get logged in their account</returns>
         [HttpPost]
         [RequireHttps]
         public async Task<IActionResult> Login(string username, string password)
@@ -116,7 +134,6 @@ namespace sampleUsser.Controllers
                             return RedirectToAction("Dashboard", "Stores", new { id = storeid });
                         else
                             return RedirectToAction("Index", "Stores", new { id = storeid });
-                        //}
                     }
                     else
                     {
@@ -131,6 +148,12 @@ namespace sampleUsser.Controllers
             }
             return View();
         }
+
+        //Users/Logout
+        /// <summary>
+        /// This action will get triggered when user will click on Logout button
+        /// </summary>
+        /// <returns>User will get logged out of his account</returns>
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -195,7 +218,7 @@ namespace sampleUsser.Controllers
             return View(user);
         }
 
-        // GET: Users/Delete/5
+        // GET: Users/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -213,7 +236,7 @@ namespace sampleUsser.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: Users/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -252,6 +275,10 @@ namespace sampleUsser.Controllers
             return View("UserOrders", Orders);
         }
 
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Orders Details Button in the orders page        
+        /// User's all previous order information will be deisplayed
+        /// </summary>
         public IActionResult ViewOrderDetail(int id)
         {
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);

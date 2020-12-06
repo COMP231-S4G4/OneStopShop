@@ -25,7 +25,7 @@ namespace OneStopShop.Controllers
         {
         }
 
-        // GET: Blogs
+        // GET: Blogs/Index
         /// <summary>
         /// This action will get triggered when user will click on Blogs button on Product List Page
         /// This action will pass all the Blogs to the view that the seller has provided
@@ -41,6 +41,11 @@ namespace OneStopShop.Controllers
             currentStore = StoreId;
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
+        }
+
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
         /// <summary>

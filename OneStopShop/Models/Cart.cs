@@ -29,11 +29,7 @@ namespace OneStopShop.Models
             {
                 item.Quantity += quantity;
             }
-
-
-
         }
-
         public virtual void RemoveLine(Product product) =>
            itemCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
 
