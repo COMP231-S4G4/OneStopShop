@@ -38,14 +38,19 @@
             else
             {
         <ul class="navigation">
-            <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li class="parent">
-                <a class="link" asp-area="" asp-controller="Cart" asp-action="Index">
-                    <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
-                </a>
-            </li>
+            @if (userRole == "Buyer")
+            {
+                <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="parent">
+                    <a class="link" asp-area="" asp-controller="Cart" asp-action="Index">
+                        <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
+                    </a>
+                <li class="parent"><a class="link" asp-controller="Wishlist" asp-action="Index">Wishlist</a></li>
+                </li>
+            }
             @if (userRole == "Seller")
             {
+                <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li class="parent"><a class="link" asp-controller="Stores" asp-action="Index">My Store</a></li>
             }
             <li class="parent"><a class="link" asp-controller="Users" asp-action="Details" asp-route-UserId="@HttpContextAccessor.HttpContext.Session.GetString("UserId")">My Account</a></li>
