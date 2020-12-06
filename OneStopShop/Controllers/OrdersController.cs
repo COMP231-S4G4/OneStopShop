@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using OneStopShop.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OneStopShop.Models;
+
+
 using Stripe;
+using Microsoft.AspNetCore.Hosting;
 
 namespace OneStopShop.Controllers
 {
-    public class OrdersController : Controller
+    public class OrdersController: Controller
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
@@ -24,6 +29,8 @@ namespace OneStopShop.Controllers
             _context = context;
             cart = cartService;
         }
+            
+        
 
         // GET: List of orders for a store
         public IActionResult Index(int id)
@@ -118,6 +125,9 @@ namespace OneStopShop.Controllers
         [HttpPost]
         public IActionResult Checkout(Orders order)
         {
+            string userId = HttpContext.Session.GetString("UserId");
+           
+            //int userID = Convert.ToInt32(protector.Unprotect(userId.ToString());
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -219,19 +229,19 @@ namespace OneStopShop.Controllers
         /// Order confirmation view loaded after succesfull payment
         /// </summary>
         /// <returns></returns>
-        //public ActionResult OrderConfirmation()
-        //{
-        //    return View();
-        //}
-        //public ActionResult PreviousOrder()
-        //{
-        //    return View("PreviousOrder");
-        //}
+        public ActionResult OrderConfirmation()
+        {
+            return View();
+        }
+        public ActionResult PreviousOrder()
+        {
+            return View("PreviousOrder");
+        }
 
 
-         ///<summary>
-         ///Seller can update the status of order that they received
-         ///</summary>
+        ///<summary>
+        ///Seller can update the status of order that they received
+        ///</summary>
 
         [HttpPost]
         public IActionResult StatusUpdate(int id)

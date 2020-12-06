@@ -82,7 +82,7 @@
 @if (userRole == "Buyer")
 {
     <div>
-        <a asp-action="ViewOrders" asp-route-id="@Model.UserID">Orders</a>
+        <a asp-action="ViewOrders" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetString("UserId")">Orders</a>
     </div>
 }
 

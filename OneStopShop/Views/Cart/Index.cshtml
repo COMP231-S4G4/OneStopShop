@@ -66,7 +66,7 @@
 <div class="text-center">
 
     <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Continue Shopping</a>
-    @if (Model.Lines==null)
+    @if (Model.Lines.Count()!=0)
     {
         <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
     }
