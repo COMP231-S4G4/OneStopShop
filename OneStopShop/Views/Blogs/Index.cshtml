@@ -15,7 +15,7 @@
 @if (userRole == "Seller")
 {
     <p>
-        <a asp-action="Create">Create New</a>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
     </p>
 }
 
@@ -58,9 +58,9 @@
 </div>
 @if (userRole == "Seller")
 {
-    <a asp-action="Dashboard">Back to Dashboard</a>
+    <a class="btn btn-primary" asp-action="Dashboard">Back to Dashboard</a>
 }
 @if (userRole == "Buyer")
 {
-    <a asp-controller="Home" asp-action="Index">Back to Home</a>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to Home</a>
 }
