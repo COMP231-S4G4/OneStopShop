@@ -81,7 +81,10 @@ namespace OneStopShop.Controllers
             return _context.Orders.Any(e => e.OrderId == id);
         }
 
-        //Get Checkout
+        //Get Checkout        
+        /// <summary>
+        /// Display the checkout page with product information saved as an order.
+        /// </summary>
         public IActionResult Checkout()
         {
             
@@ -99,6 +102,11 @@ namespace OneStopShop.Controllers
         }
 
         //Post/CheckOut
+        /// <summary>
+        /// Submit the chekout information. Order will get upadated with checkout info.
+        /// </summary>
+        /// <param name="order"></param>
+       
 
         [HttpPost]
         public IActionResult Checkout(Orders order)
@@ -145,13 +153,24 @@ namespace OneStopShop.Controllers
         }
 
         //Get payment
+       ///<summary>
+       ///Payment view displayed
+       ///<summary>
+
         public IActionResult Payment()
         {
             return View();
         }
 
-        //post payment
+        
 
+        /// <summary>
+        /// Post/Submit the payment information. It uses stripe test account.
+        /// </summary>
+        /// <param name="stripeEmail"> Email in the payment</param>
+        /// <param name="stripeToken"> Token generated for the payment action</param>
+        /// <param name="id"> This is the id associated with the order</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Payment(string stripeEmail, string stripeToken, int id)
         {
@@ -189,15 +208,23 @@ namespace OneStopShop.Controllers
 
             return View();
         }
+        /// <summary>
+        /// Order confirmation view loaded after succesfull payment
+        /// </summary>
+        /// <returns></returns>
+        //public ActionResult OrderConfirmation()
+        //{
+        //    return View();
+        //}
+        //public ActionResult PreviousOrder()
+        //{
+        //    return View("PreviousOrder");
+        //}
 
-        public ActionResult OrderConfirmation()
-        {
-            return View();
-        }
-        public ActionResult PreviousOrder()
-        {
-            return View("PreviousOrder");
-        }
+
+         ///<summary>
+         ///Seller can update the status of order that they received
+         ///</summary>
 
         [HttpPost]
         public IActionResult StatusUpdate(int id)
@@ -223,8 +250,7 @@ namespace OneStopShop.Controllers
                     ViewBag.message = orderitem.StoreId;
                     TempData["msg"] = "Please select a status";
                 }
-
-               
+                              
 
             }
             return View("OrderUpdateConfirmation");
