@@ -15,11 +15,11 @@
     <h1 style="text-align:center">Blogs</h1>
     @if (userRole == "Seller")
     {
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
     }
-        
+
 
     <div class="wrap">
         @foreach (var item1 in Model)
@@ -34,7 +34,7 @@
                         <p class="author-cred">on @item1.BlogCreatedDate </p>
                     </header>
 
-				<p>@item1.BlogDescription</p>
+                    <p>@item1.BlogDescription</p>
 
                     <footer>
                         <form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">
@@ -52,11 +52,12 @@
                                 <a style="margin-right:2px;" class="btn btn-success rigth" asp-action="Details" asp-route-id="@item1.BlogId">Details</a>
                                 <a style="margin-right:2px;" class="btn btn-warning rigth" asp-action="Edit" asp-route-id="@item1.BlogId">Edit</a>
                             }
-                            </form>
+                        </form>
                     </footer>
                 </article>
             </div>
         }
     </div>
+    <a asp-action="Dashboard">Back to Dashboard</a>
 </body>
 </html>

@@ -43,6 +43,11 @@ namespace OneStopShop.Controllers
             return View(blogs);
         }
 
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
+        }
+
         /// <summary>
         /// This action will get triggered when user/seller will click on Back to list button on Create Blog page
         /// This action passes the current storeId to Index action

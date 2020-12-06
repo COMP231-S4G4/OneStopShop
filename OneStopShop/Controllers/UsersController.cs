@@ -20,6 +20,7 @@ namespace sampleUsser.Controllers
     public class UsersController : BaseController
     {
         //private readonly ApplicationDbContext _context;
+        string currentUser;
 
      
         public UsersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
@@ -40,6 +41,7 @@ namespace sampleUsser.Controllers
         public async Task<IActionResult> Details(string UserId)
         {
             var userID = protector.Unprotect(UserId);
+            currentUser = userID;
             if (userID == null)
             {
                 return NotFound();
@@ -53,6 +55,12 @@ namespace sampleUsser.Controllers
             }
 
             return View(user);
+        }
+
+        public IActionResult Back()
+        {
+
+            return RedirectToAction("Details", new { UserId = currentUser });
         }
 
         // GET: Users/Create
