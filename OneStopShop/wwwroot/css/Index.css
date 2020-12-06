@@ -7,7 +7,6 @@
 }
 
 .slider-carousel {
-    /* max-width: 1100px;*/
     display: flex;
 }
 
@@ -71,9 +70,6 @@
             transform: scale(0.9);
         }
 
-/*.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
-}*/
-
 .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
     background: 0 0;
     color: inherit;
@@ -102,7 +98,7 @@ button:focus, button:active {
     outline: none;
 }
 
-/*Nehal's CSS for image section*/
+
 #cover {
     max-width: 1300px;
     width: 100%;

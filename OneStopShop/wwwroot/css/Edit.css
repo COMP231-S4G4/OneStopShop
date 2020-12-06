@@ -1,5 +1,4 @@
 ﻿.details-container {
-    /*position: absolute;*/
     top: 0;
     left: 0;
     width: 100%;
@@ -13,7 +12,6 @@
     border-radius: 3px;
     background-color: #192537;
     color: white;
-    /* height: 400px; */
 }
 
 input[type="text"],
@@ -21,7 +19,6 @@ input[type="password"] {
     display: block;
     align-items: center;
     box-sizing: border-box;
-    /* margin-left: 50px; */
     padding: 4px;
     width: 450px;
     height: 40px;

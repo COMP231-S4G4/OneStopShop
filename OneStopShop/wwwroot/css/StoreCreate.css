@@ -1,6 +1,5 @@
 ﻿
 .signup-container {
-    /*position: absolute;*/
     top: 0;
     left: 0;
     width: 100%;
@@ -13,7 +12,6 @@
     border-radius: 3px;
     background-color: #192537;
     color: white;
-    /* height: 400px; */
 }
 
 
