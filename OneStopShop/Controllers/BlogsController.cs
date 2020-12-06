@@ -25,7 +25,7 @@ namespace OneStopShop.Controllers
         {
         }
 
-        // GET: Blogs
+        // GET: Blogs/Index
         /// <summary>
         /// This action will get triggered when user will click on Blogs button on Product List Page
         /// This action will pass all the Blogs to the view that the seller has provided
