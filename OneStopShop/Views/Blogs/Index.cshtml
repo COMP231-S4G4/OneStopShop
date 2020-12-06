@@ -5,9 +5,6 @@
     ViewData["Title"] = "Blogs";
     string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
 }
-<!DOCTYPE html>
-
-<html>
 
 <head>
     <link href="~/css/BlogList.css" rel="stylesheet" />
@@ -37,7 +34,7 @@
                         <p class="author-cred">on @item1.BlogCreatedDate </p>
                     </header>
 
-                    <p>@item1.BlogDescription</p>
+				<p>@item1.BlogDescription</p>
 
                     <footer>
                         <form asp-action="Delete" asp-route-id="@item1.BlogId" method="post">

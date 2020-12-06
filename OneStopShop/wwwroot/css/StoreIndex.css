@@ -1,24 +1,14 @@
-body {
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	font: 12px Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color: #ffffff;
-	background: #A58964;
-}
 
 #div {
-	background-color: white;
-}
-
-#divInline {
-	display: inline-block;
+	padding: 20px;
 }
 
 table {
-	border: 5px solid #A58964;
+	/*border: 5px solid #A58964;*/
 	width: 100%;
+	color: white;
+	border: 1px solid #b2afaf;
+	background-color: #B09E80;
 }
 
 th {
@@ -31,7 +21,7 @@ td {
 }
 
 tr {
-	border: 5px solid #A58964;
+	/*border: 5px solid #A58964;*/
 	border-radius: 5px;
 }
 

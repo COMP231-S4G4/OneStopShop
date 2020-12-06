@@ -1,5 +1,11 @@
 ﻿body {
     padding: 40px;
+    margin: 0;    
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #ffffff;
+    background: #A58964;
 }
 
 .columns {
@@ -11,10 +17,12 @@
     border-radius: 8px;
     display: inline-block;
     padding: 50px;
-    width: 60%;
-    color: #202c50;
+    width: 75%;    
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 1.4em;
+    margin: 15px;
+    background: #192537;
+    color: white;
 }
 
 .divider {
@@ -22,19 +30,22 @@
     height: 2px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #202c50;
+    background-color: white;
     border: 0 none;
     margin-top: 14px;
     margin-bottom: 40px;
 }
 
-.success-extras p {
-    color: #202c50;
+.success-extras p {    
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 2em;
     font-weight: 300;
     padding: 0 0 20px 0;
     line-height: 1.2em;
+}
+.ptext {
+    font-size: 15px;
+    font-weight: 700;
 }
 
 p.success-lrg {
@@ -48,7 +59,7 @@ p.success-lrg {
 }
 
 .action.primary {
-    background: #202c50;
+    background: green;
     border: none;
     color: #fff;
     display: inline-block;
