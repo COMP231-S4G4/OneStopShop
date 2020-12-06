@@ -30,23 +30,9 @@
                 <td class="text-right">@line.Product.ProductPrice.ToString("c")</td>
                 <td class="text-right">
                     @((line.Quantity * line.Product.ProductPrice).ToString("c"))
-                </td>
-
-                <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@line.Product.ProductID"
-                      method="post">
-
-                    <input type="hidden" asp-route-id="@line.Product.ProductID" />
-
-                    <span class="col-sm-2 float-right">
-
-                        <button type="submit"
-                                class="btn btn-danger btn-sm pull-right"
-                                style="float:right">
-                            Remove From Cart
-                        </button>
-                    </span>
-                </form>
-
+                </td>              
+                                  
+                
             </tr>
         }
     </tbody>

@@ -14,6 +14,8 @@ namespace OneStopShop.Models
 
         public int Quantity { get; set; }
 
+        
+
         public int StoreId { get; set; }
 
         [ForeignKey("ProductId")]
