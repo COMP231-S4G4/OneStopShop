@@ -59,7 +59,6 @@ input[type="password"] {
 	display: block;
 	align-items: center;
 	box-sizing: border-box;
-	 margin-bottom: 20px; 
 	/* margin-left: 50px; */
 	padding: 4px;
 	width: 450px;
@@ -113,4 +112,13 @@ select {
 	border: none;
 	border-bottom: 1px solid darkgrey;
 	margin-bottom: 15px;
+}
+
+.error{
+	width:400px;
+	display:block;
+}
+
+.accno{
+	width:450px;
 }
