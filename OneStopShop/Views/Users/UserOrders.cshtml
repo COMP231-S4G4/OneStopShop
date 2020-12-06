@@ -87,7 +87,7 @@
                         @Html.DisplayFor(modelItem => item.Country)
                     </td>
                     <td>
-                        <a asp-action="ViewOrderDetail" asp-route-id="@item.OrderId">Details</a>
+                        <a class="btn btn-primary" asp-action="ViewOrderDetail" asp-route-id="@item.OrderId">Details</a>
                     </td>
                 </tr>
             }
