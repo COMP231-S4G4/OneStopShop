@@ -2,14 +2,12 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "_ProductLayout";
+    Layout = "_HomeLayout";
 }
 
 <head>
 	<link rel="stylesheet" href="~/css/ProductPage.css" />
 </head>
-
-<h1>ViewProduct</h1>
 
 <div class="product-container">
 	<div class="product-image">
@@ -38,11 +36,9 @@
             <div class="size">
                 <h4>size</h4>
                 <div id="sizes">
-                    <button class="btn text-uppercase text-center">s</button>
-                    <button class="btn active text-uppercase text-center">m</button>
-                    <button class="btn text-uppercase text-center">l</button>
-                    <button class="btn text-uppercase text-center">xl</button>
-                    <button class="btn text-uppercase text-center">xxl</button>
+					<button class="btn text-uppercase text-center size-btn">
+						@Html.DisplayFor(model => model.ProductSize)
+					</button>
                 </div>
 
             </div>
@@ -58,14 +54,13 @@
                     </span>
                 </form>
             </div>
-            <div>
+            <div class="wishlistBtn">
                 <form asp-controller="Products" asp-action="AddToWishlist" asp-route-id="@Model.ProductID"
                       method="post">
                     <input type="hidden" asp-for="ProductID" />
-                    <span style="margin-left: 10px;" class="card-text p-1">
-                        <button id="AddToWishlist" type="submit"
-                                class="btn btn-success">
-                            Add to WishList
+                    <span class="card-text p-1">
+                        <button id="AddToCart" type="submit">
+							<span>Add to WishList</span>
                         </button>
                     </span>
                 </form>

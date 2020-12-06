@@ -102,10 +102,6 @@ button:focus, button:active {
     outline: none;
 }
 
-.container {
-    max-width: 1300px;
-}
-
 /*Nehal's CSS for image section*/
 #cover {
     max-width: 1300px;

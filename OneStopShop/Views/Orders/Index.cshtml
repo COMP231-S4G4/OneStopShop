@@ -53,27 +53,41 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StoreId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OrderId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cost)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
 
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.OrderItemId">Details</a>
-                    </td>
-                </tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.OrderItemId">Details</a>
+                </td>
+                <td>
+                    <form asp-action="StatusUpdate" asp-route-id="@item.OrderItemId">
+
+                        @Html.DropDownList("OrderStatus", new List<SelectListItem>
+                        {
+                           new SelectListItem{ Text="Shipped", Value = "Shipped" },
+                           new SelectListItem{ Text="InTransit", Value = "InTransit" },
+                           new SelectListItem{ Text="Delivered", Value = "Delivered" }
+                        }, "Select Status")   
+
+                       
+                        <input type="submit" value="Update" class="btn btn-sm" />
+                    </form>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
