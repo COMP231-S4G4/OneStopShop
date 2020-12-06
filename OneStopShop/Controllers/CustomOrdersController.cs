@@ -67,8 +67,13 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             var customOrders = await _context.CustomOrders.Where(i => i.StoreId.Equals(id)).ToListAsync();
-
+            currentStore = id;
             return View(customOrders);
+        }
+
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
         // GET: CustomOrder/Details

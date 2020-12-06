@@ -29,6 +29,7 @@ namespace OneStopShop.Controllers
         public IActionResult Index(int id)
         {
             var OrderList = _context.OrderItems.ToList();
+            currentStore = id;
 
             List<Models.OrderItem> StoreOrders = new List<Models.OrderItem>();
 
@@ -81,6 +82,12 @@ namespace OneStopShop.Controllers
             return _context.Orders.Any(e => e.OrderId == id);
         }
 
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
+        }
+
+        //Get Checkout
         //Get Checkout        
         /// <summary>
         /// Display the checkout page with product information saved as an order.
