@@ -10,11 +10,6 @@ namespace OneStopShop.Models
     {
         [Key]
         public int CustomOrderID { get; set; }
-
-        //[Required(ErrorMessage = "Please enter your Username")]
-        //[Display(Name = "Username")]
-        //public string Username { get; set; }
-
         public bool status { get; set; }
 
         [MinLength(5, ErrorMessage = "The Address must be at least 5 characters long")]
