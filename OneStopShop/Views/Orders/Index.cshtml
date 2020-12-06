@@ -23,74 +23,73 @@
     <title>Index</title>
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div id="div">
-    <table class="table">
-        <thead>
-            <tr>
+    <div id="div">
+        <table class="table">
+            <thead>
+                <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.StoreId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cost)
-                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StoreId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cost)
+                    </th>
 
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StoreId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
-                </td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StoreId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
 
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.OrderItemId">Details</a>
-                </td>
-                <td>
-                    <form asp-action="StatusUpdate" asp-route-id="@item.OrderItemId">
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.OrderItemId">Details</a>
+                        </td>
+                        <td>
+                            <form asp-action="StatusUpdate" asp-route-id="@item.OrderItemId">
 
-                        @Html.DropDownList("OrderStatus", new List<SelectListItem>
-                        {
-                           new SelectListItem{ Text="Shipped", Value = "Shipped" },
-                           new SelectListItem{ Text="InTransit", Value = "InTransit" },
-                           new SelectListItem{ Text="Delivered", Value = "Delivered" }
-                        }, "Select Status")   
+                                @Html.DropDownList("OrderStatus", new List<SelectListItem>
+                                {
+                                   new SelectListItem{ Text="Shipped", Value = "Shipped" },
+                                   new SelectListItem{ Text="InTransit", Value = "InTransit" },
+                                   new SelectListItem{ Text="Delivered", Value = "Delivered" }
+                                }, "Select Status")
 
-                       
-                        <input type="submit" value="Update" class="btn btn-sm" />
-                    </form>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+
+                                <input type="submit" value="Update" class="btn btn-sm" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="Dashboard">Back to Dashboard</a>
+    </div>
+    
 </body>
 </html>
