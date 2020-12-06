@@ -42,10 +42,6 @@
             {
         <ul class="navigation">
             <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
-            @*<li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a></li>
-        <li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Index">Store List</a></li>*@
-            @*<li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
-        <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>*@
             <li class="parent">
                 <a class="link" asp-area="" asp-controller="Cart" asp-action="Index">
                     <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
@@ -56,7 +52,7 @@
                 <li class="parent"><a class="link" asp-controller="Stores" asp-action="Index">My Store</a></li>
             }
             <li class="parent"><a class="link" asp-controller="Users" asp-action="Details" asp-route-UserId="@HttpContextAccessor.HttpContext.Session.GetString("UserId")">My Account</a></li>
-            <li class="parent"><a class="Link" asp-controller="Users" asp-action="Logout">Logout</a></li>
+            <li class="parent"><a class="link" asp-controller="Users" asp-action="Logout">Logout</a></li>
         </ul>
             }
 
@@ -97,7 +93,7 @@
                 </div>
             </div>
             <div class="container border-top text-muted">
-                &copy; 2020 - OneStopShop - <a asp-area="" asp-controller="Home" asp-action="#">Privacy</a>
+                &copy; 2020 - OneStopShop
             </div>
         </footer>
     </div>

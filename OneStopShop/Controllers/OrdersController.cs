@@ -104,11 +104,11 @@ namespace OneStopShop.Controllers
         public IActionResult Checkout()
         {
             
-                Orders order = new Orders();
-                _context.Orders.Add(order);
-                _context.SaveChanges();
+            Orders order = new Orders();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
 
-                order.Lines = cart.Lines.ToArray();
+            order.Lines = cart.Lines.ToArray();
 
                 return View(order);          
            
