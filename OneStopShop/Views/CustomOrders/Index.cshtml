@@ -2,23 +2,21 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "_HomeLayout";
 }
 
-<!DOCTYPE html>
-
-<html>
 <head>
     <link rel="stylesheet" type="text/css" href="~/css/CustomList.css" />
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
-<body>
-    <link rel="stylesheet" type="text/css" href="~/css/CustomList.css" />
-
+ <br />
+<h3>Custom Order List</h3>
+     <br />
+    
     <table class="table">
-        <thead>
+        <thead style="background-color: #031327">
             <tr>
-
 
                 <th>
                     @Html.DisplayNameFor(model => model.StoreId)
@@ -35,8 +33,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.OrderCreatedDate)
                 </th>
-
-
 
                 <th></th>
             </tr>
@@ -62,12 +58,12 @@
 
                     <td>
 
-                        <a asp-action="Details" asp-route-id="@item.CustomOrderID">Details</a>
+                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.CustomOrderID">Details</a>
 
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-</body>
-</html>
+    <a asp-action="Dashboard">Back to Dashboard</a>
+    <br />

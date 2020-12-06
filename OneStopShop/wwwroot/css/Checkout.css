@@ -1,0 +1,60 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    text-align: left;    
+    color: #ffffff;
+    background: #A58964;
+}
+
+#div {
+    background-color: white
+}
+
+#divInLine {
+    display: inline-block;
+}
+
+table {
+    border: 2px solid #A58964;
+    width: 75%;
+}
+
+th {
+    background-color: #031327;
+    color: white;
+}
+
+td {
+    text-align: left;
+}
+
+tr {
+    border: 3px solid #A58964;
+    border-radius: 3px;
+}
+
+    tr:hover {
+        background-color: #b2afaf;
+    }
+
+.pheader {
+    text-align: center;
+    color: #192537;
+    font-weight: bold;
+}
+.checkout-container {
+    /*position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 630px;
+    border-radius: 3px;
+    background-color: #192537;
+    color: white;
+}

@@ -1,19 +1,15 @@
-﻿body {
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	font: 12px Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color: #ffffff;
-	background: #192537;
-}
-h2 {
+﻿h2 {
 	text-align: center;
 	color: white;
+}
+h3{
+	color:white;
+	text-align:left;
 }
 
 .dashboardContainer {
 	background: #192537;
+	color:white;
 	margin: 0 auto;
 	text-align: center;
 }

@@ -5,7 +5,11 @@
     font: 12px Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #ffffff;
-    background: #A58964;
+    background: #1d2c42;
+}
+
+.container{
+    background-color:#192537;
 }
 
 h4 {
@@ -15,16 +19,55 @@ h4 {
     text-align: center;
 }
 
-table {
+.customer-info-table {
     height: 300px;
     width: 500px;
     color: white;
     background-color: #192537;
     border-collapse: collapse;
-    /*border-radius: 15px;*/
+    border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid white;
+    border: 1px solid black;
+    background-color:#B09E80;
+    margin-top: 30px;
+}
+.top-table {
+    height: 300px;
+    width: 300px;
+    color: white;
+    background-color: #192537;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    background-color: #B09E80;
+}
+.bottom-table {
+    height: 300px;
+    width: 300px;
+    color: white;
+    background-color: #192537;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    background-color: #B09E80;
+}
+
+.measurements {
+    max-width: 800px;
+    width: 100%;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 30px;
+}
+
+#top {
+    margin-left: 30px;
+    display: block;
 }
 
 
@@ -32,12 +75,8 @@ table {
 th, td {
     text-align: left;
     padding: 8px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid black;
 }
-
-/*tr:nth-child(even) {
-    background-color: #f2f2f2;
-}*/
 
 #Back {
     background-color: #031327;
@@ -64,7 +103,6 @@ th, td {
     color: white;
     background-color: #192537;
     border-collapse: collapse;
-    /*border-radius: 15px;*/
     margin-left: auto;
     margin-right: auto;
 }

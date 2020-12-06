@@ -25,14 +25,13 @@ namespace OneStopShop.Controllers
         {
         }
 
-        // GET: Blogs
+        // GET: Blogs/Index
         /// <summary>
-        /// This action will get triggered when user/seller will click on Blogs button on Product List Page
+        /// This action will get triggered when user will click on Blogs button on Product List Page
         /// This action will pass all the Blogs to the view that the seller has provided
-        /// Buyer will be able to see all the list of blogs
+        /// User will be able to see all the list of blogs
         /// </summary>
-        /// <returns>Buyer will get list of blogs with the information that seller has provided while creating the blog</returns>
-
+        /// <returns>User will get list of blogs with the information that seller has provided while creating the blog</returns>
         public async Task<IActionResult> Index(int StoreId = 0)
         {
             if (StoreId == 0)
@@ -43,6 +42,12 @@ namespace OneStopShop.Controllers
             var blogs = await _context.Blogs.Where(a => a.StoreId.Equals(StoreId)).ToListAsync();
             return View(blogs);
         }
+
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
+        }
+
         /// <summary>
         /// This action will get triggered when user/seller will click on Back to list button on Create Blog page
         /// This action passes the current storeId to Index action
@@ -164,6 +169,7 @@ namespace OneStopShop.Controllers
             }
             return View(blogs);
         }
+
         // Post: Blogs/Edit/CurrentBlogId
         /// <summary>
         /// This action will get triggered when user/seller will click on Save button on Edit blog form
@@ -230,7 +236,12 @@ namespace OneStopShop.Controllers
             return View(blogs);
         }
 
-        // GET: Blogs/Delete/5
+        //Get Blogs/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Delete blog button
+        /// This action will display the delete blog prompt
+        /// </summary>
+        /// <returns>Seller will get delete blog prompt which asks if user wants to delete blog</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -248,7 +259,12 @@ namespace OneStopShop.Controllers
             return View(blogs);
         }
 
-        // POST: Blogs/Delete/5
+        //Post Blogs/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Yes button on Delete blog prompt
+        /// Seller will be able to delete the particular blog
+        /// </summary>
+        /// <returns>The blog will get deleted, Seller will get an updated list of blogs</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

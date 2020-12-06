@@ -13,35 +13,45 @@
 
 <form asp-action="Create" enctype="multipart/form-data">
 
-    <div class="customer-info align-content-center">
-        <div class="form-group">
-            <label asp-for="StoreId" class="control-label socioverse-label"></label>
-            <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
-        </div>
-        <div class="form-group">
+	<div class="customer-info align-content-center">
+		<div class="form-group">
+			<label asp-for="StoreId" class="control-label socioverse-label">Store Name</label>
+			<select asp-for="StoreId" class="text" asp-items="ViewBag.StoreId"></select>
+		</div>
+		<div class="form-group">
 
-            <label asp-for="email" class="col-md-1 control-label"></label>
-            <input class="text" asp-for="email" class="" />
-            <span asp-validation-for="email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PhoneNum" class="col-md-1 control-label"></label>
-            <input class="text" asp-for="PhoneNum" class="" />
-            <span asp-validation-for="PhoneNum" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-1 control-label"></label>
-            <input class="text" asp-for="Description" class="" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ProductType" class="col-md-1 control-label"></label>
-            <input type="radio" value="top" name="type" class="radio" onclick="showTop();" />Top
-            <input type="radio" value="bottom" name="type" class="radio" onclick="showBottom();" />Bottom
-            <input type="radio" value="both" name="type" class="radio" onclick="showBoth();" checked />Both
-            <span asp-validation-for="ProductType" class="text-danger"></span>
-        </div>
-    </div>
+			<label asp-for="email" class="col-md-1 control-label"></label>
+			<input class="text" asp-for="email" />
+			<span asp-validation-for="email" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="PhoneNum" class="col-md-1 control-label"></label>
+			<input class="text" asp-for="PhoneNum" />
+			<span asp-validation-for="PhoneNum" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Description" class="col-md-1 control-label"></label>
+			<input class="text" asp-for="Description" />
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="AddressLine1" class="col-md-1 control-label"></label>
+			<input class="text" asp-for="AddressLine1" />
+			<span asp-validation-for="AddressLine1" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="AddressLine2" class="col-md-1 control-label"></label>
+			<input class="text" asp-for="AddressLine2" />
+			<span asp-validation-for="AddressLine2" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="ProductType" class="col-md-1 control-label"></label>
+			<input type="radio" value="top" name="ProductType" class="radio" onclick="showTop();" />Top
+			<input type="radio" value="bottom" name="ProductType" class="radio" onclick="showBottom();" />Bottom
+			<input type="radio" value="both" name="ProductType" class="radio" onclick="showBoth();" checked />Both
+			<span asp-validation-for="ProductType" class="text-danger"></span>
+		</div>
+	</div>
 
     <div class="top-bottom">
         <div class="top" id="top">
@@ -110,6 +120,7 @@
 </form>
 
 <script type="text/javascript">
+
     function showTop() {
         document.getElementById('top').style.display = 'block';
         document.getElementById('top').style.float = 'none';

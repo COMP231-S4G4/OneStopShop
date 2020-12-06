@@ -21,33 +21,13 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
+	<link rel="stylesheet" type="text/css" href="~/css/OrderDetails.css" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Details</title>
 </head>
 <body>
     <div>
         <h4 class="OrderDetails">Order Details</h4>
-        @*<table>
-                <tr>
-                    <td class="font-weight-bold">@Html.DisplayNameFor(model => model.OrderId)</td>
-                    <td>@Html.DisplayFor(model => model.OrderId)</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">@Html.DisplayNameFor(model => model.CustomerName)</td>
-                    <td>@Html.DisplayFor(model => model.StoreId)</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">@Html.DisplayNameFor(model => model.City)</td>
-                    <td>@Html.DisplayFor(model => model.ProductID)</td>
-                </tr>
-                <tr>
-                    <td class="font-weight-bold">@Html.DisplayNameFor(model => model.Country)</td>
-                    <td>@Html.DisplayFor(model => model.OrderCreatedDate)</td>
-                </tr>
-            </table>*@
-
-
         <div id="divInline">
             <table>
                 <tr>
@@ -56,18 +36,8 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Date Created</td>
-                    <td>@DateTime.Now.ToString()</td>
+                    <td>@Model.Item3.OrderCreatedDate</td>
                 </tr>
-                @*<tr>
-                    <td class="font-weight-bold">Order Status</td>
-                    <td>
-                        <select class="form-control" name="OrderStatus" onchange="StatusChanged()">
-                            <option value="Pending" selected>Pending</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Delivered">Delivered</option>
-                        </select>
-                    </td>
-                </tr>*@
                 <tr>
                     <td class="font-weight-bold"> Customer Name</td>
                     <td>@Model.Item3.CustomerName</td>

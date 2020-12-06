@@ -1,47 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using OneStopShop.Controllers;
 using OneStopShop.Models;
 using Stripe;
 
 namespace sampleUsser.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+        string currentUser;
 
-        public UsersController(ApplicationDbContext context)
+     
+        public UsersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
-            _context = context;
         }
-
         // GET: Users
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? UserId)
+        // GET: Users/Details
+        /// <summary>
+        /// This action will get triggered when user will click on Account Information tab on the store page
+        /// User will be able to see all the account details he provided while registration
+        /// </summary>
+        /// <returns>User will get the Account details with all the information he provided</returns>
+        public async Task<IActionResult> Details(string UserId)
         {
-            if (UserId == null)
+            var userID = protector.Unprotect(UserId);
+            currentUser = userID;
+            if (userID == null)
             {
                 return NotFound();
             }
 
             var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserID == UserId);
+                .FirstOrDefaultAsync(m => m.UserID == Convert.ToInt32(userID));
             if (user == null)
             {
                 return NotFound();
             }
 
             return View(user);
+        }
+
+        public IActionResult Back()
+        {
+
+            return RedirectToAction("Details", new { UserId = currentUser });
         }
 
         // GET: Users/Create
@@ -75,12 +94,22 @@ namespace sampleUsser.Controllers
             }
             return View(user);
         }
-
+        // GET: Users/Login
+        /// <summary>
+        /// This action will get triggered when user will click on Login button at home page
+        /// </summary>
+        /// <returns>User will get redirected to login screen</returns>
         public ActionResult Login()
         {
             return View();
         }
 
+        // Post: Users/Login
+        /// <summary>
+        /// This action will get triggered when user will click on Login button at the login screen
+        /// It will verify the username and password and authenticate the login for the user 
+        /// </summary>
+        /// <returns>User will get logged in their account</returns>
         [HttpPost]
         [RequireHttps]
         public async Task<IActionResult> Login(string username, string password)
@@ -96,7 +125,8 @@ namespace sampleUsser.Controllers
                 var userId = user.UserID;
                 if (username == user.Username && password == user.Password)
                 {
-                    HttpContext.Session.SetInt32("UserId", userId);
+                    HttpContext.Session.SetString("UserId", protector.Protect(userId.ToString()));
+                    HttpContext.Session.SetString("UserRole", user.AccountType);
                     if (user.AccountType == "Seller")
                     {
                         var storeid = _context.JoinedStore.Where(a => a.UserId.Equals(user.UserID) && a.IsOwner.Equals(true)).Select(a => a.StoreId).FirstOrDefault();
@@ -104,7 +134,6 @@ namespace sampleUsser.Controllers
                             return RedirectToAction("Dashboard", "Stores", new { id = storeid });
                         else
                             return RedirectToAction("Index", "Stores", new { id = storeid });
-                        //}
                     }
                     else
                     {
@@ -120,6 +149,16 @@ namespace sampleUsser.Controllers
             return View();
         }
 
+        //Users/Logout
+        /// <summary>
+        /// This action will get triggered when user will click on Logout button
+        /// </summary>
+        /// <returns>User will get logged out of his account</returns>
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
         // GET: Users/Edit
         /// <summary>
         /// This action will get triggered when user will click on Edit Account information button
@@ -174,12 +213,12 @@ namespace sampleUsser.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", "Users",new { UserId=user.UserID });
+                return RedirectToAction("Details", "Users",new { UserId= protector.Protect(user.UserID.ToString()) });
             }
             return View(user);
         }
 
-        // GET: Users/Delete/5
+        // GET: Users/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -197,7 +236,7 @@ namespace sampleUsser.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: Users/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -213,35 +252,38 @@ namespace sampleUsser.Controllers
             return _context.Users.Any(e => e.UserID == id);
         }
         /// <summary>
-        /// This action will get triggered when user will click on Orders Button in the account information page        /// 
+        /// This action will get triggered when user/buyer will click on Orders Button in the account information page         
         /// User's all order information will be listed.
         /// </summary>
-        public IActionResult ViewOrders(int id)
+        public IActionResult ViewOrders(string id)
         {
-            
+            //string userId = HttpContext.Session.GetString("UserId");
+            var userID = protector.Unprotect(id);
+
+           // int userID = Convert.ToInt32(protector.Protect(id.ToString()));
+            //var userID = protector.Unprotect(id);
             var OrderList = _context.Orders.ToList();           
             List<OneStopShop.Models.Orders> Orders = new List<OneStopShop.Models.Orders>();
            
-
             var UserOrders = (from item in OrderList
-                                  where item.UserId == id
-                                  select item).ToList();
-           
-           
-
+                                  where item.UserId == Convert.ToInt32(userID)
+                              select item).ToList();
+      
             foreach (var order in UserOrders)
             {
                 if (order.PaymentConfirmation == true)
                 {
-                    Orders.Add(order);
-                                    
+                    Orders.Add(order);                                    
                 }
-
             }
-           
+            
             return View("UserOrders", Orders);
         }
 
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Orders Details Button in the orders page        
+        /// User's all previous order information will be deisplayed
+        /// </summary>
         public IActionResult ViewOrderDetail(int id)
         {
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
@@ -252,22 +294,15 @@ namespace sampleUsser.Controllers
             var orderItems = (from item in orderItemlist
                               where item.OrderId ==id
                               select item).ToList();
+
             foreach (var item in orderItems)
             {
                 var product = _context.Products.FirstOrDefault(pd => pd.ProductID == item.ProductId);
-
                 Products.Add(product);
             }
             
-
             var tupledata = new Tuple<OneStopShop.Models.Orders, List<OneStopShop.Models.Product>>(order, Products);
-
             return View("PreviousOrder", tupledata);
-        }
-
-        
-
-    }
-
-   
+        }        
+    }  
 }

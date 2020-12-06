@@ -15,19 +15,23 @@ using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
 {
+    /// <summary>
+    /// This controller has the actions where Buyer is able to Create a custom order and Seller is able to see the list, and details of the custom order he received.
+    /// </summary>
     public class CustomOrdersController : BaseController
     {
-        //private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
-
-        //public CustomOrdersController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
         public CustomOrdersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
 
+        // GET: CustomOrder/Create
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Custom Order button on Product List Page
+        /// This action passes the current Store Name, storeId to the form
+        /// The buyer will get the custom order form with the required fields
+        /// </summary>
+        /// <returns>The buyer will get the custom order form with the required fields</returns>
         public IActionResult Create(int id)
         {
             currentStore = id;
@@ -36,9 +40,14 @@ namespace OneStopShop.Controllers
             return View();
         }
 
-        // POST: CustomOrders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Post: CustomOrder/Create
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Submit button on Custom Order form
+        /// This action will pass all the details into the database with the information that the buyer has provided
+        /// Buyer will be able to add all the custom order information
+        /// </summary>
+        /// <returns> Buyer will be able to add all the custom order information that is sent to the seller of the store</returns>
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int StoreId, [Bind("CustomOrderID,Status,Username,AddressLine1,AddressLine2,email,PhoneNum,OrderCreatedDate,Description,ProductType,Chest,Neck,Shoulder,Sleeve,Waist,Hip,InseamLength,FullLength,AnkleLength")] CustomOrders customOrders)
@@ -52,15 +61,19 @@ namespace OneStopShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ProductList", "Products", new { id = StoreId });
             }
-            //return View(customOrders);
             return RedirectToAction("ProductList", "Products", new { id = StoreId });
         }
 
         public async Task<IActionResult> Index(int id)
         {
             var customOrders = await _context.CustomOrders.Where(i => i.StoreId.Equals(id)).ToListAsync();
-
+            currentStore = id;
             return View(customOrders);
+        }
+
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
         // GET: CustomOrder/Details

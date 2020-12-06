@@ -23,12 +23,21 @@ namespace OneStopShop.Controllers
         }
 
         // GET: Stores/Create
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Create New Store after login
+        /// </summary>
+        /// <returns>Seller will get Create Store form with required fields</returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Stores/Create
+        // Post: Stores/Create
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Create button on create new store form
+        /// This action will pass all the details into the database with the information that the seller has provided
+        /// </summary>
+        /// <returns>Seller gets a new store and is redirected to dashboard</returns>
 
         [HttpPost]
         public async Task<IActionResult> Create([Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
@@ -36,7 +45,9 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 await HttpContext.Session.LoadAsync();
-                int userID = (int)HttpContext.Session.GetInt32("UserId");
+
+                string userId = HttpContext.Session.GetString("UserId");
+               int userID = Convert.ToInt32(protector.Unprotect(userId));
                 _context.Add(store);
                 var user = await _context.Users
                .FirstOrDefaultAsync(m => m.UserID == userID);
@@ -53,51 +64,45 @@ namespace OneStopShop.Controllers
                 await _context.JoinedStore.AddAsync(joined);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Dashboard", "Stores", new { ID = joined.StoreId });
             }
             return View(store);
         }
 
-        // GET:List of Stores
+        // GET: Blogs/Index
+        /// <summary>
+        /// This action will get triggered when user will click on My store button
+        /// User will be able to see his store
+        /// </summary>
+        /// <returns>User will get his store</returns>
         public async Task<IActionResult> Index()
         {
+            string userId = HttpContext.Session.GetString("UserId");
+            ViewBag.message = Convert.ToInt32(protector.Unprotect(userId));
             return View(await _context.Stores.Include(a => a.JoinedStore).ToListAsync());
+
         }
 
+        // GET: Stores/Details
+        /// <summary>
+        /// This action gets triggered when user clicks on the details button on My Store Page
+        /// details of the store are displayed
+        /// </summary>
+        /// <returns>returns the details of a particular store</returns>
         public async Task<IActionResult> Details(int id)
         {
-            //var storeDetails = await _context.Stores.Where(a => a.StoreId.Equals(id)).Include(a => a.product)
-            //   .FirstOrDefaultAsync();
-            //return View(storeDetails);
-
             var productlist = await _context.Products.Where(i => i.StoreId.Equals(id)).ToListAsync();
             var store = _context.Stores.Find(id);
             var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(productlist, store);
             return View(tupleData);
         }
 
-		//public async Task<IActionResult> Search(int id, string searchTerm)
-		//{
-		//    IList<Product> Produnewlist = null;
-
-		//    var prodlist = from s in _context.Products.Where(i => i.StoreId.Equals(id)) select s;
-		//    if (!String.IsNullOrEmpty(searchTerm))
-		//    {
-		//        Produnewlist = prodlist.Where(i => i.ProductName.Contains(searchTerm)
-		//                               || i.ProductDescription.Contains(searchTerm)).ToList();
-		//    }
-
-		//    var store = _context.Stores.Find(id);
-		//    var tupleData = new Tuple<IList<OneStopShop.Models.Product>, OneStopShop.Models.Store>(Produnewlist, store);
-		//    return View("Details", tupleData);
-		//}
-
-		//public IActionResult Productlist(int id)
-		//{
-		//    return RedirectToAction("ProductList", "Products", new { ID = id });
-		//}
-
-		// GET: Stores/Edit/id
+        // GET: Stores/Edit
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Edit Store button
+        /// This action will display the edit Store page
+        /// </summary>
+        /// <returns>Seller will get Edit Store form with all the information for that particular Store and editable fields</returns>
 		public IActionResult Edit(int id)
 		{
 			if (id == null)
@@ -113,9 +118,15 @@ namespace OneStopShop.Controllers
 			return View(store);
 		}
 
-		//POST: Stores/Edit/id
+        // Post: Stores/Edit
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Update button on Edit store form
+        /// This action will fetch all the details from the database with the editable fields
+        /// Seller will be able to edit all the store fields
+        /// </summary>
+        /// <returns>Seller will get an updated store with the information that he provided while editing the store</returns>
 
-	   [HttpPost]
+        [HttpPost]
         public IActionResult Edit(int id, [Bind("StoreId,StoreName,SellerFirstname,SellerLasttname,StoreDescription,PhoneNumber,Email")] Store store)
         {
             if (id != store.StoreId)
@@ -133,7 +144,12 @@ namespace OneStopShop.Controllers
             return View(store);
         }
 
-        // GET: Stores/Delete/5
+        //Get Stores/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Delete Store button
+        /// This action will display the delete store prompt
+        /// </summary>
+        /// <returns>Seller will get delete store prompt which asks if user wants to delete store</returns>
         public IActionResult Delete(int id)
         {
             if (id == null)
@@ -151,7 +167,12 @@ namespace OneStopShop.Controllers
             return View(store);
         }
 
-        // POST: Stores/Delete/5
+        //Post Stores/Delete
+        /// <summary>
+        /// This action will get triggered when user/seller will click on Yes button on Delete store prompt
+        /// Seller will be able to delete the particular store
+        /// </summary>
+        /// <returns>The store will get deleted</returns>
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {

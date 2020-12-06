@@ -28,15 +28,7 @@
                     @((line.Quantity * line.Product.ProductPrice).ToString("c"))
                 </td>
                 <td class="td">
-                        @*<form asp-action="RemoveFromCart" method="post">
-                <input type="hidden" name="ProductID"
-                       value="@line.Product.ProductID" />
-                <input type="hidden" name="returnUrl"
-                       value="@Model.ReturnUrl" />
-                <button type="submit" class="btn btn-sm btn-danger">
-                    Remove
-                </button>
-            </form>*@
+                       
 
                     <form asp-action="RemoveFromCart" asp-route-id="@line.Product.ProductID"
                           method="post">
@@ -60,9 +52,7 @@
     <tfoot>
         <tr>
             <td colspan="3" class="th">Total:</td>
-            <td class="th">
-                @*@Model.ComputeTotalValue().ToString("c")*@
-            </td>
+           
             <td class="th"> @Model.ComputeTotalValue().ToString("c")</td>
             <td class="th"></td>
         </tr>
@@ -70,14 +60,17 @@
 </table>
 
 <div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    @*<a class="btn btn-primary" asp-controller="Stores" asp-action="Index">Continue Shopping</a>*@
+    
 </div>
 
 <div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    <a class="btn btn-primary" asp-controller="Stores" asp-action="Index">Continue Shopping</a>
-    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
+
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Continue Shopping</a>
+    @if (Model.Lines.Count()!=0)
+    {
+        <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
+    }
+
 
 
 </div>

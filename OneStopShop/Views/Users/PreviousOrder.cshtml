@@ -5,12 +5,6 @@
 }
 <br />
 <h2 class="wishlist">Order Deatils</h2>
-
-
-
-
-
-
 <br />
 <head>
     <link rel="stylesheet" type="text/css" href="~/css/WishList.css" />
@@ -18,14 +12,14 @@
 
 <div style="color: white;">
 
-    <h4>OrderId: @Model.Item1.OrderId</h4>
-    <h4>Created date:@Model.Item1.OrderCreatedDate</h4>
-    <h4>Total Cost: @Model.Item1.TotalCost</h4>
-    <h4>Shipping Address: @Model.Item1.CustomerName</h4>
-    <h4>                 @Model.Item1.Line1</h4>
-    <h4>                 @Model.Item1.Line2</h4>
-    <h4>                 @Model.Item1.City</h4>
-    <h4>                 @Model.Item1.Zip</h4>
+    <span>OrderId: @Model.Item1.OrderId</span><br/>
+    <span>Created date: @Model.Item1.OrderCreatedDate</span><br />
+    <span>Total Cost: @Model.Item1.TotalCost</span><br />
+    <span>Shipping Address: @Model.Item1.CustomerName</span><br />
+    <span>                 @Model.Item1.Line1</span><br />
+    <span>                 @Model.Item1.Line2</span><br />
+    <span>                 @Model.Item1.City</span><br />
+    <span>                 @Model.Item1.Zip</span>
 </div>
 
 @foreach (var item in Model.Item2)
@@ -34,18 +28,15 @@
         <table class="table">
             <tr>
                 <td>
-                    <img width="170" height="170" src="~/@item.ProductImage" id="Image" />
+                    <img width="170" height="170" src="~/@item.ProductImage" />
                 </td>
                 <td style="color: white;font-size: x-large;">
                     Product Name  : @item.ProductName <br />
-                    Product Price : @item.ProductPrice <br />
+                    Product Price : @item.ProductPrice.ToString("c") <br />
                     Product Color : @item.ProductColor <br />
                     Sold By:Store#: @item.StoreId
                 </td>
-               
             </tr>
-
-
         </table>
     </div>
 }

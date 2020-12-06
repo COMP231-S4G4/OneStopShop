@@ -36,7 +36,6 @@ body {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 40px;
 	margin-bottom: 40px;
 	box-sizing: border-box;
 	padding: 30px;
@@ -59,8 +58,6 @@ input[type="password"] {
 	display: block;
 	align-items: center;
 	box-sizing: border-box;
-	 margin-bottom: 20px; 
-	/* margin-left: 50px; */
 	padding: 4px;
 	width: 450px;
 	height: 40px;
@@ -113,4 +110,13 @@ select {
 	border: none;
 	border-bottom: 1px solid darkgrey;
 	margin-bottom: 15px;
+}
+
+.error{
+	width:400px;
+	display:block;
+}
+
+.accno{
+	width:450px;
 }

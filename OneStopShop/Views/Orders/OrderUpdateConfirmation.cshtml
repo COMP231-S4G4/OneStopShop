@@ -1,0 +1,20 @@
+﻿
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/OrderConfirmation.css" />
+</head>
+<div class="columns">
+    <div class="column main">
+
+        <div id="authenticationPopup">
+            <div class="success-extras">
+                <p>@TempData["msg"]</p>
+                <hr class="divider">
+            </div>
+        </div>
+    </div>
+    <a asp-action="Index" asp-route-id="@ViewBag.message">    
+                <h4>Back to Orders</h4>
+         
+    </a>
+</div>

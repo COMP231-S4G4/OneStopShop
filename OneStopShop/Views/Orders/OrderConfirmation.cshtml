@@ -1,6 +1,8 @@
 ﻿@model OneStopShop.Models.Orders
 @{
+
     ViewData["Title"] = "Order Confirmation";
+    Layout = "_HomeLayout";
 }
 <head>
     <link rel="stylesheet" type="text/css" href="~/css/OrderConfirmation.css" />
@@ -9,7 +11,7 @@
     <div class="column main">
         <input name="form_key" type="hidden">
         <div class="row ">
-            <lable>Hello,</lable>
+            <lable class="ptext">Hello @Model.CustomerName,</lable>
         </div>
         <div id="authenticationPopup">
             <div class="success-extras">               
@@ -20,11 +22,11 @@
             </div>
         </div>
         <div class="checkout-success">
-            <p>Your order # is: <span>@Model.OrderId</span>.</p>
-            <p>Thanks For Shopping ! Your order hasn't shipped yet, but we will send you an email when it does.</p>
+            <p class="ptext">Your order # is: <span>@Model.OrderId</span>.</p>
+            <p class="ptext">Thanks For Shopping ! Your order hasn't shipped yet, but we will send you an email when it does.</p>
             <div class="actions-toolbar">
                 <div class="primary">                    
-                    <a class="action primary continue" asp-area="" asp-controller="Stores" asp-action="Index">Continue Shopping</a>
+                    <a class="action primary continue" asp-controller="Home" asp-action="Index">Continue Shopping</a>
                 </div>
             </div>
         </div>        

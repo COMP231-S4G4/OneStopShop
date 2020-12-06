@@ -7,20 +7,18 @@
     color: #000000;
     background: #A58964;
 }
-
-*#Back {
-    background-color: #031327;
+.AddProduct {
     color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-    top: 15px;
     text-align: center;
-    border-radius: 15px 15px 15px 5px;
 }
 
-#Back:hover {
-    background-color: #bd1b1b;
+#ProductAdd {
+    margin-bottom: 20px;
+    margin-left: 0px;
+    padding: 40px;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background: #192537;
 }
