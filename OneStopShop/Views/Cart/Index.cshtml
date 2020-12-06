@@ -64,9 +64,13 @@
 </div>
 
 <div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
+
     <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Continue Shopping</a>
-    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
+    @if (Model.Lines==null)
+    {
+        <a class="btn btn-primary" asp-action="Checkout" asp-controller="Orders">Checkout</a>
+    }
+
 
 
 </div>

@@ -79,7 +79,7 @@
     <a asp-action="Edit" asp-route-id="@Model.UserID">Edit</a>
 
 </div>
-@if (userRole == "Seller")
+@if (userRole == "Buyer")
 {
     <div>
         <a asp-action="ViewOrders" asp-route-id="@Model.UserID">Orders</a>

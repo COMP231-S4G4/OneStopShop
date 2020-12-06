@@ -51,6 +51,7 @@ namespace OneStopShop.Controllers
                     Username = user.Username,
                     email = user.email,                    
                     IsOwner = true,
+                    
                 };
                 await _context.JoinedStore.AddAsync(joined);
                 await _context.SaveChangesAsync();
@@ -64,9 +65,13 @@ namespace OneStopShop.Controllers
         // GET:List of Stores
         public async Task<IActionResult> Index()
         {
-           
+            string userId = HttpContext.Session.GetString("UserId");
+            ViewBag.message = Convert.ToInt32(protector.Unprotect(userId));
             return View(await _context.Stores.Include(a => a.JoinedStore).ToListAsync());
+
         }
+
+       
 
         //public async Task<IActionResult> ContiniueShopping()
         //{
