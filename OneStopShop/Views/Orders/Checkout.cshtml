@@ -1,11 +1,17 @@
 ﻿@model OneStopShop.Models.Orders
 
-    <head>
-        <link rel="stylesheet" type="text/css" href="~/css/OrderListcss.css" />
-    </head>
 
-<h2>Check out </h2>
-<table class="table table-bordered table-striped">
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_HomeLayout";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/Checkout.css" />
+</head>
+
+<h2 style="text-align:center">Check out </h2>
+<table class="table table-striped" style="color: white; font-weight:700;">
     <thead>
         <tr>
             <th>Quantity</th>
@@ -18,28 +24,14 @@
         @foreach (var line in Model.Lines)
         {
             <tr>
-                
+
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.ProductName</td>
                 <td class="text-right">@line.Product.ProductPrice.ToString("c")</td>
                 <td class="text-right">
                     @((line.Quantity * line.Product.ProductPrice).ToString("c"))
                 </td>              
-
-                    <form asp-controller="Products" asp-action="RemoveCartItem" asp-route-id="@line.Product.ProductID"
-                          method="post">
-
-                        <input type="hidden" asp-route-id="@line.Product.ProductID" />
-
-                        <span class="col-sm-2 float-right">
-
-                            <button type="submit"
-                                    class="btn btn-danger btn-sm pull-right"
-                                    style="float:right">
-                                Remove From Cart
-                            </button>
-                        </span>
-                    </form>
+                                  
                 
             </tr>
         }
@@ -53,40 +45,47 @@
         </tr>
     </tfoot>
 </table>
-<p>Please enter your details, and we'll ship your goods right away!</p>
+<p class="pheader">Please enter your details, and we'll ship your goods right away!</p>
 
 
+<div class="checkout-container">
+    <h1>Shipping Address</h1>
 
-<form asp-action="Checkout" method="post">
-    <h3>Shipping Address</h3>
-    @*<input asp-for="OrderId" type="hidden" />*@
+    <hr />
+    <div class="row">
+        <div class="col-md-10">
+            <form asp-action="Checkout" method="post">
 
-    @Html.HiddenFor(model => model.OrderId)
-    <div class="form-group">
-        <label>Name:</label><input asp-for="CustomerName" class="form-control" />
+                @Html.HiddenFor(model => model.OrderId)
+                <div class="form-group">
+                    <label>Name:</label><input asp-for="CustomerName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Line 1:</label><input asp-for="Line1" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Line 2:</label><input asp-for="Line2" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>City:</label><input asp-for="City" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>State:</label><input asp-for="State" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Zip:</label><input asp-for="Zip" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Country:</label><input asp-for="Country" class="form-control" />
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-primary" type="submit" value="Make Payment" />
+                </div>
+            </form>
+
+        </div>
     </div>
 
-    <div class="form-group">
-        <label>Line 1:</label><input asp-for="Line1" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Line 2:</label><input asp-for="Line2" class="form-control" />
-    </div>
-   
-    <div class="form-group">
-        <label>City:</label><input asp-for="City" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>State:</label><input asp-for="State" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Zip:</label><input asp-for="Zip" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Country:</label><input asp-for="Country" class="form-control" />
-    </div>
-
-    <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Make Payment" />
-    </div>
-</form>

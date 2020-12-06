@@ -22,6 +22,8 @@ namespace OneStopShop.Models
         public string AddressLine1 { get; set; }
 
         public int StoreId { get; set; }
+
+        [Display(Name = "Address Line-2")]
         public string AddressLine2 { get; set; }
 
         [Display(Name = "Email")]
@@ -31,6 +33,7 @@ namespace OneStopShop.Models
         public string PhoneNum { get; set; }
 
         [Required(ErrorMessage = "Please enter a Created Date")]
+        [Display(Name = "Order Created Date")]
         public DateTime OrderCreatedDate { get; set; }
 
         [Display(Name = "Description")]

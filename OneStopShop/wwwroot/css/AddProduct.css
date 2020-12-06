@@ -7,3 +7,18 @@
     color: #000000;
     background: #A58964;
 }
+.AddProduct {
+    color: white;
+    text-align: center;
+}
+
+#ProductAdd {
+    margin-bottom: 20px;
+    margin-left: 0px;
+    padding: 40px;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background: #192537;
+}

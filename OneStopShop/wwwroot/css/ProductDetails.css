@@ -126,6 +126,22 @@ tr:nth-child(even) {
         background-color: #45a049;
     }
 
+.EditProduct {
+    color: white;
+    text-align: center;
+}
+
+#ProductEdit {
+    margin-bottom: 20px;
+    margin-left: 0px;
+    padding: 40px;
+    text-align: left;
+    font: 12px Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    background: #192537;
+}
+
 /*#Back {
     background-color: #031327;
     color: white;
@@ -133,14 +149,14 @@ tr:nth-child(even) {
     padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    position: absolute;
-    bottom: 30px;
-    left: 16px;
+    position: relative;
+    top: 15px;
     text-align: center;
     border-radius: 15px 15px 15px 5px;
 }
 
-    #Back:hover {
-        background-color: #bd1b1b;
-    }*/
+#Back:hover {
+    background-color: #bd1b1b;
+}
+   
 
