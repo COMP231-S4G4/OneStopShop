@@ -36,7 +36,7 @@ namespace OneStopShop.Models
             Session.SetJson("Cart", this);
         }
 
-        public virtual void Clear() {
+        public override void Clear() {
             base.Clear();
             Session.SetJson("Cart", this);
         }

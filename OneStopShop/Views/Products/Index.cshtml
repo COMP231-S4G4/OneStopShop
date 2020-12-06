@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<OneStopShop.Models.Product>
 
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
+    Layout = "_HomeLayout";
 }
 
 <link rel="stylesheet" type="text/css" href="~/css/ProductList.css" />
 <h1>Index</h1>
 
-<div id="divInline">
-    <a id="Create" asp-action="Create">Add New Product</a>
-</div>
-<table class="table">
+<a class="btn btn-primary" asp-action="Create">Create New Product</a>
+<table class="table" style="margin-top: 10px;">
 	<colgroup>
 		<col style="width:10%" />
 		<col style="width:30%" />

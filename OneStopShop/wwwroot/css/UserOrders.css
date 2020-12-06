@@ -37,3 +37,7 @@ tr {
     tr:hover {
         background-color: #b2afaf;
     }
+.userorder {
+    color: white;
+    text-align: center;
+}
