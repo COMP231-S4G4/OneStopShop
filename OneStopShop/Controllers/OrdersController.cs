@@ -1,29 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using OneStopShop.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OneStopShop.Models;
+
+
 using Stripe;
+using Microsoft.AspNetCore.Hosting;
 
 namespace OneStopShop.Controllers
 {
-    public class OrdersController : Controller
+    public class OrdersController: BaseController
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
         private Cart cart;
 
-        public OrdersController(ApplicationDbContext context, Cart cartService)
+
+       
+        public OrdersController(ApplicationDbContext context, Cart cartService, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
             _context = context;
             cart = cartService;
         }
+            
+        
 
         // GET: List of orders for a store
         public IActionResult Index(int id)
@@ -87,7 +96,11 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
-        //Get Checkout
+     
+        //Get Checkout        
+        /// <summary>
+        /// Display the checkout page with product information saved as an order.
+        /// </summary>
         public IActionResult Checkout()
         {
             
@@ -97,18 +110,23 @@ namespace OneStopShop.Controllers
 
                 order.Lines = cart.Lines.ToArray();
 
-                return View(order);
-            
+                return View(order);          
            
-            
-            return View(order);
         }
 
         //Post/CheckOut
+        /// <summary>
+        /// Submit the chekout information. Order will get upadated with checkout info.
+        /// </summary>
+        /// <param name="order"></param>
+       
 
         [HttpPost]
         public IActionResult Checkout(Orders order)
         {
+            string userId = HttpContext.Session.GetString("UserId");
+           
+            int userID = Convert.ToInt32(protector.Unprotect(userId.ToString()));
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -117,8 +135,9 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 order.Lines = cart.Lines.ToArray();
-                order.UserId = (int)HttpContext.Session.GetInt32("UserId");
-               
+                order.UserId = userID;
+
+
                 var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
                 order.TotalCost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity);
@@ -151,13 +170,24 @@ namespace OneStopShop.Controllers
         }
 
         //Get payment
+       ///<summary>
+       ///Payment view displayed
+       ///<summary>
+
         public IActionResult Payment()
         {
             return View();
         }
 
-        //post payment
+        
 
+        /// <summary>
+        /// Post/Submit the payment information. It uses stripe test account.
+        /// </summary>
+        /// <param name="stripeEmail"> Email in the payment</param>
+        /// <param name="stripeToken"> Token generated for the payment action</param>
+        /// <param name="id"> This is the id associated with the order</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Payment(string stripeEmail, string stripeToken, int id)
         {
@@ -195,7 +225,10 @@ namespace OneStopShop.Controllers
 
             return View();
         }
-
+        /// <summary>
+        /// Order confirmation view loaded after succesfull payment
+        /// </summary>
+        /// <returns></returns>
         public ActionResult OrderConfirmation()
         {
             return View();
@@ -204,6 +237,11 @@ namespace OneStopShop.Controllers
         {
             return View("PreviousOrder");
         }
+
+
+        ///<summary>
+        ///Seller can update the status of order that they received
+        ///</summary>
 
         [HttpPost]
         public IActionResult StatusUpdate(int id)
@@ -229,11 +267,10 @@ namespace OneStopShop.Controllers
                     ViewBag.message = orderitem.StoreId;
                     TempData["msg"] = "Please select a status";
                 }
-
-               
+                              
 
             }
-            return View("OrderUpdateConfirmation");
+            return View("OrderUpdateConfirmation"); 
         }
     }
 }

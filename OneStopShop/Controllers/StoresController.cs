@@ -77,8 +77,10 @@ namespace OneStopShop.Controllers
         /// <returns>User will get his store</returns>
         public async Task<IActionResult> Index()
         {
-           
+            string userId = HttpContext.Session.GetString("UserId");
+            ViewBag.message = Convert.ToInt32(protector.Unprotect(userId));
             return View(await _context.Stores.Include(a => a.JoinedStore).ToListAsync());
+
         }
 
         // GET: Stores/Details
