@@ -4,6 +4,9 @@
 
 @{
     ViewData["Title"] = "Store";
+    string userID = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    int userid = 0;
+
 }
 
 <head>
@@ -45,7 +48,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @if (item.JoinedStore.Where(m => m.UserId == (HttpContextAccessor.HttpContext.Session.GetInt32("UserId")) && m.IsOwner.Equals(true)).FirstOrDefault() != null)
+                    @if (item.JoinedStore.Where(m => m.UserId.Equals(userid) && m.IsOwner.Equals(true)).FirstOrDefault() != null)
                     {
                         {
                             <tr>

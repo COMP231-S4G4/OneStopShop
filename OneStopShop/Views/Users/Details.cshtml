@@ -1,13 +1,15 @@
 ﻿@model OneStopShop.Models.Users
-
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Details";
+    string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
 }
 
-<h1>Details</h1>
-    <link href="~/css/Account.css" rel="stylesheet" />
+<h1 style="text-align:center">User Details</h1>
+<link href="~/css/Account.css" rel="stylesheet" />
 <div>
-    <h4>User</h4>
+   
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -77,6 +79,11 @@
     <a asp-action="Edit" asp-route-id="@Model.UserID">Edit</a>
 
 </div>
-<div>
-    <a asp-action="ViewOrders" asp-route-id="@Model.UserID">Orders</a>
-</div>
+@if (userRole == "Buyer")
+{
+    <div>
+        <a asp-action="ViewOrders" asp-route-id="@Model.UserID">Orders</a>
+    </div>
+}
+
+<a asp-controller="Home" asp-action="Index">Back to Home</a>

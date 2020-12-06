@@ -8,42 +8,35 @@
     <link rel="stylesheet" type="text/css" href="~/css/StoreIndex.css" />
 </head>
 
-<body>
-    <div id="divInline">
-        <h2>List Of Subscribers</h2>
-    </div>
-    <div id="div">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-center">
-                        @Html.DisplayNameFor(model => model.Item1[0].Username)
-                    </th>
-                    <th class="text-center">
-                        @Html.DisplayNameFor(model => model.Item1[0].email)
-                    </th>
-                    <th class="text-center">
-                        @Html.DisplayNameFor(model => model.Item1[0].IsOwner)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Item1)
-                {
-                    <tr>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Username)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.email)
-                        </td>
-                        <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.IsOwner)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <a id="Back" asp-controller="Stores" asp-action="Dashboard" asp-route-id="@Model.Item2">Back</a>
-</body>
+<div id="div">
+	<h2 class="text-center text-white">List Of Subscribers</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">
+					@Html.DisplayNameFor(model => model.Item1[0].Username)
+				</th>
+				<th class="text-center">
+					@Html.DisplayNameFor(model => model.Item1[0].email)
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Item1)
+			{
+				<tr>
+					<td class="text-center">
+						@Html.DisplayFor(modelItem => item.Username)
+					</td>
+					<td class="text-center">
+						@Html.DisplayFor(modelItem => item.email)
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<div>
+		<a id="Back" asp-controller="Stores" asp-action="Dashboard" asp-route-id="@Model.Item2">Back to Dashboard</a>
+	</div>
+</div>
+    

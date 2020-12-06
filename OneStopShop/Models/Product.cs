@@ -32,12 +32,8 @@ namespace OneStopShop.Models
         [Range(0.01, double.MaxValue,
             ErrorMessage = "Please enter a positive price")]
         public decimal ProductPrice { get; set; }
-
-        [Required(ErrorMessage = "Please enter a Created Date")]
         public DateTime ProductCreatedDate { get; set; }
-
         public DateTime ProductModifiedDate { get; set; }
-
         public string ProductImage { get; set; }
         public string ProductSize { get; set; }
         public string ProductColor { get; set; }

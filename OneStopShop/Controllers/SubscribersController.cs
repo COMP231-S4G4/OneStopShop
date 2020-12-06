@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using OneStopShop.Models;
 
 namespace OneStopShop.Controllers
@@ -45,8 +43,16 @@ namespace OneStopShop.Controllers
         /// <returns>Buyer subscribes to a store</returns>
         public async Task<IActionResult> JoinStore(int StoreId)
         {
+            int userID;
             await HttpContext.Session.LoadAsync();
-            int userID = (int)HttpContext.Session.GetInt32("UserId");
+
+            string userId = HttpContext.Session.GetString("UserId");
+            if(userId == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
+            userID = Convert.ToInt32(protector.Unprotect(userId));
+         
             var user = await _context.Users
                .FirstOrDefaultAsync(m => m.UserID == userID);
 
@@ -54,6 +60,7 @@ namespace OneStopShop.Controllers
             {
                 var IsMember = _context.Subscribers.Where(j => j.StoreId.Equals(StoreId)
              && j.UserId.Equals(userID)).FirstOrDefault();
+
                 if (IsMember == null)
                 {
                     Subscribers joined = new Subscribers();

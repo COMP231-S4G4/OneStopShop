@@ -17,6 +17,7 @@ body {
 	flex-wrap: wrap;
 	align-items: center;
 	background-color: #192537;
+	margin-top: 20px;
 }
 
 .product-image {
@@ -25,8 +26,10 @@ body {
 }
 #Image {
 	float: left;
-	height: 600px;
-	width: 400px;
+	max-height: 600px;
+	height: 100%;
+	max-width: 400px;
+	width: 100%;
 	border-radius: 5px;
 }
 
@@ -105,26 +108,40 @@ article > p {
 	line-height: 1.6;
 }
 
-.size {
+/*.size {
 	margin-top: 50px;
-}
+}*/
 
-.btn {
+.size-btn {
+	width: 50px;
+	height: 50px;
+	background-color: #B09E80;
+	color: white;
+	border-radius: 5px;
+	pointer-events: none;
 	margin: 0;
 	/*width: 50px;
 	height: 50px;*/
 	text-align: center;
 	outline: none;
-	padding: 20px;
 	border: 1px solid #bbb;
-	cursor: pointer;
 	color: white;
 }
 
-	.active, .btn:hover {
-		background-color: #B09E80;
-		color: white;
-	}
+/*.btn {
+	margin: 0;*/
+	/*width: 50px;
+	height: 50px;*/
+	/*text-align: center;
+	outline: none;
+	border: 1px solid #bbb;
+	color: white;
+}*/
+
+.active, .btn:hover {
+	background-color: #b19465;
+	color: white;
+}
 
 .quantity {
 	margin-top: 40px
@@ -166,7 +183,11 @@ article > p {
 		}
 
 #AddToCart {
-	background-color: #4CAF50;
+	background-color: #B09E80;
+	text-transform: uppercase;
+	height: 70px;
+	max-width: 400px;
+	width: 100%;
 	color: white;
 	padding: 10px;
 	text-align: center;
@@ -176,10 +197,11 @@ article > p {
 	text-align: center;
 	border-radius: 5px;
 	float: left;
+	margin-top:15px;
 }
 
 	#AddToCart:hover {
-		background-color: #45a049;
+		background-color: #b19465;
 	}
 
 
