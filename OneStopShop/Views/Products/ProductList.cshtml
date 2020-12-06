@@ -80,21 +80,21 @@
         {
             <div class="item  col-xs-4 col-lg-4">
                 <div class="thumbnail">
-                    <a asp-action="ViewProduct" asp-route-id="@item.ProductID">
-                        <img class="group list-group-image" src="~/@item.ProductImage" id="Image" />
-                    </a>
-                    <div class="caption text-white">
-                        <h4 class="group inner list-group-item-heading">
-                            @item.ProductName
-                        </h4>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <p class="lead">
-                                    $@item.ProductPrice
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+					<a asp-action="ViewProduct" asp-route-id="@item.ProductID">
+						<img class="group list-group-image" src="~/@item.ProductImage" id="Image" />
+						<div class="caption text-white">
+							<h4 class="group inner list-group-item-heading">
+								@item.ProductName
+							</h4>
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<p class="lead">
+										$@item.ProductPrice
+									</p>
+								</div>
+							</div>
+						</div>
+					</a>
                 </div>
             </div>
         }
