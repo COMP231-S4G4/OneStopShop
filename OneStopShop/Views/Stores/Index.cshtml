@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<OneStopShop.Models.Store>
 @using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.DataProtection;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
@@ -48,7 +49,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @if (item.JoinedStore.Where(m => m.UserId.Equals(userid) && m.IsOwner.Equals(true)).FirstOrDefault() != null)
+                    @if (item.JoinedStore.Where(m => m.UserId.Equals(ViewBag.message) && m.IsOwner.Equals(true)).FirstOrDefault() != null)
                     {
                         {
                             <tr>

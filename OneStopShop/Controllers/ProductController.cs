@@ -149,15 +149,15 @@ namespace OneStopShop.Controllers
         /// a particular product is added to the cart based on its product ID.
         /// </summary>
         /// <returns>displays the cart page with newly added item and existing items</returns>
-        public async Task<RedirectToActionResult> AddToCartAsync(int productId)
-        {
-            var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
-            product.IsAddedToCart = true;
-            _context.Update(product);
-            await _context.SaveChangesAsync();
+        //public async Task<RedirectToActionResult> AddToCartAsync(int productId)
+        //{
+        //    var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
+        //    product.IsAddedToCart = true;
+        //    _context.Update(product);
+        //    await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Cart");
-        }
+        //    return RedirectToAction("Index", "Cart");
+        //}
 
         /// <summary>
         /// This action gets triggered when user clicks on the remove from cart button

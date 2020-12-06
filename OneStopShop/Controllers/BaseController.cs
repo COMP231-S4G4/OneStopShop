@@ -33,5 +33,13 @@ namespace OneStopShop.Controllers
             protector = provider.CreateProtector("idProtector");
             Environment = _environment;
         }
+
+        public BaseController( IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment)
+        {
+          
+            _httpContextAccessor = httpContextAccessor;
+            protector = provider.CreateProtector("idProtector");
+            Environment = _environment;
+        }
     }
 }
