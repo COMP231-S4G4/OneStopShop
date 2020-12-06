@@ -64,7 +64,7 @@
     }*@
 <script type="text/javascript">
 
-    // Add the following code if you want the name of the file appear on select
+   
     $(".custom-file-input").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -86,7 +86,7 @@
         var fsize = $("input[type=file]")[0].files[0].size;
         if (file) {
 
-            if (fsize > 1048576 * 5) //do something if file size more than 1 mb (1048576)
+            if (fsize > 1048576 * 5) 
             {
                 $("#submitForm").attr("disabled", true)
                 $("#errorFile").show()

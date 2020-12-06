@@ -57,57 +57,7 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/*#Create:link, Create:visited {
-    color: black;
-    background: white;
-    border: 2px solid green;
-    margin-left: 1000px;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
 
-#Create:hover, Create:active {
-    background-color: green;
-    color: white;
-}
-
-#Edit {
-    background-color: #1b40ea;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    position: relative;
-    top: 50px;
-    left: 50px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-    #Edit:hover {
-        background-color: #1e3ed3;
-    }
-
-#Delete {
-    background-color: #d43939;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-    top: 50px;
-    left: 100px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-    #Delete:hover {
-        background-color: #bd1b1b;
-    }*/
 
 #AddToCart {
     background-color: #4CAF50;
@@ -142,21 +92,5 @@ tr:nth-child(even) {
     background: #192537;
 }
 
-/*#Back {
-    background-color: #031327;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-    top: 15px;
-    text-align: center;
-    border-radius: 15px 15px 15px 5px;
-}
 
-#Back:hover {
-    background-color: #bd1b1b;
-}
-   
 
