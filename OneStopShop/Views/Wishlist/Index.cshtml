@@ -19,16 +19,34 @@
                 <td>
                     <img width="170" height="170" src="~/@item.Product.ProductImage" />
                 </td>
-                <td style="color: white;font-size: x-large;">
+                <td class="text-white" style="font-size: large;">
                     Product Name  : @item.Product.ProductName <br />
                     Product Price :  @item.Product.ProductPrice.ToString("c") <br />
                     Product Color : @item.Product.ProductColor
                 </td>
 
-                <td>
-                    <span class="btn btn-success">Add to cart</span>                |
-                    <a asp-action="Delete" asp-controller="Wishlist" asp-route-id="@item.WishlistId" class="btn btn-danger">Remove</a>
-                </td>
+				<td class="text-center">
+					@*<form id="@Model.ProductID" asp-controller="Cart" asp-action="AddToCart"
+			  method="post">
+			<input type="hidden" asp-for="ProductID" />
+			<span class="card-text p-1">
+				<button id="AddToCart" type="submit">
+					<img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+					<span>add to cart</span>
+				</button>
+			</span>
+		</form>*@
+					<form id="@item.Product.ProductID" asp-controller="Cart" asp-action="AddToCart"
+						  method="post">
+						<input type="hidden" asp-for="@item.ProductId" />
+						<span class="card-text p-1">
+							<button class="btn btn-success" type="submit">
+								<span>Add to Cart</span>
+							</button>
+						</span>
+					</form>
+					<a asp-action="Delete" asp-controller="Wishlist" asp-route-id="@item.WishlistId" class="btn btn-danger mt-3">Remove</a>
+				</td>
             </tr>
         }
 
