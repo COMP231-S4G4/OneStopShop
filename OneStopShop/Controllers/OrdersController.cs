@@ -23,34 +23,29 @@ namespace OneStopShop.Controllers
         {
             _context = context;
             cart = cartService;
-
         }
 
         // GET: List of orders for a store
-        public  IActionResult Index(int id)
+        public IActionResult Index(int id)
         {
             var OrderList = _context.OrderItems.ToList();
 
             List<Models.OrderItem> StoreOrders = new List<Models.OrderItem>();
 
             var StoreOrderList = (from item in OrderList
-                               where item.StoreId == id
-                               select item).ToList();
+                                  where item.StoreId == id
+                                  select item).ToList();
             foreach (var item in StoreOrderList)
             {
                 var order = _context.Orders.FirstOrDefault(o => o.OrderId == item.OrderId);
-                if(order.PaymentConfirmation== true)
+                if (order.PaymentConfirmation == true)
                 {
                     StoreOrders.Add(item);
                 }
-
-
             }
-
 
             return View(StoreOrders);
         }
-
 
         // GET: Orders/Details/id
         /// <summary>
@@ -70,19 +65,16 @@ namespace OneStopShop.Controllers
                .FirstOrDefaultAsync(m => m.OrderItemId == id);
             var orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderId == orderitem.OrderId);
-            var products= await _context.Products
+            var products = await _context.Products
                .FirstOrDefaultAsync(m => m.ProductID == orderitem.ProductId);
-                 
+
             if (orders == null)
             {
                 return NotFound();
             }
             var tupleData = new Tuple<OneStopShop.Models.Product, OneStopShop.Models.OrderItem, OneStopShop.Models.Orders>(products, orderitem, orders);
             return View("Details", tupleData);
-        }   
-
-       
-       
+        }
 
         private bool OrdersExists(int id)
         {
@@ -103,6 +95,7 @@ namespace OneStopShop.Controllers
             
            
             
+            return View(order);
         }
 
         //Post/CheckOut
@@ -117,7 +110,6 @@ namespace OneStopShop.Controllers
 
             if (ModelState.IsValid)
             {
-
                 order.Lines = cart.Lines.ToArray();
                 order.UserId = (int)HttpContext.Session.GetInt32("UserId");
                
@@ -142,16 +134,14 @@ namespace OneStopShop.Controllers
                     };
                     _context.OrderItems.Add(item);
                     _context.SaveChanges();
-                }              
+                }
 
-                return View("Payment",order);
-               
+                return View("Payment", order);
             }
             else
             {
                 return View(order);
             }
-
         }
 
         //Get payment
@@ -163,9 +153,8 @@ namespace OneStopShop.Controllers
         //post payment
 
         [HttpPost]
-        public IActionResult Payment(string stripeEmail, string stripeToken,int id)
+        public IActionResult Payment(string stripeEmail, string stripeToken, int id)
         {
-            
             var cost = cart.Lines.ToArray().Sum(e => e.Product.ProductPrice * e.Quantity);
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -175,20 +164,18 @@ namespace OneStopShop.Controllers
                 Source = stripeToken
             });
             var charge = charges.Create(new ChargeCreateOptions
-            {                 
-
-                Amount =Convert.ToInt64(cost*100),
+            {
+                Amount = Convert.ToInt64(cost * 100),
                 Description = "OneStopShopPayment",
                 Currency = "CAD",
                 Customer = customer.Id,
                 ReceiptEmail = stripeEmail
-
             });
 
             if (charge.Status == "succeeded")
             {
                 string BalanceTransactionId = charge.BalanceTransactionId;
-                var order =_context.Orders
+                var order = _context.Orders
                 .FirstOrDefault(m => m.OrderId == id);
                 order.OrderCreatedDate = DateTime.Now;
                 order.PaymentConfirmation = true;
@@ -196,14 +183,13 @@ namespace OneStopShop.Controllers
                 _context.SaveChanges();
 
                 cart.Clear();
-               
-                return View("OrderConfirmation",order);
+
+                return View("OrderConfirmation", order);
             }
 
-
             return View();
-
         }
+
         public ActionResult OrderConfirmation()
         {
             return View();

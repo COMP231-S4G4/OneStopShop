@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-
+@using OneStopShop.Models;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,24 +20,45 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 </head>
 <body>
+    @{
+            string userID = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+            string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
+        }
     <div class="container">
         <nav class="navigationWrapper">
             <div class="logoWrapper">
                 <a asp-area="" asp-controller="Home" asp-action="Index"><img class="navlogo" src="~/images/OSSNavLogo.png" /></a>
             </div>
-            <ul class="navigation">
-                <li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a></li>
-                <li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Index">Store List</a></li>
-                <li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
-                <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>
-                <li class="parent"><a class="link" asp-controller="Wishlist" asp-action="Index">Wishlist</a></li>
-                <li class="parent">
-                    <a class="link" asp-area="" asp-controller="Cart" asp-action="Index">
-                        <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
-                    </a>
-                </li>
-                <li class="parent"><a class="link" asp-controller="Users" asp-action="Details" asp-route-UserId="@HttpContextAccessor.HttpContext.Session.GetInt32("UserId")">My Account</a></li>
-            </ul>
+            @if (userID  == null)
+            {
+                <ul class="navigation">
+
+                    <li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
+                    <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>
+
+                </ul>
+            }
+            else
+            {
+        <ul class="navigation">
+            @*<li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a></li>
+        <li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Index">Store List</a></li>*@
+            @*<li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
+        <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>*@
+            <li class="parent">
+                <a class="link" asp-area="" asp-controller="Cart" asp-action="Index">
+                    <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
+                </a>
+            </li>
+            @if(userRole == "Seller")
+            {
+        <li class="parent"><a class="link" asp-controller="Stores" asp-action="Index">My Store</a></li>
+            }
+            <li class="parent"><a class="link" asp-controller="Users" asp-action="Details" asp-route-UserId="@HttpContextAccessor.HttpContext.Session.GetString("UserId")">My Account</a></li>
+            <li class="parent"><a class="Link" asp-controller="Users" asp-action="Logout">Logout</a></li>
+        </ul>
+            }
+
         </nav>
         <main role="main">
             @RenderBody()
