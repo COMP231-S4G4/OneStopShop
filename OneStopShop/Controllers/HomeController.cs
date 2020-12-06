@@ -26,6 +26,7 @@ namespace OneStopShop.Controllers
             _logger = logger;
         }
 
+        //GET/Homepage
         public IActionResult Index()
         {
             var stores = GetStoreAsync().Result.ToList();
@@ -40,6 +41,10 @@ namespace OneStopShop.Controllers
             (from p in stores orderby Guid.NewGuid() select p).Take(5).ToList();
             return stores;
         }
+
+        /// <summary>
+        /// This action will display the error view
+        /// </summary>
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

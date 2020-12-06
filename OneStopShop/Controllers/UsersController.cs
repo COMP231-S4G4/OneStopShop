@@ -255,14 +255,19 @@ namespace sampleUsser.Controllers
         /// This action will get triggered when user/buyer will click on Orders Button in the account information page         
         /// User's all order information will be listed.
         /// </summary>
-        public IActionResult ViewOrders(int id)
-        {            
+        public IActionResult ViewOrders(string id)
+        {
+            //string userId = HttpContext.Session.GetString("UserId");
+            var userID = protector.Unprotect(id);
+
+           // int userID = Convert.ToInt32(protector.Protect(id.ToString()));
+            //var userID = protector.Unprotect(id);
             var OrderList = _context.Orders.ToList();           
             List<OneStopShop.Models.Orders> Orders = new List<OneStopShop.Models.Orders>();
            
             var UserOrders = (from item in OrderList
-                                  where item.UserId == id
-                                  select item).ToList();
+                                  where item.UserId == Convert.ToInt32(userID)
+                              select item).ToList();
       
             foreach (var order in UserOrders)
             {
