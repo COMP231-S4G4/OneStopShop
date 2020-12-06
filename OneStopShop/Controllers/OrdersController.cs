@@ -18,13 +18,15 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace OneStopShop.Controllers
 {
-    public class OrdersController: Controller
+    public class OrdersController: BaseController
     {
         private readonly ApplicationDbContext _context;
         private static int currentStore = 0;
         private Cart cart;
 
-        public OrdersController(ApplicationDbContext context, Cart cartService)
+
+       
+        public OrdersController(ApplicationDbContext context, Cart cartService, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
             _context = context;
             cart = cartService;
@@ -94,7 +96,7 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
-        //Get Checkout
+     
         //Get Checkout        
         /// <summary>
         /// Display the checkout page with product information saved as an order.
@@ -108,11 +110,8 @@ namespace OneStopShop.Controllers
 
                 order.Lines = cart.Lines.ToArray();
 
-                return View(order);
-            
+                return View(order);          
            
-            
-            return View(order);
         }
 
         //Post/CheckOut
@@ -127,7 +126,7 @@ namespace OneStopShop.Controllers
         {
             string userId = HttpContext.Session.GetString("UserId");
            
-            //int userID = Convert.ToInt32(protector.Unprotect(userId.ToString());
+            int userID = Convert.ToInt32(protector.Unprotect(userId.ToString()));
             if (cart.Lines.Count() == 0)
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty!");
@@ -136,8 +135,9 @@ namespace OneStopShop.Controllers
             if (ModelState.IsValid)
             {
                 order.Lines = cart.Lines.ToArray();
-                order.UserId = (int)HttpContext.Session.GetInt32("UserId");
-               
+                order.UserId = userID;
+
+
                 var cost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity).ToString("c");
                 ViewBag.Message = cost;
                 order.TotalCost = order.Lines.Sum(e => e.Product.ProductPrice * e.Quantity);
