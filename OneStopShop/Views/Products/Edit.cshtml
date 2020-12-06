@@ -41,7 +41,6 @@
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
 
-            @*@Html.HiddenFor(model => Model.ProductImage)*@
             <div class="form-group">
                 <label asp-for="EventBannerFile" id="image2"></label>
                 <input asp-for="EventBannerFile" id="image" accept="image/*" onchange="previewFile(this)" class="form-control">
