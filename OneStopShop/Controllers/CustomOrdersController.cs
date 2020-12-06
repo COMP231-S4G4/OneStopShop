@@ -24,6 +24,14 @@ namespace OneStopShop.Controllers
         public CustomOrdersController(ApplicationDbContext context, IDataProtectionProvider provider, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment _environment) : base(context, provider, httpContextAccessor, _environment)
         {
         }
+
+        // GET: CustomOrder/Create
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Custom Order button on Product List Page
+        /// This action passes the current Store Name, storeId to the form
+        /// The buyer will get the custom order form with the required fields
+        /// </summary>
+        /// <returns>The buyer will get the custom order form with the required fields</returns>
         public IActionResult Create(int id)
         {
             currentStore = id;
@@ -32,7 +40,13 @@ namespace OneStopShop.Controllers
             return View();
         }
 
-        // POST: CustomOrders/Create
+        // Post: CustomOrder/Create
+        /// <summary>
+        /// This action will get triggered when user/buyer will click on Submit button on Custom Order form
+        /// This action will pass all the details into the database with the information that the buyer has provided
+        /// Buyer will be able to add all the custom order information
+        /// </summary>
+        /// <returns> Buyer will be able to add all the custom order information that is sent to the seller of the store</returns>
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -53,8 +67,13 @@ namespace OneStopShop.Controllers
         public async Task<IActionResult> Index(int id)
         {
             var customOrders = await _context.CustomOrders.Where(i => i.StoreId.Equals(id)).ToListAsync();
-
+            currentStore = id;
             return View(customOrders);
+        }
+
+        public IActionResult Dashboard()
+        {
+            return RedirectToAction("Dashboard", "Stores", new { id = currentStore });
         }
 
         // GET: CustomOrder/Details
