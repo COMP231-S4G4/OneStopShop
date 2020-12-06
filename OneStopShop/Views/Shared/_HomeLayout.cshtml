@@ -31,16 +31,17 @@
             </div>
             @if (userID  == null)
             {
-                <ul class="navigation">
+            <ul class="navigation">
+                <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
+                <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>
 
-                    <li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
-                    <li class="parent"><a class="link" asp-controller="Users" asp-action="Login">Login</a></li>
-
-                </ul>
+            </ul>
             }
             else
             {
         <ul class="navigation">
+            <li class="parent"><a class="link" asp-controller="Home" asp-action="Index">Home</a></li>
             @*<li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Create">Build Store</a></li>
         <li class="parent"><a class="link" asp-area="" asp-controller="Stores" asp-action="Index">Store List</a></li>*@
             @*<li class="parent"><a class="link" asp-controller="Users" asp-action="Create"> Signup</a></li>
@@ -50,9 +51,9 @@
                     <img class="cart" src="http://co0kie.github.io/codepen/nike-product-page/cart.png">&nbspCart
                 </a>
             </li>
-            @if(userRole == "Seller")
+            @if (userRole == "Seller")
             {
-        <li class="parent"><a class="link" asp-controller="Stores" asp-action="Index">My Store</a></li>
+                <li class="parent"><a class="link" asp-controller="Stores" asp-action="Index">My Store</a></li>
             }
             <li class="parent"><a class="link" asp-controller="Users" asp-action="Details" asp-route-UserId="@HttpContextAccessor.HttpContext.Session.GetString("UserId")">My Account</a></li>
             <li class="parent"><a class="Link" asp-controller="Users" asp-action="Logout">Logout</a></li>
