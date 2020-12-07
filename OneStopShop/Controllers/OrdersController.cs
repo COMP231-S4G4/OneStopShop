@@ -220,6 +220,7 @@ namespace OneStopShop.Controllers
 
                 cart.Clear();
 
+
                 return View("OrderConfirmation", order);
             }
 
