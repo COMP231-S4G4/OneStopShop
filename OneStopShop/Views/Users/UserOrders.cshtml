@@ -26,7 +26,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TotalCost)
                 </th>
-
                 <th>
                     @Html.DisplayNameFor(model => model.CustomerName)
                 </th>
@@ -51,14 +50,11 @@
                 <th>
                     &nbsp;
                 </th>
-
-
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.OrderId)
@@ -90,12 +86,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Country)
                     </td>
-
-
                     <td>
-
                         <a asp-action="ViewOrderDetail" asp-route-id="@item.OrderId">Details</a>
-
                     </td>
                 </tr>
             }

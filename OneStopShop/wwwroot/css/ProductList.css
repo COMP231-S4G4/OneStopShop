@@ -1,11 +1,4 @@
-﻿body {
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    color: #ffffff;
-    background: #A58964;
-}
- 
+﻿
 #div {
     background-color: white
 }
@@ -14,9 +7,14 @@
     display: inline-block;
 }
 
-table {
-    border: 5px solid #A58964;
+.table {
+    color: white;
+    margin-top: 10px;
     width: 100%;
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 th {
@@ -29,13 +27,9 @@ td {
 }
 
 tr {
-    border: 5px solid #031327;
+    border: 1px solid #031327;
     border-radius: 5px;
 }
-
-    tr:hover {
-        background-color: #b2afaf;
-    }
 
 #Create:link, Create:visited {
     color: white;

@@ -78,10 +78,6 @@ th, td {
     border-bottom: 1px solid black;
 }
 
-/*tr:nth-child(even) {
-    background-color: #f2f2f2;
-}*/
-
 #Back {
     background-color: #031327;
     color: white;
@@ -107,7 +103,6 @@ th, td {
     color: white;
     background-color: #192537;
     border-collapse: collapse;
-    /*border-radius: 15px;*/
     margin-left: auto;
     margin-right: auto;
 }

@@ -4,7 +4,6 @@
 }
 
 table {
-	/*border: 5px solid #A58964;*/
 	width: 100%;
 	color: white;
 	border: 1px solid #b2afaf;
@@ -21,7 +20,6 @@ td {
 }
 
 tr {
-	/*border: 5px solid #A58964;*/
 	border-radius: 5px;
 }
 
