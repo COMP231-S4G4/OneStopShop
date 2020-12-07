@@ -144,20 +144,7 @@ namespace OneStopShop.Controllers
             return RedirectToAction("Index", "Products", new { id = StoreId });
         }
 
-        /// <summary>
-        /// This action gets triggered when user clicks on the add to cart button
-        /// a particular product is added to the cart based on its product ID.
-        /// </summary>
-        /// <returns>displays the cart page with newly added item and existing items</returns>
-        //public async Task<RedirectToActionResult> AddToCartAsync(int productId)
-        //{
-        //    var product = _context.Products.Where(a => a.ProductID.Equals(productId)).FirstOrDefault();
-        //    product.IsAddedToCart = true;
-        //    _context.Update(product);
-        //    await _context.SaveChangesAsync();
-
-        //    return RedirectToAction("Index", "Cart");
-        //}
+       
 
         /// <summary>
         /// This action gets triggered when user clicks on the remove from cart button
@@ -276,6 +263,15 @@ namespace OneStopShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+           
+            var cartitem = (from item in _context.CartItems
+                               where item.Product.ProductID == id
+                               select item).ToList();
+
+            foreach(var item in cartitem)
+            {
+                _context.CartItems.Remove(item);
+            }
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
